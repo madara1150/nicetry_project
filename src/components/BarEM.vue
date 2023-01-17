@@ -7,14 +7,25 @@
         <label id="label3">T</label>
         <label id="label2">ry</label>
         </div>  
+        <div id="button">
+            <ButtonBar name='Sign In' />
+            <ButtonBar name='Sign Up' />
+        </div>
         
       </div>
+      
+
   </section>
 </template>
 
 <script>
+
+import ButtonBar from './ButtonBar.vue';
 export default {
-    name: 'Bar',
+    name: 'BarEM',
+    components:{
+        ButtonBar
+    }
 }
 </script>
 
@@ -41,4 +52,10 @@ export default {
         font-size: 40px;
         margin-left: 2%;;
     }
+    #button{
+        display: flex;
+        justify-content: right;
+        margin: 2%;
+    }
+    
 </style>

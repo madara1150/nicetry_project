@@ -3,7 +3,7 @@
         <div id="window">
             <div id="container">
                 <div id="contents">
-                    <LoginForm />
+                    hello
                 </div>
                 
             </div>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import LoginForm from './LoginForm.vue';
+
 export default {
     name:'ContainerLogin',
     components:{
-        LoginForm
+        
     }
 }
 </script>

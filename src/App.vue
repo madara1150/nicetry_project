@@ -1,20 +1,26 @@
 <template>
   <section>
-    <BarEM />
-    
-    <ContainerLogin />
+      <NavBarBtn />
+      <containerLogin />
+
+
   </section>
 </template>
 
 <script>
-import BarEM from "./components/BarEM.vue";
+
 import ContainerLogin from "./components/ContainerLogin.vue";
+import NavBarBtn from "./components/NavBarBtn.vue";
 export default {
   name: "App",
   components: {
-    BarEM,
-    ContainerLogin
+
+    ContainerLogin,
+    NavBarBtn
   },
+  methods:{
+   
+  }
 };
 </script>
 

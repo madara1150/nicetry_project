@@ -8,8 +8,8 @@
             <label style="color:#ffffff;">ry</label>
         </div>
         <div id="btn">
-          <button style="margin-right:10px;">Sign In</button>
-          <button>Sign Up</button>
+          <button style="margin-right:11px;" @click="SsignIn(switchSignIn)">Sign In</button>
+          <button @click="SsignUp(switchSignUp)">Sign Up</button>
         </div>
     </div>
   </section>
@@ -18,6 +18,22 @@
 <script>
 export default {
     name: 'NavBarBtn',
+    props:{
+        switchSignIn:{
+            type:Boolean,
+        },
+        switchSignUp:{
+            type:Boolean,
+        }
+    },
+    methods:{
+      SsignIn(switchSignIn){
+        this.$emit("showIn", switchSignIn)
+      },
+      SsignUp(switchSignUp){
+        this.$emit("showUp", switchSignUp)
+      }
+    }
 }
 </script>
 
@@ -45,6 +61,11 @@ export default {
       border-radius: 7px;
       border: none;
       background: #E4DCCF;
+      transition: all 0.5s;
       
+    }
+    button:hover{
+      cursor: pointer;
+      transform:scale(1.15);
     }
 </style>

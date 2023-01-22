@@ -1,7 +1,7 @@
 <template>
   <section>
-      <NavBarBtn />
-      <containerMain />
+      <NavBarBtn :switchSignIn=true :switchSignUp=true @showIn="SignIn" @showUp="SignUp" />
+      <containerMain :switchSignIn=switchSignIn :switchSignUp=switchSignUp />
 
 
   </section>
@@ -19,7 +19,51 @@ export default {
     NavBarBtn
   },
   methods:{
-   
+    SignIn(check){
+      
+      if(check === true){
+        if(this.switchSignUp == true && this.switchSignIn == false){
+          this.switchSignIn = true
+          this.switchSignUp = false
+        }
+        else if(this.switchSignUp == true && this.switchSignIn == true){
+          this.switchSignUp = false
+          this.switchSignIn = true
+        }
+        else if(this.switchSignUp == false && this.switchSignIn == true){
+          this.switchSignIn = true
+        }
+        else{
+          this.switchSignIn = true
+        }
+      }
+    },
+    SignUp(check){
+      if(check === true){
+        if(this.switchSignUp == true && this.switchSignIn == false){
+          
+          this.switchSignUp = true
+        }
+        else if(this.switchSignUp == true && this.switchSignIn == true){
+          this.switchSignUp = true
+          this.switchSignIn = false
+        }
+        else if(this.switchSignUp == false && this.switchSignIn == true){
+          this.switchSignUp = true
+          this.switchSignIn = false
+        }
+        else{
+          this.switchSignUp = true
+        }
+      }
+  },
+  },
+  data(){
+    return {
+      switchSignIn:true,
+      switchSignUp:false,
+      
+    }
   }
 };
 </script>

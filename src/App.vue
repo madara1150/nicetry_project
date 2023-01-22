@@ -1,7 +1,7 @@
 <template>
   <section>
       <NavBarBtn />
-      <containerLogin />
+      <containerMain />
 
 
   </section>
@@ -9,13 +9,13 @@
 
 <script>
 
-import ContainerLogin from "./components/ContainerLogin.vue";
+import ContainerMain from "./containers/ContainerMain.vue";
 import NavBarBtn from "./components/NavBarBtn.vue";
 export default {
   name: "App",
   components: {
 
-    ContainerLogin,
+    ContainerMain,
     NavBarBtn
   },
   methods:{
@@ -25,12 +25,12 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Kanit&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Kanit", sans-serif;
+  font-family: 'Sofia Sans', sans-serif;
   
 }
 #content{

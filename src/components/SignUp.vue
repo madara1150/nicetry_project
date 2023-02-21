@@ -1,12 +1,7 @@
 <template>
     <section>
         <div>
-            <input type="text" placeholder="first name" style="width:145px;margin-right:10px;">
-            <input type="text" placeholder="last name" style="width:145px;"> <br>
-            <input type="text" placeholder="username" style="margin-top:10px;"> <br>
-            <input type="text" placeholder="password" style="margin-top:10px;"> <br>
-            <input type="email" placeholder="email" style="margin-top:10px;"> <br> <br>
-            <button style="margin-top:10px;">APPLY</button>
+            
 
         </div>
     </section>

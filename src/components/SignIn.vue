@@ -1,10 +1,7 @@
 <template>
   <section>
     <div>
-        <input type="text" placeholder="username"> <br>
-        <input type="text" placeholder="password" style="margin-top:15px;"><br>
-        <br>
-        <button style="vertical-align:middle">LOGIN</button>
+       
     </div>
   </section>
 </template>

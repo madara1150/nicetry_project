@@ -26,6 +26,10 @@
             <input class="w-80 mt-3 h-8 text-center" type="email" placeholder="email"> <br> <br>
             <button class="mt-2 w-80 bg-[#4D455D] h-8 text-[#FFFFFF] cursor-pointer transition-all rounded hover:w-96 hover:h-9">APPLY</button>
         </div>
+
+        <!-- test -->
+        <router-link to="/home">Home</router-link>
+
     </div>
 
 

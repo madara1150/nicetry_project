@@ -1,6 +1,6 @@
 <template>
     <NavBarBtn />
-    <div class="container mx-auto bg-[#F5E9CF] px-4">
+    <div class="container mx-auto bg-[#F5E9CF] px-4 min-h-screen">
        
 
         <div class="text-center pt-20">

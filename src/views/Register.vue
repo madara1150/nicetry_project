@@ -1,6 +1,6 @@
 <template>
     <NavBarBtn />
-    <div class="container mx-auto bg-[#F5E9CF] px-4">
+    <div class="container min-h-screen mx-auto bg-[#F5E9CF] px-4">
         
         <div class="text-center pt-20">
           <input class="h-8 mr-3 text-center"  style="width: 153px;" type="text" placeholder="first name">

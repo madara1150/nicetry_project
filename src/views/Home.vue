@@ -1,10 +1,10 @@
 <template>
   <NavBarBtn />
-  <section class="bg-[#7DB9B6] h-full">
+  <section class="bg-[#7DB9B6] h-full min-h-screen">
     
 
     <!-- home -->
-    <div class="container mx-auto bg-[#F5E9CF] px-4">
+    <div class="container mx-auto bg-[#F5E9CF] px-4 min-h-screen">
         <div class="text-center pt-20 text-3xl">
             <h1>What is NiceTry?</h1>
             <br>

@@ -3,7 +3,7 @@
         <NavUser />
     </div>
     
-    <section class="bg-[#7DB9B6]">
+    <section class="bg-[#7DB9B6] min-h-screen">
        
         <div class="container mx-auto bg-[#F5E9CF] px-5 pt-7">
             <div class="flex justify-center ">

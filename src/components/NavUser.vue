@@ -7,16 +7,17 @@
             <label class="text-[#9BFFFF]">T</label>
             <label class="text-[#ffffff]">ry</label>
         </div>
+        
         <div class="absolute right-0 mr-5 flex">
-          <button class="mr-3 py-2.5 px-8 rounded-md bg-[#E4DCCF] transition-all hover:cursor-pointer" @click="s">{{ money}} Nice</button>
+          <button class="mr-3 py-2 px-8 rounded-md bg-[#E4DCCF] transition-all hover:cursor-pointer" @click="totopup()">{{ money}} Nice</button>
           
           <div class="relative inline-block">
             <div class="py-2.5 px-10 rounded bg-[#E4DCCF] hover:cursor-pointer" @click="this.sw *= -1"><img src="../image/user-solid.svg" class="w-5 h-5" /></div>
             
-            <div :class="[sw == -1 ? 'hidden absolute z-10 bg-[#FFFAFA] rounded right-1 top-12' : 'block absolute z-10 bg-[#FFFAFA] rounded right-1 top-12']" id="chil"> 
+            <div :class="[sw == -1 ? 'hidden absolute z-10 bg-[#FFFAFA] rounded right-1 top-12' : 'block absolute z-10 bg-[#FFFAFA] rounded right-1 top-12']" > 
                 <div class="w-48 h-28 text-center ">
                     
-                    <div class="bg-[#7DB9B6] w-16 h-14 rounded-full absolute left-16 top-3">
+                    <div class="bg-[#7DB9B6] w-16 h-16 rounded-full p-5 absolute left-16 top-3">
                     </div>
 
                     <p class="absolute top-20 text-center left-6">{{name}} {{ lname }}</p>
@@ -43,6 +44,11 @@ export default {
             lname: 'Singhanon',
             sw: -1
         }
+    },
+    methods:{
+      totopup(){
+        this.$router.push('/')
+      }
     }
 }
 </script>

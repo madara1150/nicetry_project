@@ -36,6 +36,9 @@ export default {
   font-family: 'Sofia Sans', sans-serif;
   
 }
+body{
+  min-height: 100vh;
+}
 
 
   

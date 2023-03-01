@@ -5,7 +5,7 @@
 
     <!-- home -->
     <div class="container mx-auto bg-[#F5E9CF] px-4 min-h-screen">
-        <div class="text-center pt-20 text-3xl">
+        <div class="text-center pt-32 text-3xl">
             <h1>What is NiceTry?</h1>
             <br>
             <h1>It is a website that can showcase your work.</h1>
@@ -13,7 +13,7 @@
             <h1>Even if no one seesit, we see it.</h1>
         </div>
 
-        <div class="mt-16 pb-5 flex flex-row gap-10 justify-center">
+        <div class="mt-60 pb-5 flex flex-row gap-10 justify-center">
           <TopPost :user="users[0]" />
           <TopPost :user="users[1]" />
           <TopPost :user="users[2]" />

@@ -15,16 +15,16 @@
             <div class="py-2.5 px-10 rounded bg-[#E4DCCF] hover:cursor-pointer" @click="this.sw *= -1"><img src="../image/user-solid.svg" class="w-5 h-5" /></div>
             
             <div :class="[sw == -1 ? 'hidden absolute z-10 bg-[#FFFAFA] rounded right-1 top-12' : 'block absolute z-10 bg-[#FFFAFA] rounded right-1 top-12']" > 
-                <div class="w-48 h-28 text-center ">
+                <div class="w-60 h-32 text-center grid grid-cols-1 place-items-center">
                     
-                    <div class="bg-[#7DB9B6] w-16 h-16 rounded-full p-5 absolute left-16 top-3">
+                    <div class="bg-[#7DB9B6] w-16 h-16 rounded-full p-5 mt-5">
                     </div>
 
-                    <p class="absolute top-20 text-center left-6">{{name}} {{ lname }}</p>
+                    <p class="mt-2 p-3">{{name}} {{ lname }}</p>
                 </div>
 
-                <div class="bg-[#4D455D] h-16 w-48 text-center text-[#FFFFFF] pt-2 items-center pt-5">profile</div>
-                <div class="bg-[#E96479] h-16 w-48 text-center text-[#FFFFFF] pt-2 items-center pt-5">Log</div>
+                <div class="bg-[#4D455D] h-16 w-60 text-center text-[#FFFFFF] pt-2 items-center pt-5">profile</div>
+                <div class="bg-[#E96479] h-16 w-60 text-center text-[#FFFFFF] pt-2 items-center pt-5">Log</div>
             </div>
           </div>
             

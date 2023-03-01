@@ -2,8 +2,9 @@
     <NavBarBtn />
     <div class="container min-h-screen mx-auto bg-[#F5E9CF] px-4">
         
-        <div class="text-center pt-20">
-          <input class="h-8 mr-3 text-center"  style="width: 153px;" type="text" placeholder="first name">
+        <div class="text-center pt-32">
+          <h1 class="text-3xl">REGISTER</h1>
+          <input class="h-8 mr-3 text-center mt-5"  style="width: 153px;" type="text" placeholder="first name">
             <input class="w-36 h-8 text-center" style="width: 153px;" type="text" placeholder="last name"> <br>
             <input class="w-80 mt-3 h-8 text-center" type="text" placeholder="username"> <br>
             <input class="w-80 mt-3 h-8 text-center" type="text" placeholder="password"> <br>
@@ -11,7 +12,7 @@
             <button class="mt-2 w-80 bg-[#4D455D] h-8 text-[#FFFFFF] cursor-pointer transition-all rounded hover:w-96 hover:h-9 shadow-lg shadow-gray-600">APPLY</button>
         </div>
 
-        <div class="mt-16 pb-5 flex flex-row gap-10 justify-center">
+        <div class="mt-60 pb-5 flex flex-row gap-10 justify-center">
           <TopPost :user="users[0]" />
           <TopPost :user="users[1]" />
           <TopPost :user="users[2]" />

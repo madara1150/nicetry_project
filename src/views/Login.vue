@@ -3,14 +3,15 @@
     <div class="container mx-auto bg-[#F5E9CF] px-4 min-h-screen">
        
 
-        <div class="text-center pt-20">
-          <input type="text" placeholder="username" class="w-80 h-8 text-center bg-[#FFFAFA] rounded" v-model="username"> <br>
+        <div class="text-center pt-32">
+          <h1 class="text-3xl">LOGIN</h1>
+          <input type="text" placeholder="username" class="w-80 h-8 text-center mt-5 bg-[#FFFAFA] rounded" v-model="username"> <br>
           <input type="password" placeholder="password" class="w-80 h-8 text-center bg-[#FFFAFA] rounded" style="margin-top:15px;" v-model="pwd"><br>
           <br>
           <button class="w-80 h-8 bg-[#4D455D] text-[#FFFFFF] rounded transition-all hover:w-96 hover:h-9 shadow-lg shadow-gray-600" @click="loginCheck()">LOGIN</button>
         </div>  
 
-        <div class="mt-16 pb-5 flex flex-row gap-10 justify-center">
+        <div class="mt-60 pb-5 flex flex-row gap-10 justify-center">
           <TopPost :user="users[0]" />
           <TopPost :user="users[1]" />
           <TopPost :user="users[2]" />

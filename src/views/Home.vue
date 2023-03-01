@@ -10,7 +10,7 @@
             <br>
             <h1>It is a website that can showcase your work.</h1>
             <br>
-            <h1>Even if no one seesit, we see it.</h1>
+            <h1>Even if no one sees it, we see it.</h1>
         </div>
 
         <div class="mt-60 pb-5 flex flex-row gap-10 justify-center">
@@ -34,8 +34,6 @@ export default {
 
     },
     components: {
-
-
 NavBarBtn,
 TopPost
 },

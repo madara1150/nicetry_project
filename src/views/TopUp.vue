@@ -13,7 +13,7 @@
             </div>
         </div>
         <div>
-            <div class="bg-[#FFFFFF] box-border h-96 mt-12 rounded pt-5">
+            <div class="bg-[#FFFFFF] box-border h-96 mt-12 ml-14 w-5/6 rounded pt-5">
                 <div><h1 style="margin-left:5%; " class="text-lg">payment receipt</h1></div>
                 <img class="h-40 w-40 mt-3" style="margin-left:35%" src="https://cdn.discordapp.com/attachments/911172780781891614/1080514917263753257/IMG_3587.jpg">
                 <h3 style="margin-left:35%" class="mt-2">NiceTry company.co.th</h3>
@@ -29,9 +29,16 @@
                     file:bg-[#7DB9B6] file:text-white
                     "/>
             </div>
-            <div><button class="bg-[#E96479] box-border h-14 w-60 rounded mt-5 ml-48"><h1 class="text-white text-2xl">Confirm</h1></button></div>
+            <div><button class="bg-[#E96479] box-border h-14 w-60 rounded mt-5 ml-60"><h1 class="text-white text-2xl" @click="topup *= -1">Confirm</h1></button></div>
             <div><button class="bg-[#4D455D] box-border h-14 w-3/4 rounded mt-5 ml-20"><h1 class="text-white text-2xl">History of Nice coin</h1></button></div>
         </div>
+
+        <div class='w-2/4 h-2/4 ml-40 fixed bg-red-500'>
+            <div class="w-1/2">
+
+            </div>
+        </div>
+
       </div>
   </div>
 </template>
@@ -42,6 +49,11 @@ export default {
     Name : 'TopUp',
     components:{
         NavUser
+    },
+    data(){
+        return {
+            topup: -1,
+        }
     }
 }
 </script>

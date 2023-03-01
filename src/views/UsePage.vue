@@ -1,5 +1,5 @@
 <template>
-  <NavUser/>
+  <NavAdmin/>
   <div class="container pt-5 mx-auto bg-[#F5E9CF] px-4 min-h-screen">
     <div class="bg-[#E96479] box-border h-14 w-40 text-center rounded items-center flex justify-center "><h1 class="text-black text-2xl">Hi! Admin</h1></div>
     <div class="bg-[#4D455D] box-border h-14 w-100 text-center items-center flex justify-center mt-12 rounded"><h1 class="text-white text-2xl">user</h1></div>
@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import NavUser from '@/components/NavUser.vue';
+import NavAdmin from '@/components/NavAdmin.vue';
 export default {
     Name : 'UsePage',
     components:{
-        NavUser
+        NavAdmin
     }
 }
 </script>

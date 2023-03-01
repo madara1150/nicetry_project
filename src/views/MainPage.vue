@@ -17,10 +17,10 @@
             
 
             
-            <div class="grid mt-20 w-full grid-cols-1 place-items-center gap-y-10 pb-5">
+            <div class="grid mt-20 w-full grid-cols-1 place-items-center gap-y-10 pb-5" v-for="i in 10">
                 
                 <PostUser />
-                <PostUser />    
+  
                 
                 
             </div>

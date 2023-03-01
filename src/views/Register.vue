@@ -8,7 +8,9 @@
             <input class="w-36 h-8 text-center" style="width: 153px;" type="text" placeholder="last name"> <br>
             <input class="w-80 mt-3 h-8 text-center" type="text" placeholder="username"> <br>
             <input class="w-80 mt-3 h-8 text-center" type="text" placeholder="password"> <br>
-            <input class="w-80 mt-3 h-8 text-center" type="email" placeholder="email"> <br> <br>
+            <input class="w-80 mt-3 h-8 text-center" type="email" placeholder="email"> <br>
+            <input class="w-80 mt-3 h-8 text-center" type="number" placeholder="tel"> <br>
+             <br>
             <button class="mt-2 w-80 bg-[#4D455D] h-8 text-[#FFFFFF] cursor-pointer transition-all rounded hover:w-96 hover:h-9 shadow-lg shadow-gray-600">APPLY</button>
         </div>
 

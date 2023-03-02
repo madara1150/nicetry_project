@@ -1,0 +1,32 @@
+[
+    {"id": 101,
+    "userId": 101,
+    "postId": 101,
+    "coin": 10000,
+    "createdAt": "23-10-56"
+},
+{"id": 102,
+    "userId": 105,
+    "postId": 102,
+    "coin": 2000,
+    "createdAt": "23-10-56"
+},
+{"id": 103,
+    "userId": 103,
+    "postId": 104,
+    "coin": 3000,
+    "createdAt": "23-10-56"
+},
+{"id": 104,
+    "userId": 102,
+    "postId": 101,
+    "coin": 4004,
+    "createdAt": "23-10-56"
+},
+{"id": 105,
+    "userId": 103,
+    "postId": 103,
+    "coin": 70043,
+    "createdAt": "23-10-56"
+}
+]

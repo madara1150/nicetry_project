@@ -24,11 +24,11 @@ export default {
       }
     },
     methods:{
-      SsignIn(val){
+      SsignIn(){
         this.$router.push('/login')
        
       },
-      SsignUp(val){
+      SsignUp(){
         this.$router.push('/register')
     },
     Shome(){

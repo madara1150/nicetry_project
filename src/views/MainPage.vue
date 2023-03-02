@@ -17,9 +17,9 @@
             
 
             
-            <div class="grid mt-20 w-full grid-cols-1 place-items-center gap-y-10 pb-5" v-for="i in 10">
+            <div class="grid mt-20 w-full grid-cols-1 place-items-center gap-y-10 pb-5" v-for="i,index in data">
                 
-                <PostUser />
+                <PostUser :data="i" />
   
                 
                 
@@ -35,11 +35,17 @@
 <script>
 import NavUser from '@/components/NavUser.vue';
 import PostUser from '@/components/PostUser.vue';
+import Post from '../data/post.json';
 export default {
     name: 'MainPage',
     components:{
         NavUser,
         PostUser
+    },
+    data(){
+        return {
+            data: Post
+        }
     }
 }
 </script>

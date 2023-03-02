@@ -3,7 +3,7 @@
         
         <nav class="bg-[#E0E0E0] w-full p-3 rounded-b">
             <div class="flex rounded-b">
-                <img src="https://www.sosyncd.com/wp-content/uploads/2022/07/134.png" class="w-14 h-12 rounded-full" @click="profile *= -1">
+                <img :src="img" class="w-14 h-12 rounded-full" @click="profile *= -1">
                 
                 
                 <div :class="[profile == -1 ? 'hidden' : '','w-96 h-64 bg-[#4D455D] absolute ml-16 mt-6 flex rounded']">
@@ -11,12 +11,12 @@
                     
                     <div class="w-3/5 h-56 bg-[#E96479] mx-4 my-4 p-2 rounded relative">
                         <h1 class="text-white mt-5">{{ fname }} {{ lname }}</h1>
-                        <h1 class="text-white mt-3">tel: 0414149149</h1>
-                        <h1 class="text-white mt-3">madara@madada.com</h1>
+                        <h1 class="text-white mt-3">tel: {{tel}}</h1>
+                        <h1 class="text-white mt-3">{{email}}</h1>
                     </div>
                     <div class="text-center">
-                        <img src="https://sketchok.com/images/articles/06-anime/023-naruto/08/09.jpg" class="w-44 rounded p-3 h-44">
-                        <h1 class="text-white">Nice Id: 5555</h1>
+                        <img :src="img" class="w-44 rounded p-3 h-44">
+                        <h1 class="text-white">Nice Id: {{id}}</h1>
                     </div>
                 </div>
 
@@ -27,8 +27,8 @@
 
         <div class="w-full bg-[#FFFAFA] rounded-b">
             <div class="p-5 place-items-center">
-                <img :src="img" class="place-items-center grid grid-cols-1 m-auto" >
-                <div class="p-5 px-16">{{ content }}</div>
+                <img :src="data.img" class="place-items-center grid grid-cols-1 m-auto" >
+                <div class="p-5 px-16">{{ data.content }}</div>
             </div>
         </div>
 
@@ -98,27 +98,27 @@
             <div class="grid grid-cols-3">
                 
                 <div class="p-3">
-                    <img src="https://www.sosyncd.com/wp-content/uploads/2022/07/134.png" class="w-20 h-20 ml-32 rounded-full">
+                    <img :src="donateImg1" class="w-20 h-20 ml-32 rounded-full">
                     <div class="text-center">
-                        <h1 class="ml-10 text-white">TANTATHIP</h1>
-                    <h1 class="ml-10 text-white">40000</h1>
+                        <h1 class="ml-10 text-white">{{ fname1}}</h1>
+                    <h1 class="ml-10 text-white">{{money1}}</h1>
                     </div>
                    
                 </div>
 
                 <div class="p-3">
-                    <img src="https://www.sosyncd.com/wp-content/uploads/2022/07/134.png" class="w-20 h-20 ml-32 rounded-full">
+                    <img :src="donateImg2" class="w-20 h-20 ml-32 rounded-full">
                     <div class="text-center">
-                        <h1 class="ml-10 text-white">TANTATHIP</h1>
-                    <h1 class="ml-10 text-white">40000</h1>
+                        <h1 class="ml-10 text-white">{{ fname2}}</h1>
+                    <h1 class="ml-10 text-white">{{money2}}</h1>
                     </div>
                 </div>
 
                 <div class="p-3">
-                    <img src="https://www.sosyncd.com/wp-content/uploads/2022/07/134.png" class="w-20 h-20 ml-32 rounded-full">
+                    <img :src="donateImg3" class="w-20 h-20 ml-32 rounded-full">
                     <div class="text-center">
-                        <h1 class="ml-10 text-white">TANTATHIP</h1>
-                    <h1 class="ml-10 text-white">40000</h1>
+                        <h1 class="ml-10 text-white">{{ fname3}}</h1>
+                    <h1 class="ml-10 text-white">{{money3}}</h1>
                     </div>
                 </div>
 
@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import user from '../data/user.json';
+import donate from '../data/donate.json';
 export default {
     name:'PostUser',
     data(){
@@ -141,18 +143,93 @@ export default {
             sw: -1,
             colse: -1,
             donate: -1,
-            fname: 'Tanathip',
             coin: 1000,
             setting: -1,
             profile: -1,
             ty: -1,
+            tel: '',
+            email:'',
+            id: 11,
+            donateImg1: 'https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg',
+            donateImg2: 'https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg',
+            donateImg3: 'https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg',
+            fname1:'null',
+            fname2:'null',
+            fname3:'null',
+            money1: 0,
+            money2: 0,
+            money3: 0,
+            check: 0
+
+
         }
     },
     methods:{
         thankyou(){
             this.ty *= -1
+        },
+        checkFname(val){
+            for(let i = 0;i < user.length; i++){
+                if(user[i].id == val){
+                    this.fname = user[i].fname
+                    this.lname = user[i].lname
+                    this.email = user[i].email
+                    this.tel = user[i].tel
+                    this.id = user[i].id
+                    this.img = user[i].img
+                }
+
+            }
+        },
+
+        checkDonate(){
+            for(let i = 0;i < donate.length; i++){
+                
+                if(donate[i].postId == this.data.id){
+                    this.checkProfie(donate[i])
+                    this.check += 1
+                }
+                else{
+                    this.check = 0
+                }
+                
+            }
+           
+        },
+        checkProfie(val){
+           
+            for(let i = 0;i < user.length; i++){
+                
+                if(val.userId == user[i].id && this.check == 0){
+                    this.fname1 = user[i].fname
+                    this.donateImg1 = user[i].img
+                    this.money1 = val.coin
+                    
+                }
+                else if(val.userId == user[i].id && this.check == 1){
+                    this.fname2 = user[i].fname
+                    this.donateImg2 = user[i].img
+                    this.money2 = val.coin
+                    
+                }
+                else{
+                    this.fname3 = user[i].fname
+                    this.donateImg3 = user[i].img
+                    this.money3 = val.coin
+                  
+                }
+            }
         }
-    }
+
+    },
+    props:['data'],
+    computed:{
+        
+    },
+    created(){
+        this.checkFname(this.data.user_id)
+        this.checkDonate(this.data.id)
+    },
 }
 </script>
 

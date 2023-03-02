@@ -50,11 +50,13 @@
                 <h1 class="text-white text-2xl">Topup</h1>
             </div>
             
-            <div v-for="i in 10">
+            
+            <div v-for="val in package">
                 
-                <div class="bg-[#FFFAFA] box-border h-14 w-100 text-center items-center flex justify-center rounded border-solid border border-black">
-                    <h1 class="text-2xl"></h1>
+                <div class="bg-[#FFFAFA] box-border h-14 w-100 text-center items-center flex justify-center rounded border-solid border border-black px-32 hover:shadow-lg hover:shadow-gray-600 hover:scale-105">
+                    <h1 class="text-2xl">{{val.nice}}Nice</h1> <h1 class="text-2xl ml-auto"> {{val.price}} baht</h1>
                 </div>
+                
 
             </div>
         </div>
@@ -111,6 +113,15 @@ export default {
             topup: -1,
             withdraw: -1,
             ty: -1,
+            package:[
+                {nice: 100, price:139.00},
+                {nice: 300, price:399.00},
+                {nice: 500, price:579.00},
+                {nice: 1000, price:1159.00},
+                {nice: 2000, price:2239.00},
+                {nice: 3000, price:3129.00},
+                {nice: 5000, price:5079.00},
+            ]
         }
     },
     methods:{

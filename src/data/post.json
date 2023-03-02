@@ -1,0 +1,75 @@
+[
+    {"id":101,
+    "user_id": 101,
+    "content":"hahdajshdhjsahdjhas ashjdjashjdhjashjdjhas adshjdhajs",
+    "img" : "https://cdnb.artstation.com/p/assets/images/images/038/151/293/large/sajol-hasan-madara-sammm.jpg?1622314122",
+    "createdAt": "23-10-05",
+    "like" : 100
+
+},
+{"id":102,
+    "user_id": 101,
+    "content":"dsagshgsdfh lhl;dl;hldf; hfdohidohidfoi dhoii dfiohiodfiohiodf oihiodoih",
+    "img" : "https://www.comingsoon.net/wp-content/uploads/sites/3/2022/05/madara-shinobi-strikers.png",
+    "createdAt": "23-06-19",
+    "like" : 500
+
+},
+{"id":103,
+    "user_id": 102,
+    "content":"hahdajshdhjsahdjhas ashjdjashjdhjashjdjhas adshjdhajs",
+    "img" : "https://cdnb.artstation.com/p/assets/images/images/038/151/293/large/sajol-hasan-madara-sammm.jpg?1622314122",
+    "createdAt": "23-10-05",
+    "like" : 10
+
+},
+{"id":104,
+    "user_id": 103,
+    "content":"dadagsfhr ashjdjashjdhjashegegegejdjhas adshjasfasf tetertada  jkgjksjkg jksdljkg jklsdkljgjklsddhajs",
+    "img" : "https://www.sideshow.com/cdn-cgi/image/quality=90,f=auto/https://www.sideshow.com/storage/product-images/908473/uchiha-madara_naruto-shippuden_silo.png",
+    "createdAt": "23-03-19",
+    "like" : 1000
+
+},
+{"id":105,
+    "user_id": 104,
+    "content":"hahdajshdhjsahdjhas ashjdjashjdhjashjdjhas adshjdt ert ertert asdsda dadhajs",
+    "img" : "https://i.ytimg.com/vi/TPx1vQVcYUw/maxresdefault.jpg",
+    "createdAt": "23-01-12",
+    "like" : 1300
+
+},
+{"id":106,
+    "user_id": 105,
+    "content":"hahdajshdhjsahdjhas dadatgsgsdgsdgerey rtertert adsh dassdas dasd ajdhajs",
+    "img" : "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/08/Obito-madara-and-hashirama.jpg",
+    "createdAt": "22-10-05",
+    "like" : 1020
+
+},
+{"id":107,
+    "user_id": 105,
+    "content":"hahdajshdhjsahdjhas ashjdjashjdhjashjdjhas adshjdha dasdasd as sdf sdfsd fsdjs",
+    "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKhhgK4U4LLYroOZgludKiBgaALkumpPILsg&usqp=CAU",
+    "createdAt": "23-12-25",
+    "like" : 30
+
+},
+{"id":108,
+    "user_id": 104,
+    "content":"hahdajshdhjsahdjhas ashjdjashjdhjashjdjhas a dsad;asl;d a;sl;dasl;d dsad fsdfsdshjdhajs",
+    "img" : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Mangekyou_Sharingan_Madara.svg/1200px-Mangekyou_Sharingan_Madara.svg.png",
+    "createdAt": "23-11-25",
+    "like" : 10
+
+},
+{"id":109,
+    "user_id": 102,
+    "content":"hahdajshdhjsahdjhas ashjdjashjdhjashjdjhas ads daks jkasd jdfsd fsdklasjdkjaskljd asdhjdhajs",
+    "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_ecMV4U44VikLpyepsvZEIC_sxGfYoHnnPA&usqp=CAU",
+    "createdAt": "23-05-05",
+    "like" : 12300
+
+}
+
+]

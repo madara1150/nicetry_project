@@ -31,7 +31,7 @@
           <!-- edit profile -->
           <div :class="[edit == -1 ? 'hidden' : '','w-2/6 fixed top-1/4 h-3/6 bg-[#4D455D] rounded flex']" style="left:35%;">
             <div class="w-10 h-10 rounded-full pt-2 pl-4 bg-[#ffffff] fixed bottom-3/4 mb-40 left-2/4" style="margin-left:17%;top:23%" @click="edit *= -1">X</div>
-            <div class="bg-[#E96479] mt-7 ml-6 rounded p-5" style="width:92%;height: 90%;">
+            <div class="bg-[#E96479] mt-7 mx-10 rounded p-5" style="width:92%;height: 90%;">
             
               <div class="grid-cols-2 grid w-full h-44 gap-5 mt-10">
                 <div class="w-full text-white">

@@ -6,6 +6,8 @@ import Login from '../views/Login.vue'
 import History from '../views/History.vue'
 import TopUp from '../views/TopUp.vue'
 import UsePage from '../views/UsePage.vue'
+import Admin from '../views/Admin.vue'
+import PostAdmin from '../views/PostAdmin.vue'
 
 
 const routes = [
@@ -38,7 +40,7 @@ const routes = [
     component: History,
   },
   {
-    path: "/topUp",
+    path: "/topup",
     name: "TopUp",
     component: TopUp,
   },
@@ -47,6 +49,18 @@ const routes = [
     name: "usePage",
     component: UsePage,
   },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+  },
+  {
+    path: "/postadmin",
+    name: "PostAdmin",
+    component: PostAdmin,
+  },
+  
+  
 ];
 
 const router = createRouter({

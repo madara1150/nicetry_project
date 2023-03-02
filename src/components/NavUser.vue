@@ -1,7 +1,7 @@
 <template>
   <section class="bg-[#4D455D]">
     <div class="flex items-center">
-        <div class="ml-6 text-4xl p-2" @click="l">
+        <div class="ml-6 text-4xl p-2" @click="mainPage()">
             <label class="text-[#FF9494]">N</label>
             <label class="text-[#ffffff]">ice</label>
             <label class="text-[#9BFFFF]">T</label>
@@ -82,11 +82,14 @@ export default {
     },
     methods:{
       totopup(){
-        this.$router.push('/')
+        this.$router.push('/topup')
       },
       logOut(){
         this.$router.push('/login')
       },
+      mainPage(){
+        this.$router.push('/main')
+      }
     }
 }
 </script>

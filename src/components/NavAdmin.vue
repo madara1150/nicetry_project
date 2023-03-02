@@ -1,7 +1,7 @@
 <template>
     <section class="bg-[#4D455D]">
       <div class="flex items-center">
-          <div class="ml-6 text-4xl p-2" @click="l">
+          <div class="ml-6 text-4xl p-2" @click="postpage()">
               <label class="text-[#FF9494]">N</label>
               <label class="text-[#ffffff]">ice</label>
               <label class="text-[#9BFFFF]">T</label>
@@ -9,7 +9,7 @@
           </div>
           
           <div class="absolute right-0 mr-5 flex">
-            <button class="mr-1 py-2 px-8 rounded-md bg-[#E4DCCF] transition-all hover:cursor-pointer" @click="totopup()">{{ money}} Nice</button>
+            <button class="mr-1 py-2 px-8 rounded-md bg-[#E4DCCF] transition-all hover:cursor-pointer">{{ money}} Nice</button>
             
             <div class="w-10 h-10 bg-[#E4DCCF] rounded mr-1" @click="admin()">
                 <img src="../image/screwdriver-wrench-solid.svg" class="w-8 h-8 p-1 ml-1 mt-1">
@@ -86,14 +86,14 @@
           }
       },
       methods:{
-        totopup(){
-          this.$router.push('/')
-        },
         logOut(){
           this.$router.push('/login')
         },
         admin(){
-            this.$router.push('/usepage')
+            this.$router.push('/admin')
+        },
+        postpage(){
+          this.$router.push('/postadmin')
         }
       }
   }

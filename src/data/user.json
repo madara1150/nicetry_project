@@ -58,5 +58,29 @@
     "role": "admin",
     "tel": "11111111111111",
     "img": "https://cdn.dribbble.com/users/2456515/screenshots/11482573/media/f9101cbdb8613055e51b46913df29898.png?compress=1&resize=400x300"
+  },
+  {
+    "id": 106,
+    "username": "capybaracapybara",
+    "password": "capybaraeiei",
+    "email": "capybara@gmail.com",
+    "created_at": "19-03-21",
+    "fname": "capy",
+    "lname": "bara",
+    "role": "admin",
+    "tel": "1234567890",
+    "img": "https://www.sugoijp.com/upload_file/travel/160929091510_385810_318867721458395_1254235447_n_c.jpg"
+  },
+  {
+    "id": 107,
+    "username": "capybaracapybara",
+    "password": "capybaraeiei",
+    "email": "capybara@gmail.com",
+    "created_at": "19-03-21",
+    "fname": "capy",
+    "lname": "bara",
+    "role": "user",
+    "tel": "1234567890",
+    "img": "https://www.sugoijp.com/upload_file/travel/160929091510_385810_318867721458395_1254235447_n_c.jpg"
   }
 ]

@@ -14,10 +14,31 @@
     "createdAt": "22-01-01"
   },
   {
-    "id": 102,
-    "postId": 103,
+    "id": 103,
+    "postId": 115,
+    "userId": 107,
+    "comment": "cute cute",
+    "createdAt": "22-02-01"
+  },
+  {
+    "id": 104,
+    "postId": 116,
     "userId": 101,
-    "comment": "fdmkaflakflaf",
+    "comment": "eieieiei",
+    "createdAt": "22-02-01"
+  },
+  {
+    "id": 105,
+    "postId": 105,
+    "userId": 102,
+    "comment": "fdjgjfjdkowpoow",
+    "createdAt": "22-02-01"
+  },
+  {
+    "id": 106,
+    "postId": 103,
+    "userId": 110,
+    "comment": "fdmkadjkdlldflakflaf",
     "createdAt": "22-02-01"
   }
 ]

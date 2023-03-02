@@ -20,6 +20,7 @@ export default {
     name: 'NavBarBtn',
     data(){
       return{
+        data:''
         
       }
     },
@@ -34,7 +35,8 @@ export default {
     Shome(){
       this.$router.push('/')
     }
-  }
+  },
+  
 }
 </script>
 

@@ -27,7 +27,7 @@
 
         <div class="w-full bg-[#FFFAFA] rounded-b">
             <div class="p-5 place-items-center">
-                <img :src="data.img" class="place-items-center grid grid-cols-1 m-auto" >
+                <img :src="data.img" class="place-items-center grid grid-cols-1 m-auto w-2/4 h-2/4" >
                 <div class="p-5 px-16">{{ data.content }}</div>
             </div>
         </div>

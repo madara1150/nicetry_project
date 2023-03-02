@@ -24,17 +24,20 @@
     </div>
     </div>
     
-    <!-- <div class="bg-[#4D455D] box-border h-14 w-100 text-center items-center flex justify-center mt-12 rounded">
+    <div class="bg-[#4D455D] box-border h-14 w-100 text-center items-center flex justify-center mt-12 rounded">
         <h1 class="text-white text-2xl">LOG</h1>
     </div>
-    <div v-for="i in 5">
-        <div class="bg-[#FFFAFA] box-border h-14 w-100 text-center items-center flex justify-center rounded border-solid border border-black"><h1 class="text-2xl"></h1>
-                <button class="bg-[#E96479] box-border h-12 w-20 rounded" style="margin-left: 83%; margin-top: 0.1%;"><h1 class="text-white text-lg">Del</h1></button>
+    <div v-for="i in log">
+        <div class="bg-[#FFFAFA] box-border h-14 w-full text-center items-center flex justify-center rounded border-solid border border-black">
+            <h1 class="text-xl">
+                ID:{{i.id}} UserId:{{i.userID}} Role:{{ i.role }} Agent:{{i.agent}}
+            </h1>
+                <button class="bg-[#E96479] box-border h-12 w-20 rounded" style="margin-left: 70%; margin-top: 0.1%;"><h1 class="text-white text-lg">Del</h1></button>
                 <button class="bg-[#7DB9B6] box-border h-12 w-20 rounded" style="margin-left: 1%; margin-top: 0.1%;"><h1 class="text-white text-lg">Edit</h1></button>
         </div>
-    </div> -->
+    </div>
 
-    <TableAdmin />
+    <!-- <TableAdmin :data="data" /> -->
     
 
 
@@ -45,6 +48,7 @@
 <script>
 import NavAdmin from '@/components/NavAdmin.vue';
 import TableAdmin from '../components/TableAdmin.vue'
+import log from '../data/log.json';
 export default {
     name:'Admin',
     components:{
@@ -56,6 +60,11 @@ export default {
             this.$router.push('/usepage')
         },
         
+    },
+    data(){
+        return{
+            log:log
+        }
     }
 
 }

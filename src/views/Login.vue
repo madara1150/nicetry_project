@@ -24,18 +24,24 @@
 <script>
 import NavBarBtn from "../components/NavBarBtn.vue";
 import TopPost from "@/components/TopPost.vue";
+import user from "../data/user.json";
 export default {
     name: 'login',
     
     methods:{
         loginCheck(){
-            if(this.username === 'madara' && this.pwd === 'boat'){
+            for(let i = 0;i < user.length; i++){
+
+
+            if(this.username == user[i].username && this.pwd == user[i].password){
+              const people = [
+              { id: user[i].id,userID:user[i].id,  username: user[i].username,  password: user[i].password, email: user[i].email,created_at: user[i].created_at,fname: user[i].fname, lname: user[i].lname, tel: user[i].tel, img: user[i].img}  
+    ]
+    const myJSON = JSON.stringify(people);
+        localStorage.setItem("user", myJSON);
                 this.$router.push('/main')
-            }else if(this.username === '' || this.pwd === ''){
-                alert('please input username & password')
+                
             }
-            else{
-                alert('wrong password')
             }
         }
     },

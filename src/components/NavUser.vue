@@ -17,10 +17,10 @@
             <div :class="[sw == -1 ? 'hidden absolute z-10 bg-[#FFFAFA] rounded right-1 top-12' : 'block absolute z-10 bg-[#FFFAFA] rounded right-1 top-12']" > 
                 <div class="w-60 h-32 text-center grid grid-cols-1 place-items-center">
                     
-                    <div class="bg-[#7DB9B6] w-16 h-16 rounded-full p-5 mt-5">
-                    </div>
+                    <img  :src="data[0].img" class=" w-20 h-20 rounded-full mt-2">
+                   
 
-                    <p class="mt-2 p-3">{{name}} {{ lname }}</p>
+                    <p class="mt-2 p-3">{{data[0].fname}} {{ data[0].lname }}</p>
                 </div>
 
                 <div class="bg-[#4D455D] h-16 w-60 text-center text-[#FFFFFF] pt-2 items-center pt-5" @click="edit *= -1">profile</div>
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import topup from '../data/topup.json'
 export default {
     name:'NavUser',
     data(){
@@ -78,6 +79,7 @@ export default {
             lname: 'Singhanon',
             sw: -1,
             edit: -1,
+            data:''
         }
     },
     methods:{
@@ -89,8 +91,23 @@ export default {
       },
       mainPage(){
         this.$router.push('/main')
+      },
+      checkMoney(){
+        for(let i = 0;i < topup.length;i++){
+          if(this.data.userID == topup[i].user_id){
+            this.money = topup[i].coin
+          }
+        }
       }
-    }
+    },
+    created(){
+    let madara = localStorage.getItem("user")
+    this.data = JSON.parse(madara);
+    this.checkMoney()
+  },
+  computed:{
+  
+  }
 }
 </script>
 

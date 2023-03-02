@@ -98,27 +98,27 @@
             <div class="grid grid-cols-3">
                 
                 <div class="p-3">
-                    <img :src="donateImg1" class="w-20 h-20 ml-32 rounded-full">
+                    <img :src="pictureOne" class="w-20 h-20 ml-32 rounded-full">
                     <div class="text-center">
-                        <h1 class="ml-10 text-white">{{ fname1}}</h1>
-                    <h1 class="ml-10 text-white">{{money1}}</h1>
+                        <h1 class="ml-10 text-white">{{ fnameArr[0] == null ? "null" : fnameArr[0]}}</h1>
+                    <h1 class="ml-10 text-white">{{coinArr[0] == null ? "null" : coinArr[0]}}</h1>
                     </div>
                    
                 </div>
 
                 <div class="p-3">
-                    <img :src="donateImg2" class="w-20 h-20 ml-32 rounded-full">
+                    <img :src="pictureTwo" class="w-20 h-20 ml-32 rounded-full">
                     <div class="text-center">
-                        <h1 class="ml-10 text-white">{{ fname2}}</h1>
-                    <h1 class="ml-10 text-white">{{money2}}</h1>
+                        <h1 class="ml-10 text-white">{{ fnameArr[1] == null ? "null" : fnameArr[1]}}</h1>
+                    <h1 class="ml-10 text-white">{{ coinArr[1] == null ? "null" : coinArr[1] }}</h1>
                     </div>
                 </div>
 
                 <div class="p-3">
-                    <img :src="donateImg3" class="w-20 h-20 ml-32 rounded-full">
+                    <img :src="pictureThree" class="w-20 h-20 ml-32 rounded-full">
                     <div class="text-center">
-                        <h1 class="ml-10 text-white">{{ fname3}}</h1>
-                    <h1 class="ml-10 text-white">{{money3}}</h1>
+                        <h1 class="ml-10 text-white">{{ fnameArr[2] == null ? "null" : fnameArr[2]}}</h1>
+                    <h1 class="ml-10 text-white">{{coinArr[2] == null ? "null" : coinArr[2]}}</h1>
                     </div>
                 </div>
 
@@ -150,16 +150,10 @@ export default {
             tel: '',
             email:'',
             id: 11,
-            donateImg1: 'https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg',
-            donateImg2: 'https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg',
-            donateImg3: 'https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg',
-            fname1:'null',
-            fname2:'null',
-            fname3:'null',
-            money1: 0,
-            money2: 0,
-            money3: 0,
-            check: 0
+            fnameArr:[],
+            coinArr:[],
+            imgArr:[]
+            
 
 
         }
@@ -186,45 +180,37 @@ export default {
             for(let i = 0;i < donate.length; i++){
                 
                 if(donate[i].postId == this.data.id){
-                    this.checkProfie(donate[i])
-                    this.check += 1
+                    this.coinArr.push(donate[i].coin)
+                    for(let j = 0; j < user.length;j++){
+                        if(donate[i].userId == user[j].id){
+                            this.fnameArr.push(user[i].fname)
+                            this.imgArr.push(user[i].img)
+                        }
+                    }
+                
                 }
                 else{
-                    this.check = 0
+                
                 }
                 
             }
            
         },
-        checkProfie(val){
-           
-            for(let i = 0;i < user.length; i++){
-                
-                if(val.userId == user[i].id && this.check == 0){
-                    this.fname1 = user[i].fname
-                    this.donateImg1 = user[i].img
-                    this.money1 = val.coin
-                    
-                }
-                else if(val.userId == user[i].id && this.check == 1){
-                    this.fname2 = user[i].fname
-                    this.donateImg2 = user[i].img
-                    this.money2 = val.coin
-                    
-                }
-                else{
-                    this.fname3 = user[i].fname
-                    this.donateImg3 = user[i].img
-                    this.money3 = val.coin
-                  
-                }
-            }
-        }
+
+        
 
     },
     props:['data'],
     computed:{
-        
+        pictureOne(){
+            return this.imgArr[0] == null ? "https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg" : this.imgArr[0]
+        },
+        pictureTwo(){
+            return this.imgArr[1] == null ? "https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg" : this.imgArr[1]
+        },
+        pictureThree(){
+            return this.imgArr[2] == null ? "https://sites.google.com/site/hokage7legend/_/rsrc/1441832488514/prawati-ho-kha-ngea/asdasd.jpg" : this.imgArr[2]
+        }
     },
     created(){
         this.checkFname(this.data.user_id)

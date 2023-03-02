@@ -60,7 +60,16 @@
             
             <!-- exit -->
             <div class="w-10 h-10 bg-green-500 rounded-full fixed text-center cursor-pointer hover:w-12 hover:h-12  text-2xl hover:text-3xl text-white" style="left:74%;top:24%" @click="colse *= -1">x</div>
-
+                
+                <div class="bg-gray-400">
+                    
+                     <div class="w-full h-16 p-3 flex" v-for="i in ans">
+                                <img src="https://mir-s3-cdn-cf.behance.net/projects/404/93a1b7150592603.Y3JvcCwxNjI2LDEyNzEsMCwxNTI.png" class="w-10 h-10 rounded-full ml-8">
+                                <h1 class="ml-5 text-2xl text-white mt-1">{{i.fname}}{{i.lname}}</h1>
+                        </div>
+                <h1 class="ml-14 text-white text-xl">{{i}}</h1>
+                </div>
+               
 
 
             <div class="w-full h-full flex p-2">
@@ -132,6 +141,7 @@
 <script>
 import user from '../data/user.json';
 import donate from '../data/donate.json';
+import comment from '../data/comment.json';
 export default {
     name:'PostUser',
     data(){
@@ -152,7 +162,12 @@ export default {
             id: 11,
             fnameArr:[],
             coinArr:[],
-            imgArr:[]
+            imgArr:[],
+            commentFname:[],
+            commentLname:[],
+            comment:[],
+            len: 0,
+            ans:[]
             
 
 
@@ -183,19 +198,35 @@ export default {
                     this.coinArr.push(donate[i].coin)
                     for(let j = 0; j < user.length;j++){
                         if(donate[i].userId == user[j].id){
-                            this.fnameArr.push(user[i].fname)
-                            this.imgArr.push(user[i].img)
+                            this.fnameArr.push(user[j].fname)
+                            this.imgArr.push(user[j].img)
                         }
                     }
-                
                 }
-                else{
-                
-                }
-                
             }
-           
         },
+
+        checkComment(){
+             for(let i = 0;i < comment.length; i++){
+                if(comment[i].postId == this.data.id){
+                    for(let j = 0; j < user.length;j++){
+                        if(comment[i].userId == user[j].id){
+                            this.commentFname.push(user[j].fname)
+                            this.commentLname.push(user[j].lname)
+                            let con = {
+                                fname: this.user[j].fname,
+                                lname: this.user[j].lname,
+                                comment: comment[i].comment
+                            }
+                            this.ans.push(con)
+
+                        }
+
+                    }
+                }
+
+             }
+        }
 
         
 

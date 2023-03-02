@@ -1,10 +1,23 @@
 [
-    {"id": 101,
-"postId": 101,
-"comment" : "fakfafnal fkankfanfkanf",
-"createdAt": "22-01-01"},
-{"id": 102,
-"postId": 103,
-"comment" : "fdmkaflakflaf",
-"createdAt": "22-02-01"}
+  {
+    "id": 101,
+    "postId": 101,
+    "userId": 104,
+    "comment": "fakfafnal fkankfanfkanf",
+    "createdAt": "22-01-01"
+  },
+  {
+    "id": 102,
+    "postId": 101,
+    "userId": 103,
+    "comment": "fakdadasdal fkdadadad",
+    "createdAt": "22-01-01"
+  },
+  {
+    "id": 102,
+    "postId": 103,
+    "userId": 101,
+    "comment": "fdmkaflakflaf",
+    "createdAt": "22-02-01"
+  }
 ]

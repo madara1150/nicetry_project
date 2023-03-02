@@ -1,16 +1,16 @@
 [
-    {
-        "id": 101,
-        "username" : "dadad",
-        "role" : "user",
-        "createdAt": "22-01-01",
-        "agent" : "google chrome"
-    },
-    {
-        "id": 102,
-        "username" : "daddadada",
-        "role" : "user",
-        "createdAt": "22-01-02",
-        "agent" : "safari"
-    }
+  {
+    "id": 101,
+    "username": "dadad",
+    "role": "user",
+    "createdAt": "22-01-01",
+    "agent": "google chrome"
+  },
+  {
+    "id": 102,
+    "username": "daddadada",
+    "role": "user",
+    "createdAt": "22-01-02",
+    "agent": "safari"
+  }
 ]

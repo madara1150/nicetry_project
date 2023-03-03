@@ -47,12 +47,16 @@ export default {
             data: Post,
             data_lo: "",
             content:"",
-            id: 110
+            id: 110,
+            checkPro:''
         }
     },
     created(){
         const myJSON = JSON.stringify(Post);
         localStorage.setItem("data", myJSON);
+        let madara = localStorage.getItem("user")
+        this.checkPro = JSON.parse(madara);
+            
         this.update()
     },
     methods:{
@@ -61,7 +65,7 @@ export default {
             this.data_lo = JSON.parse(madara);
         },
         updatePost(){
-            let val = {id: this.id,user_id:101,content:this.content,img:"https://mir-s3-cdn-cf.behance.net/projects/404/93a1b7150592603.Y3JvcCwxNjI2LDEyNzEsMCwxNTI.png",createdAt: "23-11-25",
+            let val = {id: this.id,user_id:this.checkPro[0].id,content:this.content,img:"https://mir-s3-cdn-cf.behance.net/projects/404/93a1b7150592603.Y3JvcCwxNjI2LDEyNzEsMCwxNTI.png",createdAt: "23-11-25",
     like : 10}
             this.data_lo.push(val)
             this.id += 1

@@ -24,18 +24,18 @@
 <script>
 import NavBarBtn from "../components/NavBarBtn.vue";
 import TopPost from "@/components/TopPost.vue";
-import user from "../data/user.json";
+import users from "../data/user.json";
 export default {
     name: 'login',
     
     methods:{
         loginCheck(){
-            for(let i = 0;i < user.length; i++){
+            for(let i = 0;i < this.user.length; i++){
 
 
-            if(this.username == user[i].username && this.pwd == user[i].password){
+            if(this.username == this.user[i].username && this.pwd == this.user[i].password){
               const people = [
-              { id: user[i].id,userID:user[i].id,  username: user[i].username,  password: user[i].password, email: user[i].email,created_at: user[i].created_at,fname: user[i].fname, lname: user[i].lname, tel: user[i].tel, img: user[i].img}  
+              { id: this.user[i].id,userID:this.user[i].id,  username: this.user[i].username,  password: this.user[i].password, email: this.user[i].email,created_at: this.user[i].created_at,fname: this.user[i].fname, lname: this.user[i].lname, tel: this.user[i].tel, img: this.user[i].img}  
     ]
     const myJSON = JSON.stringify(people);
         localStorage.setItem("user", myJSON);
@@ -58,8 +58,13 @@ data(){
       {name:'ธนาคาร ไปไหน',donate:72000,OwnPost:'Madara wow',img:'https://freepngimg.com/save/120089-uchiha-madara-free-download-image/860x901'}
     ],
     username:'',
-    pwd:''
+    pwd:'',
+    user:''
   }
+},
+created(){
+  let madara = localStorage.getItem("madara")
+            this.user = JSON.parse(madara);
 }
 }
 </script>

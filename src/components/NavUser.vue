@@ -94,8 +94,10 @@ export default {
       },
       checkMoney(){
         for(let i = 0;i < topup.length;i++){
-          if(this.data.userID == topup[i].user_id){
+          if(this.data[0].userID == topup[i].userId){
             this.money = topup[i].coin
+            console.log(this.data);
+            return
           }
         }
       }
@@ -103,6 +105,7 @@ export default {
     created(){
     let madara = localStorage.getItem("user")
     this.data = JSON.parse(madara);
+   
     this.checkMoney()
   },
   computed:{

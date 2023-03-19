@@ -3,9 +3,9 @@
   <!-- nav => no sign IN -->
   <NavBarBtn />
 
-  <section class="bg-neutral-100 h-full min-h-full">
+  <section class="h-full min-h-full" >
 
-    <div class="px-6 py-12 md:px-12 bg-neutral-100 text-gray-800 text-center lg:text-left">
+    <div class="px-6 py-12 min-h-full md:px-12 bg-neutral-100 text-gray-800 bg-gradient-to-tl from-slate-100 via-gray-100 to-slate-400 text-center lg:text-left pt-16">
       <div class="container mx-auto xl:px-32">
         <div class="grid lg:grid-cols-2 gap-12 flex items-center">
           <div class="mt-12 lg:mt-0">
@@ -17,9 +17,9 @@
             </h1>
 
             <!-- card -->
-            <div class="flex justify-center">
+            <div class="flex justify-center ">
               <div
-                class="flex flex-col rounded-lg shadow-lg dark:bg-white md:max-w-xl md:flex-row"
+                class="flex flex-col rounded-lg shadow-lg dark:bg-white bg-gradient-to-tl from-pink-100 via-gray-100 to-rose-200 md:max-w-xl md:flex-row"
                 style="border-top-right-radius: 40%">
 
                 <!-- img-card -->
@@ -68,14 +68,32 @@
 
           <!-- post -->
           <div class="mb-12 lg:mb-0">
-            <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/028.jpg" class="w-full rounded-lg shadow-lg"/>
+
+            <!-- image -->
+            <div id="carouselExampleSlidesOnly" class="relative w-full h-full bg-red-500 rounded" data-te-carousel-init data-te-carousel-slide>
+              <div class="relative w-full overflow-hidden after:clear-both after:block after:content-[''] rounded">
+    
+                  <div class="rounded relative float-left -mr-[100%] w-full h-full transition-transform duration-[600ms] h-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item data-te-carousel-active>
+                    <img src="https://m.media-amazon.com/images/M/MV5BM2JjYmUyN2MtODIyOC00ZmNiLWI5YTUtN2NiMWQzNmM3OGU1XkEyXkFqcGdeQXVyNDk3NDEzMzk@._V1_FMjpg_UX1000_.jpg" class="block w-full h-full" alt="Wild Landscape" />
+                  </div>
+    
+                  <div class="rounded relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] h-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+                    <img src="https://qph.cf2.quoracdn.net/main-qimg-54caf0d24d3f87fb42b6532614ae7f9c-lq" class="block w-full h-full " alt="Camera" />
+                  </div>
+    
+                  <div class="rounded relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] h-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+                    <img src="https://cdnb.artstation.com/p/assets/images/images/038/151/293/large/sajol-hasan-madara-sammm.jpg?1622314122" class="block w-full" alt="Exotic Fruits" />
+                  </div>
+
+
+              </div>
+            </div>
+
           </div>
         
         </div>
       </div>
     </div>
-
-   
 
   </section>
 </template>
@@ -83,12 +101,14 @@
 <script>
 import NavBarBtn from "../components/NavBarBtn.vue";
 import TopPost from "@/components/TopPost.vue";
+
 export default {
   name: "Home",
   methods: {},
   components: {
     NavBarBtn,
     TopPost,
+   
   },
   data() {
     return {};

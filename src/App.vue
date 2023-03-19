@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen bg-[#7DB9B6] ">
+  <section class="min-h-screen bg-neutral-100">
     <router-view />
   </section>
 </template>
@@ -28,12 +28,12 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Sofia Sans', sans-serif;
+  font-family: 'Abril Fatface', cursive;
   
 }
 body{

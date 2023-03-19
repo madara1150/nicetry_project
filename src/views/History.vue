@@ -16,11 +16,7 @@
         </div>
        
        
-        <div v-for="i in 10">
-            <div class="bg-[#FFFAFA] box-border h-14 w-100 text-center items-center flex justify-center rounded border-solid border border-black">
-                <h1 class="text-2xl"></h1>
-            </div>
-        </div>
+       
         
   </div>
 </template>

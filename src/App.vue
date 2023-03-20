@@ -36,9 +36,6 @@ export default {
   font-family: 'Abril Fatface', cursive;
   
 }
-body{
-  min-height: 100vh;
-}
 
 
   

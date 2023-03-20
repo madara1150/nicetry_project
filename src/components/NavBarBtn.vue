@@ -8,9 +8,9 @@
       <button
         class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
         type="button">
-        <span class="w-7">
-          <h1 class="text-black">NICE</h1>
-          <h1 class="text-red-500">TRY</h1>
+        <span class="w-7 flex">
+          <h1 class="text-black" style="font-size:2vh">NICE</h1>
+          <h1 class="text-red-500" style="font-size:2vh">TRY</h1>
         </span>
       </button>
 

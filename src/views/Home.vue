@@ -43,7 +43,7 @@
                     Card title
                   </h5>
 
-                  <p class="mb-4 text-base text-text-white">
+                  <p class="mb-4 text-base text-white">
                     This is a wider card with supporting text below as a natural
                   </p>
 

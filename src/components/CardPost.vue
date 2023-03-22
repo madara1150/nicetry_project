@@ -2,7 +2,7 @@
   <div>
     <div class="w-full h-full">
       <!-- profile -->
-      <div class="flex items-center bg-black p-2 rounded-t-xl w-full">
+      <div class="flex items-center bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 p-2 rounded-t-xl w-full">
         <img
           src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
           class="rounded-full"
@@ -19,7 +19,7 @@
         <div
           class="flex flex-col rounded-b bg-white shadow-lg md:flex-row w-full"
         >
-          <div class="flex flex-col justify-start p-6 w-full">
+          <div class="flex flex-col justify-start w-full">
             <!-- carousel -->
             <div
               id="carouselExampleCrossfade"
@@ -148,7 +148,7 @@
                 >
               </button>
             </div>
-            <div class="flex pt-3">
+            <div class="flex pt-2 p-2 bg-whtie">
               <img
                 src="../image/heart-regular.svg"
                 alt=""

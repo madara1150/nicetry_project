@@ -8,7 +8,7 @@
 
   <section class="w-full min-h-screen">
 
-    <div class="px-6 py-12 md:px-12 bg-neutral-100 text-gray-800 bg-gradient-to-tl from-slate-100 via-gray-100 to-slate-400 text-center lg:text-left pt-24">
+    <div class="px-6 py-12 md:px-12 bg-neutral-100 text-gray-800 bg-gradient-to-br from-gray-300 via-white to-white text-center lg:text-left pt-24">
       <div class="mx-auto xl:px-32 w-full h-full" style="height:60%;padding-bottom:10%;width:100%;">
         <div class="grid lg:grid-cols-2 gap-12 flex items-center">
           <div class="mt-15 lg:mt-0">
@@ -99,8 +99,8 @@
      
     </div>
 
-    <!-- team -->
-  <div class="w-full h-full px-6 mx-auto bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-rose-800 via-rose-400 to-rose-100 py-4">
+    <!-- nav bottom -->
+  <div class="w-full h-full px-6 mx-auto bg-gradient-to-br from-black via-gray-800 to-rose-800 py-4">
 
     <div class="w-[100%]">
       <Landing />

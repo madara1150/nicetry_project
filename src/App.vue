@@ -8,6 +8,7 @@
 
 
 import NavBarBtn from "./components/NavBarBtn.vue";
+import gsap from "gsap";
 export default {
   name: "App",
   components: {

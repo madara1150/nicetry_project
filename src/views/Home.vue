@@ -10,7 +10,7 @@
 
     <div class="px-6 py-12 md:px-12 bg-neutral-100 text-gray-800 bg-gradient-to-br from-gray-300 via-white to-white text-center lg:text-left pt-24">
       <div class="mx-auto xl:px-32 w-full h-full" style="height:60%;padding-bottom:10%;width:100%;">
-        <div class="grid lg:grid-cols-2 gap-12 flex items-center">
+        <div class="grid lg:grid-cols-2 gap-12 flex items-center max-[600px]:items-center">
           <div class="mt-15 lg:mt-0">
             
             <!-- text -->
@@ -70,22 +70,22 @@
 
 
           <!-- post -->
-          <div class="mb-0 lg:mb-0">
+          <div class="mb-0 lg:mb-0 max-[600px]:w-80">
 
             <!-- image -->
             <div id="carouselExampleSlidesOnly" class="relative w-full h-max bg-red-500 rounded" data-te-carousel-init data-te-carousel-slide>
               <div class="relative w-full overflow-hidden after:clear-both after:block after:content-[''] rounded">
     
-                  <div class="rounded relative float-left -mr-[100%] w-full h-full transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item data-te-carousel-active>
-                    <img src="https://m.media-amazon.com/images/M/MV5BM2JjYmUyN2MtODIyOC00ZmNiLWI5YTUtN2NiMWQzNmM3OGU1XkEyXkFqcGdeQXVyNDk3NDEzMzk@._V1_FMjpg_UX1000_.jpg" class="block w-full"  style="height:450px" alt="Wild Landscape" />
+                  <div class="rounded relative float-left -mr-[100%] w-full h-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item data-te-carousel-active>
+                    <img src="https://m.media-amazon.com/images/M/MV5BM2JjYmUyN2MtODIyOC00ZmNiLWI5YTUtN2NiMWQzNmM3OGU1XkEyXkFqcGdeQXVyNDk3NDEzMzk@._V1_FMjpg_UX1000_.jpg" class="block w-full max-[600px]:h-80 h-[450px] max-[600px]:w-80" alt="Wild Landscape" />
                   </div>
     
-                  <div class="rounded relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
-                    <img src="https://qph.cf2.quoracdn.net/main-qimg-54caf0d24d3f87fb42b6532614ae7f9c-lq" class="block w-full " style="height:450px"  alt="Camera" />
+                  <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+                    <img src="https://qph.cf2.quoracdn.net/main-qimg-54caf0d24d3f87fb42b6532614ae7f9c-lq" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]"  alt="Camera" />
                   </div>
     
-                  <div class="rounded relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
-                    <img src="https://cdnb.artstation.com/p/assets/images/images/038/151/293/large/sajol-hasan-madara-sammm.jpg?1622314122" class="block w-full"  style="height:450px" alt="Exotic Fruits" />
+                  <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+                    <img src="https://cdnb.artstation.com/p/assets/images/images/038/151/293/large/sajol-hasan-madara-sammm.jpg?1622314122" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]" alt="Exotic Fruits" />
                   </div>
 
 
@@ -119,13 +119,16 @@
 </template>
 
 <script>
+import gsap from 'gsap';
 import Landing from '../components/Landing.vue';
 import NavBarBtn from "../components/NavBarBtn.vue";
 
 
 export default {
   name: "Home",
-  methods: {},
+  methods: {
+    
+  },
   components: {
     NavBarBtn,
     Landing
@@ -135,6 +138,10 @@ export default {
   data() {
     return {};
   },
+
+  mounted(){
+    
+  }
 };
 </script>
 

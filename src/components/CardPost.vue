@@ -6,7 +6,7 @@
         <img
           src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
           class="rounded-full"
-          style="width: 6vh"
+          style="width: 6vh; height: 6vh;"
           alt="Avatar"
         />
         <h1 class="text-white ml-2 text-[2vh]">MADARA UCHIHA</h1>
@@ -65,7 +65,7 @@
                   data-te-carousel-active
                 >
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+                    src="https://source.unsplash.com/800x600/?nature"
                     class="block w-full"
                     alt="Wild Landscape"
                   />
@@ -76,7 +76,7 @@
                   data-te-carousel-item
                 >
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+                    src="https://source.unsplash.com/800x600/?nature"
                     class="block w-full"
                     alt="Camera"
                   />
@@ -87,7 +87,7 @@
                   data-te-carousel-item
                 >
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
+                    src="https://source.unsplash.com/800x600/?nature"
                     class="block w-full"
                     alt="Exotic Fruits"
                   />
@@ -147,6 +147,13 @@
                   >Next</span
                 >
               </button>
+
+              <div class="w-full p-5 overflow-y-scroll h-20 mt-2">
+                <p class="overflow-y-scroll h-20">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi aut maiores placeat impedit quia ducimus eius voluptate beatae aliquam sunt doloremque laborum illo tenetur voluptas molestiae enim animi, necessitatibus explicabo.
+                </p>
+            </div>
+
             </div>
             <div class="flex pt-2 p-2 bg-whtie">
               <img

@@ -6,9 +6,9 @@
   </div>
  
 
-  <section class="w-full min-h-screen">
+  <section class="w-full min-h-screen" >
 
-    <div class="px-6 py-12 md:px-12 bg-neutral-100 text-gray-800 bg-gradient-to-br from-gray-300 via-white to-white text-center lg:text-left pt-24">
+    <div id="container2" class="px-6 py-12 md:px-12 text-gray-800 text-center lg:text-left pt-64" style="background-image: url(https://media.discordapp.net/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png?width=2120&height=1060);">
       <div class="mx-auto xl:px-32 w-full h-full" style="height:60%;padding-bottom:10%;width:100%;">
         <div class="grid lg:grid-cols-2 gap-12 flex items-center max-[600px]:items-center">
           <div class="mt-15 lg:mt-0">
@@ -125,7 +125,7 @@
 import gsap from 'gsap';
 import Landing from '../components/Landing.vue';
 import NavBarBtn from "../components/NavBarBtn.vue";
-
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default {
   name: "Home",
@@ -144,21 +144,20 @@ export default {
 
   mounted(){
 
+    gsap.registerPlugin(ScrollTrigger);
     
-    gsap.from("#text-main", { 
-    y: -400,
-    duration: 1.5,
-  })
+    let tl = gsap.timeline({
+      scrollTrigger:{
+        trigger:'#container2',
+        scrub:true,
+        start: "-10%",
+        end:'+=250',
+      }
+    })
 
-  gsap.from("#card-main", { 
-    x: -400,
-    duration: 1.5,
-  })
-
-  gsap.from("#image-main", { 
-    x: 600,
-    duration: 1.5,
-  })
+    tl.from('#text-main', {y:-400,duration:1.5})
+    .from('#card-main', {x:-400,duration:1.5})
+    .from('#image-main',{x:600,duration:1.5})
     
   }
 };

@@ -76,7 +76,7 @@
                   data-te-carousel-item
                 >
                   <img
-                    src="https://source.unsplash.com/800x600/?nature"
+                    src="https://source.unsplash.com/800x600/?tree"
                     class="block w-full"
                     alt="Camera"
                   />

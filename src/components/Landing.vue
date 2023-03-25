@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     
     <div class="text-center pt-3 mb-2" id="NameLanding">
     <span class="text-white text-4xl">NICE</span
@@ -19,6 +19,7 @@
       <div
         class="ml-10 text-white w-[55%] p-10 flex items-center max-[600px]:w-full max-[600px]:ml-0" id="ContentOne"
       >
+        
         <p class="max-[600px]:inline-block">
           Our website can share lifestyle freely. Show what you have to others.
         </p>
@@ -97,7 +98,7 @@
                   data-te-carousel-active
                 >
                   <img
-                    src="https://source.unsplash.com/800x600/?nature"
+                    src="https://source.unsplash.com/800x600/?tree"
                     class="block w-full"
                     alt="Wild Landscape"
                   />
@@ -108,7 +109,7 @@
                   data-te-carousel-item
                 >
                   <img
-                    src="https://source.unsplash.com/800x600/?nature"
+                    src="https://source.unsplash.com/800x600/?tree"
                     class="block w-full"
                     alt="Camera"
                   />
@@ -119,7 +120,7 @@
                   data-te-carousel-item
                 >
                   <img
-                    src="https://source.unsplash.com/800x600/?nature"
+                    src="https://source.unsplash.com/800x600/?tree"
                     class="block w-full"
                     alt="Exotic Fruits"
                   />
@@ -217,6 +218,7 @@
 <script>
 import gsap from 'gsap';
 import CardPost from "../components/CardPost.vue";
+import ScrollTrigger from "gsap/ScrollTrigger";
 export default {
   name: "Landing",
   components: {
@@ -227,10 +229,19 @@ export default {
     
   },
   mounted() {
-  gsap.from("#NameLanding", { 
-    x: 400,
-    duration: 1.5,
-  })
+    
+    gsap.registerPlugin(ScrollTrigger);
+  gsap.from("#NameLanding",{ 
+    scrollTrigger: {
+      trigger: "#container",
+    start:'top center',
+    end: '+=5%',
+    pin:'#container'
+    },
+    x:500
+  },
+    
+  )
 
   gsap.from('#PostOne',{
     x: -500,

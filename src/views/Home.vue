@@ -14,13 +14,16 @@
           <div class="mt-15 lg:mt-0">
             
             <!-- text -->
-            <h1 class="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12" style="font-size:8vh">
+            <div id="text-main">
+              <h1 class="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12" style="font-size:8vh">
               Even if no one see it,<br />
               <span class="text-[#D42A46]" >We see it.</span>
             </h1>
+            </div>
+            
 
             <!-- card -->
-            <div class="flex justify-center" style="width:100%;">
+            <div class="flex justify-center" style="width:100%;" id="card-main">
               <div
                 class="flex flex-col rounded-lg shadow-lg dark:bg-white bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-rose-800 via-rose-400 to-rose-100 md:max-w-xl md:flex-row"
                 style="border-top-right-radius: 40%;width:100%;">
@@ -70,7 +73,7 @@
 
 
           <!-- post -->
-          <div class="mb-0 lg:mb-0 max-[600px]:w-80">
+          <div class="mb-0 lg:mb-0 max-[600px]:w-80" id="image-main">
 
             <!-- image -->
             <div id="carouselExampleSlidesOnly" class="relative w-full h-max bg-red-500 rounded" data-te-carousel-init data-te-carousel-slide>
@@ -140,6 +143,22 @@ export default {
   },
 
   mounted(){
+
+    
+    gsap.from("#text-main", { 
+    y: -400,
+    duration: 1.5,
+  })
+
+  gsap.from("#card-main", { 
+    x: -400,
+    duration: 1.5,
+  })
+
+  gsap.from("#image-main", { 
+    x: 600,
+    duration: 1.5,
+  })
     
   }
 };

@@ -16,245 +16,99 @@
       </div>
 
     
-      <div
-        class="ml-10 text-white w-[55%] p-10 flex items-center max-[600px]:w-full max-[600px]:ml-0" id="ContentOne"
-      >
-        
-        <p class="max-[600px]:inline-block">
-          Our website can share lifestyle freely. Show what you have to others.
-        </p>
-      </div>
+      <div class="mx-10 flex items-center justify-center" id="ContentOne">
+          <a class="block max-w-sm bg-white rounded shadow hover:bg-gray-100">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight p-5 text-white bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded-t text-center">POST</h5>
+          <p class="font-normal text-gray-700 p-5 rounded-b">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque, delectus.</p>
+          </a>
+        </div>
+
+
     </div>
 
     <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
-    <!-- post -->
-    <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-20">
-      
-      <!-- card -->
-      <div class="w-[45%] max-[600px]:w-[100%]">
-        
-        <div class="w-full h-full">
-      <!-- profile -->
-      <div class="flex items-center bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 p-2 rounded-t-xl w-full">
-        <img
-          src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
-          class="rounded-full"
-          style="width: 6vh; height: 6vh;"
-          alt="Avatar"
-        />
-        <h1 class="text-white ml-2 text-[2vh]">MADARA UCHIHA</h1>
+          
 
-       
-      </div>
 
-      <!-- body -->
-      <div class="flex justify-center">
-        <div
-          class="flex flex-col rounded-b bg-white shadow-lg md:flex-row w-full"
-        >
-          <div class="flex flex-col justify-start w-full">
-            <!-- carousel -->
-            <div
-              id="carouselExampleCrossfade"
-              class="relative"
-              data-te-carousel-init
-              data-te-carousel-slide
-            >
-              <div
-                class="absolute inset-x-0 bottom-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
-                data-te-carousel-indicators
-              >
-                <button
-                  type="button"
-                  data-te-target="#carouselExampleCrossfade"
-                  data-te-slide-to="0"
-                  data-te-carousel-active
-                  class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-                  aria-current="true"
-                  aria-label="Slide 1"
-                ></button>
-                <button
-                  type="button"
-                  data-te-target="#carouselExampleCrossfade"
-                  data-te-slide-to="1"
-                  class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-                  aria-label="Slide 2"
-                ></button>
-                <button
-                  type="button"
-                  data-te-target="#carouselExampleCrossfade"
-                  data-te-slide-to="2"
-                  class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-                  aria-label="Slide 3"
-                ></button>
-              </div>
-              <div
-                class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
-              >
-                <div
-                  class="relative float-left -mr-[100%] w-full !transform-none opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
-                  data-te-carousel-fade
-                  data-te-carousel-item
-                  data-te-carousel-active
-                >
-                  <img
-                    src="https://source.unsplash.com/800x600/?tree"
-                    class="block w-full"
-                    alt="Wild Landscape"
-                  />
-                </div>
-                <div
-                  class="relative float-left -mr-[100%] hidden w-full !transform-none opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
-                  data-te-carousel-fade
-                  data-te-carousel-item
-                >
-                  <img
-                    src="https://source.unsplash.com/800x600/?tree"
-                    class="block w-full"
-                    alt="Camera"
-                  />
-                </div>
-                <div
-                  class="relative float-left -mr-[100%] hidden w-full !transform-none opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
-                  data-te-carousel-fade
-                  data-te-carousel-item
-                >
-                  <img
-                    src="https://source.unsplash.com/800x600/?tree"
-                    class="block w-full"
-                    alt="Exotic Fruits"
-                  />
-                </div>
-              </div>
-              <button
-                class="absolute top-0 bottom-0 left-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-                type="button"
-                data-te-target="#carouselExampleCrossfade"
-                data-te-slide="prev"
-              >
-                <span class="inline-block h-8 w-8">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="h-6 w-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15.75 19.5L8.25 12l7.5-7.5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                  >Previous</span
-                >
-              </button>
-              <button
-                class="absolute top-0 bottom-0 right-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-                type="button"
-                data-te-target="#carouselExampleCrossfade"
-                data-te-slide="next"
-              >
-                <span class="inline-block h-8 w-8">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="h-6 w-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                  >Next</span
-                >
-              </button>
-            </div>
-            <div class="flex pt-2 p-2 bg-whtie">
-              <img
-                src="../image/heart-regular.svg"
-                alt=""
-                class="w-[5%] mx-2"
-              />
-              <img
-                src="../image/comment-regular.svg"
-                alt=""
-                class="w-[5%] mx-2"
-              />
-                <img
-                src="../image/triangle-exclamation-solid.svg"
-                alt=""
-                class="w-[5%] mx-2"
-              />
-              <img
-                src="../image/circle-dollar-to-slot-solid.svg"
-                alt=""
-                class="w-[5%] mx-2"
-              />
-            </div>
-          </div>
+    <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-20" >
+
+      <div class="mx-10 flex items-center justify-center " id="contentTwo" >
+          <a class="block max-w-sm bg-white rounded shadow hover:bg-gray-100">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight p-5 text-white bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded-t text-center">POST</h5>
+          <p class="font-normal text-gray-700 p-5 rounded-b">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque, delectus.</p>
+          </a>
         </div>
+
+      <div class="w-[45%] max-[600px]:w-[100%]" id="postTwo">
+        <TopDonate class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" />
       </div>
+
+    
+      
+
+
     </div>
 
-      </div>
+      
 
+      
+          
 
     </div>
-  </div>
 </template>
 
 <script>
 import gsap from 'gsap';
 import CardPost from "../components/CardPost.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import TopDonate from './TopDonate.vue';
 export default {
   name: "Landing",
   components: {
     CardPost,
+    TopDonate
   },
   methods:{
+    loopHeart(){
+      let timeerLike = setInterval( ()=> {
+        setTimeout(()=>{
+          this.toggleHeart = false
+        },3000)
+        
+        setTimeout(() => {
+          this.toggleHeart = true
+        },3000)
+      },1000)
+        },
     
     
+  },
+  data(){
+    return{
+      toggleHeart: 1
+    }
   },
   mounted() {
     
     gsap.registerPlugin(ScrollTrigger);
-  gsap.from("#NameLanding",{ 
-    scrollTrigger: {
-      trigger: "#container",
-    start:'top center',
-    end: '+=5%',
-    pin:'#container'
-    },
-    x:500
+    let tl = gsap.timeline({
+      scrollTrigger:{
+        trigger:'#container',
+        scrub:true,
+        start: "top center",
+        pin:'#container',
+        end:'+=250',
+        
+      }
+    })
+      tl.from('#NameLanding',{x:300,duration:1.5})
+      .from('#PostOne',{x:-300,duration:1.5})
+      .from('#ContentOne',{x:300, duration:1.5})
+      .from('#contentTwo',{x:-300,duration:1.5})
+      .from('#postTwo',{x:300,duration:1.5})
   },
-    
-  )
-
-  gsap.from('#PostOne',{
-    x: -500,
-    delay: 1
-  })
-
-  gsap.from('#ContentOne',{
-    x: 500,
-    delay: 1.2
-  })
-
-  
-  
+  created(){
+   this.loopHeart()
   }
 };
 </script>

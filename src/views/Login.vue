@@ -1,71 +1,58 @@
 <template>
+  <div class="sticky top-0 z-10 ">
     <NavBarBtn />
-    <div class="container mx-auto bg-[#F5E9CF] px-4 min-h-screen">
-       
+  </div>
+  <div class="flex justify-center max-[600px]:flex-col min-h-screen" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
+    <div class="w-[35%] max-[600px]:w-full">
+      <div>
+        <p class="text-5xl mt-14 text-center" >WELCOME <span class="text-red-600">BACK</span></p>
+        <p class="text-lg mt-3 text-center text-gray-300">Please enter your detail</p>
+      </div>
+      
+      <!-- input -->
+      <form class="w-full">
+        <div class="w-[90%]">
+            <div>
+              <input type="text" id="username" class="ml-5 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your username" required>
+              <input type="password" id="pass" class="ml-5 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your password" required>
+            </div>
+            <button type="button" class="ml-5 mt-7 drop-shadow-lg w-full h-12 text-white bg-gray-900 hover:bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">SIGN IN</button>
+            <p id="helper-text-explanation" class="text-center mt-2 text-sm text-gray-500 dark:text-gray-400">Don't have an account? <a href="/Register" class="font-medium text-red-600 hover:underline">Sign Up</a></p>
+          </div>
+      </form>
+    </div>
 
-        <div class="text-center pt-32">
-          <h1 class="text-3xl">LOGIN</h1>
-          <input type="text" placeholder="username" class="w-80 h-8 text-center mt-5 bg-[#FFFAFA] rounded" v-model="username"> <br>
-          <input type="password" placeholder="password" class="w-80 h-8 text-center bg-[#FFFAFA] rounded" style="margin-top:15px;" v-model="pwd"><br>
-          <br>
-          <button class="w-80 h-8 bg-[#4D455D] text-[#FFFFFF] rounded transition-all hover:w-96 hover:h-9 shadow-lg shadow-gray-600" @click="loginCheck()">LOGIN</button>
-        </div>  
+    <div class="mb-0 lg:mb-0 max-[600px]:w-full max-[600px]:ml-0 px-10 w-[35%] mt-20 ml-[7%]" id="image-main">
 
-        <div class="mt-60 pb-5 flex flex-row gap-10 justify-center">
-          <TopPost :user="users[0]" />
-          <TopPost :user="users[1]" />
-          <TopPost :user="users[2]" />
+      <!-- image -->
+      <div id="carouselExampleSlidesOnly" class="relative w-full h-max rounded" data-te-carousel-init data-te-carousel-slide>
+        <div class="relative w-full overflow-hidden after:clear-both after:block after:content-[''] rounded">
+
+          <div class="rounded relative float-left -mr-[100%] w-full h-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item data-te-carousel-active>
+            <img src="https://images.unsplash.com/photo-1528491836309-55b4a140b78a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80" class="block w-full max-[600px]:h-80 h-[450px] max-[600px]:w-80" alt="Wild Landscape" />
+          </div>
+
+          <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+             <img src="https://images.unsplash.com/photo-1598810132152-e70c939a1dfa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]"  alt="Camera" />
+          </div>
+
+          <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+            <img src="https://images.unsplash.com/photo-1598495494482-172d89ff078c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=982&q=80" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]" alt="Exotic Fruits" />
+          </div>
+
         </div>
-
+      </div>
 
     </div>
+  </div>
+
 </template>
 
 <script>
-import NavBarBtn from "../components/NavBarBtn.vue";
-import TopPost from "@/components/TopPost.vue";
-import users from "../data/user.json";
+import NavBarBtn from '@/components/NavBarBtn.vue';
+
 export default {
-    name: 'login',
-    
-    methods:{
-        loginCheck(){
-            for(let i = 0;i < this.user.length; i++){
-
-
-            if(this.username == this.user[i].username && this.pwd == this.user[i].password){
-              const people = [
-              { id: this.user[i].id,userID:this.user[i].id,  username: this.user[i].username,  password: this.user[i].password, email: this.user[i].email,created_at: this.user[i].created_at,fname: this.user[i].fname, lname: this.user[i].lname, tel: this.user[i].tel, img: this.user[i].img}  
-    ]
-    const myJSON = JSON.stringify(people);
-        localStorage.setItem("user", myJSON);
-                this.$router.push('/main')
-                
-            }
-            }
-        }
-    },
-    components: {
-
-NavBarBtn,
-TopPost
-},
-data(){
-  return{
-    users:[
-      {name:'ธนายุธ งงๆไป',donate:52000,OwnPost:'Tanathip tokyo',img:'https://www.sosyncd.com/wp-content/uploads/2022/07/134.png'},
-      {name:'ธนาธร ไปแล้ว',donate:60000,OwnPost:'Nutaya Eiei',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFpLzFgZaiZIHornQhfVuB6Rz6keJCwUlc-g&usqp=CAU'},
-      {name:'ธนาคาร ไปไหน',donate:72000,OwnPost:'Madara wow',img:'https://freepngimg.com/save/120089-uchiha-madara-free-download-image/860x901'}
-    ],
-    username:'',
-    pwd:'',
-    user:''
-  }
-},
-created(){
-  let madara = localStorage.getItem("madara")
-            this.user = JSON.parse(madara);
-}
+    components: { NavBarBtn }
 }
 </script>
 

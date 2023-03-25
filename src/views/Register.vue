@@ -1,87 +1,63 @@
 <template>
+  <div class="sticky top-0 z-10 ">
     <NavBarBtn />
-    <div class="container min-h-screen mx-auto bg-[#F5E9CF] px-4">
-        
-        <div class="text-center pt-32">
-          <h1 class="text-3xl">REGISTER</h1>
-          <input class="h-8 mr-3 text-center mt-5"  style="width: 153px;" type="text" placeholder="first name" v-model="fname">
-            <input class="w-36 h-8 text-center" style="width: 153px;" type="text" placeholder="last name" v-model="lname"> <br>
-            <input class="w-80 mt-3 h-8 text-center" type="text" placeholder="username" v-model="username"> <br>
-            <input class="w-80 mt-3 h-8 text-center" type="text" placeholder="password" v-model="password"> <br>
-            <input class="w-80 mt-3 h-8 text-center" type="email" placeholder="email" v-model="email"> <br>
-            <input class="w-80 mt-3 h-8 text-center" type="number" placeholder="tel" v-model="tel"> <br>
-             <br>
-            <button class="mt-2 w-80 bg-[#4D455D] h-8 text-[#FFFFFF] cursor-pointer transition-all rounded hover:w-96 hover:h-9 shadow-lg shadow-gray-600" @click="saveProfile">APPLY</button>
-        </div>
-
-        <div class="mt-60 pb-5 flex flex-row gap-10 justify-center">
-          <TopPost :user="users[0]" />
-          <TopPost :user="users[1]" />
-          <TopPost :user="users[2]" />
-        </div>
-
-
+  </div>
+  <div class="flex justify-center max-[600px]:flex-col min-h-screen" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
+    <div class="w-[35%] max-[600px]:w-full">
+      <div class="text-center">
+        <p class="text-5xl mt-14 text-center" >GET <span class="text-red-600">STARTED</span></p>
+        <p class="text-lg mt-3 text-center text-gray-300">create your account now.</p>
+      </div>
+      
+      <!-- input -->
+      <form class="w-full flex justify-center">
+        <div class="w-[90%]">
+            <div class="flex">
+                <input type="text" id="fname" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your name" required>
+                <input type="text" id="lname" class="ml-4 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your lastname" required>
+            </div>
+            <div>
+              <input type="text" id="username" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your username" required>
+              <input type="text" id="email" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your email" required>
+              <input type="password" id="pass" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your password" required>
+            </div>
+            <button type="button" class="mt-7 drop-shadow-lg w-full h-12 text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">SIGN UP</button>
+            <p id="helper-text-explanation" class="mt-2 text-sm text-center text-white">Do you have an account? <a href="/Login" class="font-medium text-red-600 hover:underline bg-gray-100 p-1.5 rounded-[20%]">Sign In</a></p>
+          </div>
+      </form>
     </div>
 
+    <div class="mb-0 lg:mb-0 max-[600px]:w-full max-[600px]:ml-0 px-10 w-[35%] mt-20 ml-[7%]" id="image-main">
 
-    
+      <!-- image -->
+      <div id="carouselExampleSlidesOnly" class="relative w-full h-max rounded" data-te-carousel-init data-te-carousel-slide>
+        <div class="relative w-full overflow-hidden after:clear-both after:block after:content-[''] rounded">
+
+            <div class="rounded relative float-left -mr-[100%] w-full h-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item data-te-carousel-active>
+              <img src="https://images.unsplash.com/photo-1528491836309-55b4a140b78a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80" class="block w-full max-[600px]:h-80 h-[450px] max-[600px]:w-80" alt="Wild Landscape" />
+            </div>
+
+            <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+              <img src="https://images.unsplash.com/photo-1598810132152-e70c939a1dfa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]"  alt="Camera" />
+            </div>
+
+            <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
+              <img src="https://images.unsplash.com/photo-1598495494482-172d89ff078c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=982&q=80" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]" alt="Exotic Fruits" />
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </template>
 
 <script>
-import NavBarBtn from "../components/NavBarBtn.vue";
-import TopPost from "@/components/TopPost.vue";
-import user from "../data/user.json"
+import NavBarBtn from '@/components/NavBarBtn.vue';
+
 export default {
-    name: 'register',
-    components: {
-
-    NavBarBtn,
-    TopPost
-},
-data(){
-  return{
-    users:[
-      {name:'ธนายุธ งงๆไป',donate:52000,OwnPost:'Tanathip tokyo',img:'https://www.sosyncd.com/wp-content/uploads/2022/07/134.png'},
-      {name:'ธนาธร ไปแล้ว',donate:60000,OwnPost:'Nutaya Eiei',img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFpLzFgZaiZIHornQhfVuB6Rz6keJCwUlc-g&usqp=CAU'},
-      {name:'ธนาคาร ไปไหน',donate:72000,OwnPost:'Madara wow',img:'https://freepngimg.com/save/120089-uchiha-madara-free-download-image/860x901'}
-    ],
-    fname:'',
-    lname:'',
-    username:'',
-    password:'',
-    email:'',
-    tel:'',
-    id:108,
-    data:user,
-    user:''
-  }
-},
-methods:{
-  saveProfile(){
-    let obj = {id:108,
-    username:this.username,
-    password:this.password,
-    email:this.email,
-    created_at:"20-20-20",
-    fname:this.fname,
-    lname:this.lname,
-    role:"user",
-    tel:this.tel,
-    img:"https://www.sugoijp.com/upload_file/travel/160929091510_385810_318867721458395_1254235447_n_c.jpg"
-    }
-    this.data.push(obj)
-    const myJSON = JSON.stringify(this.data);
-    localStorage.setItem("madara", myJSON);
-    this.id += 1
-    alert("success")
-    this.$router.push('/login')
-  }
-},
-created(){
-  let madara = localStorage.getItem("madara")
-   this.user = JSON.parse(madara);
-}
-
+    components: { NavBarBtn }
 }
 </script>
 

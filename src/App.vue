@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen bg-gradient-to-tl from-slate-100 via-gray-100 to-slate-300">
+  <section class="min-h-screen">
     <router-view />
   </section>
 </template>

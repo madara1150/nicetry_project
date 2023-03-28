@@ -5,7 +5,7 @@
     <div class="flex w-full flex-wrap items-center justify-between px-6">
       <!-- phone -->
      
-      <button
+      <button @click="nextHome()"
         class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
         type="button">
         <span class="w-7 flex">
@@ -16,7 +16,7 @@
 
       <!-- desktop -->
       <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
-        <a class="mt-2 mr-2 flex items-center hover:text-neutral-900 focus:text-black dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mt-0"
+        <a  @click="nextHome()" class="mt-2 mr-2 flex items-center hover:text-neutral-900 focus:text-black dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mt-0"
           href="#">
           <h1 class="text-[#1F2937] pl-3" style="font-size: 3vh">NICE</h1>
           <h1 class="text-red-500" style="font-size: 3vh">TRY</h1>
@@ -44,7 +44,7 @@
           <a class="hidden-arrow mr-4 flex items-center text-red-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
             href="#">
             <span class="[&>svg]:w-5">
-              <button type="button"
+              <button type="button" @click="nextRegister()"
                 class="inline-block rounded bg-neutral-800 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_#332d2d] transition duration-150 ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.3),0_4px_18px_0_rgba(51,45,45,0.2)] focus:bg-neutral-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.3),0_4px_18px_0_rgba(51,45,45,0.2)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.3),0_4px_18px_0_rgba(51,45,45,0.2)] dark:bg-neutral-900 dark:shadow-[0_4px_9px_-4px_#171717] dark:hover:bg-neutral-500 dark:hover:shadow-[0_8px_9px_-4px_rgba(27,27,27,0.3),0_4px_18px_0_rgba(27,27,27,0.2)] dark:focus:bg-neutral-500 dark:focus:shadow-[0_8px_9px_-4px_rgba(27,27,27,0.3),0_4px_18px_0_rgba(27,27,27,0.2)] dark:active:bg-neutral-900 dark:active:shadow-[0_8px_9px_-4px_rgba(27,27,27,0.3),0_4px_18px_0_rgba(27,27,27,0.2)]">
                 Sign Up
               </button>
@@ -70,7 +70,14 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    nextRegister(){
+      this.$router.push('/register')
+    },
+    nextHome(){
+      this.$router.push('/')
+    }
+  },
 };
 </script>
 

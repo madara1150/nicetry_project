@@ -3,7 +3,7 @@
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-white uppercase bg-gray-800">
+        <thead class="text-xs text-white uppercase bg-gray-800 hover:text-black">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Image</span>
@@ -21,10 +21,10 @@
                 <td class="w-[15%] p-3">
                     <img src="https://e0.pxfuel.com/wallpapers/351/540/desktop-wallpaper-madara-uchiha-mobile-madara-uchiha-mobile-for-your-mobile-tablet-explore-madara-mobile-madara-madara-uchiha-madara-madara-dark-thumbnail.jpg" class="rounded h-10">
                 </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                <td class="px-6 py-4 font-semibold text-gray-500 hover:text-black">
                     Apple Watch
                 </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                <td class="px-6 py-4 font-semibold text-gray-500 hover:text-black">
                     $599
                 </td>
             </tr>

@@ -9,7 +9,6 @@ import UsePage from '../views/UsePage.vue'
 import Admin from '../views/Admin.vue'
 import PostAdmin from '../views/PostAdmin.vue'
 
-
 const routes = [
   {
     path: "/",

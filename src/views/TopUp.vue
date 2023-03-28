@@ -10,21 +10,31 @@
 
         <!-- overflow banks -->
         <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded">
-            <div class="flex w-[200%]">
+            <div class="flex w-[120%]">
                 <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :id="i" @click="CheckOutput(val.img,i)">
                     <img  :src="require('../image/th/'+val.img)" class="h-32 w-[100px] rounded" href="madara">
                     <div class="w-[100px]">
                     </div>
                 </a>
             </div>
-                
-            
-            
-            
         </div>
     </div>
     
+    <div class="flex justify-center">
 
+        <div class="w-[40%] bg-red-500">
+            
+        </div>
+
+        <div class="w-[30%]">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Bank</label>
+            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Bank" disabled :value="selectBank">
+        </div>
+
+        
+    </div>
+    
+   
   </div>
 </template>
 
@@ -36,7 +46,8 @@ export default {
     name:'TopUp',
     data(){
         return{
-            bank:bank
+            bank:bank,
+            selectBank:''
         }
     },
     components:{
@@ -46,7 +57,8 @@ export default {
     },
     methods:{
         CheckOutput(el,index){
-            console.log(el);
+            console.log(el)
+            this.selectBank = index
             this.clearSelect()
             document.getElementById(index).style.backgroundColor = "#B8B0B0"
          

@@ -2,7 +2,7 @@
 
   <!-- nav => no sign IN -->
   <div class="sticky top-0 z-10 ">
-    <NavBarBtn />
+    <NavBar />
   </div>
  
 
@@ -124,7 +124,7 @@
 <script>
 import gsap from 'gsap';
 import Landing from '../components/Landing.vue';
-import NavBarBtn from "../components/NavBarBtn.vue";
+import NavBar from "../components/Nav.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default {
@@ -133,7 +133,7 @@ export default {
     
   },
   components: {
-    NavBarBtn,
+    NavBar,
     Landing
    
    

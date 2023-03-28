@@ -1,119 +1,135 @@
 <template>
-  <section class="bg-[#4D455D]">
-    <div class="flex items-center">
-        <div class="ml-6 text-4xl p-2" @click="mainPage()">
-            <label class="text-[#FF9494]">N</label>
-            <label class="text-[#ffffff]">ice</label>
-            <label class="text-[#9BFFFF]">T</label>
-            <label class="text-[#ffffff]">ry</label>
-        </div>
-        
-        <div class="absolute right-0 mr-5 flex">
-          <button class="mr-3 py-2 px-8 rounded-md bg-[#E4DCCF] transition-all hover:cursor-pointer" @click="totopup()">{{ money}} Nice</button>
-          
-          <div class="relative inline-block">
-            <div class="py-2.5 px-10 rounded bg-[#E4DCCF] hover:cursor-pointer" @click="this.sw *= -1"><img src="../image/user-solid.svg" class="w-5 h-5" /></div>
-            
-            <div :class="[sw == -1 ? 'hidden absolute z-10 bg-[#FFFAFA] rounded right-1 top-12' : 'block absolute z-10 bg-[#FFFAFA] rounded right-1 top-12']" > 
-                <div class="w-60 h-32 text-center grid grid-cols-1 place-items-center">
-                    
-                    <img  :src="data[0].img" class=" w-20 h-20 rounded-full mt-2">
-                   
+  <nav
+    class="flex-no-wrap relative flex w-full items-center justify-between bg-neutral-100 py-4 dark:bg-neutral-100 lg:flex-wrap lg:justify-start">
+    <div class="flex w-full flex-wrap items-center justify-between px-6">
+      <!-- phone -->
+     
+      <button
+        class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+        type="button">
+        <span class="w-7 flex">
+          <h1 class="text-black" style="font-size:2vh">NICE</h1>
+          <h1 class="text-red-500" style="font-size:2vh">TRY</h1>
+        </span>
+      </button>
 
-                    <p class="mt-2 p-3">{{data[0].fname}} {{ data[0].lname }}</p>
-                </div>
+      <!-- desktop -->
+      <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
+        <a class="mt-2 mr-2 flex items-center hover:text-neutral-900 focus:text-black dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mt-0"
+          href="#">
+          <h1 class="text-[#1F2937] pl-3" style="font-size: 3vh">NICE</h1>
+          <h1 class="text-red-500" style="font-size: 3vh">TRY</h1>
+        </a>
+      </div>
 
-                <div class="bg-[#4D455D] h-16 w-60 text-center text-[#FFFFFF] pt-2 items-center pt-5" @click="edit *= -1">profile</div>
-                <div class="bg-[#E96479] h-16 w-60 text-center text-[#FFFFFF] pt-2 items-center pt-5" @click="logOut()">Log</div>
+      <!-- bell -->
+      <div class="relative flex items-center">
+        <a class="mr-4 text-neutral-500 hover:text-red-500 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+          href="#">
+          <span class="w-[7%]">
+                <img src="../image/bell-regular.svg" class="w-5 h-[7%]">
+          </span>
+
+        </a>
+
+      <!-- upload -->
+      <div class="relative flex items-center">
+        <a class="mr-4 text-neutral-500 hover:text-red-500 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+          href="#">
+
+          <span class="w-5 text-black text-[2vh]">
+              Upload
+          </span>
+
+        </a>
+
+      <!-- credit  -->
+      <div class="relative flex items-center">
+        <a class="max-[600px]:hidden mr-4 text-neutral-500 hover:text-red-500 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+          href="#">
+
+          <!-- btn credit -->
+          <span class="w-5">
+            <button type="button"
+              class="inline-block w-32 truncate rounded bg-[#F9FAFB] px-6 pt-2.5 pb-2 text-[2vh] font-medium uppercase leading-normal text-[#1F2937] shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#9FA6B2] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#9FA6B2] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+           {{ nice }} nice
+            </button>
+          </span>
+        </a>
+
+
+        <div class="relative">
+
+            <!-- profile Desktop -->
+            <div class="">
+              <img src="https://source.unsplash.com/800x600/?nature" class="rounded-full w-14 h-14" id="profile">
+              <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
+                <li class="text-l p-3" id="menu-items"></li>
+                <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/register"><p class="text-2xl">Proflie</p></a></li>
+                <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items"><a href="/login"><span class="text-l">{{nice}} nice.</span></a></li>
+                <li class="text-2xl cursor-pointer rounded p-3 hover:bg-red-500" id="menu-items"><a href="">History</a></li>
+                <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>
+              </ul>
             </div>
-          </div>
-            
-          <!-- edit profile -->
-          <div :class="[edit == -1 ? 'hidden' : '','w-2/6 fixed top-1/4 h-3/6 bg-[#4D455D] rounded flex']" style="left:35%;">
-            <div class="w-10 h-10 rounded-full pt-2 pl-4 bg-[#ffffff] fixed bottom-3/4 mb-40 left-2/4" style="margin-left:17%;top:23%" @click="edit *= -1">X</div>
-            <div class="bg-[#E96479] mt-7 mx-10 rounded p-5" style="width:92%;height: 90%;">
-            
-              <div class="grid-cols-2 grid w-full h-44 gap-5 mt-10">
-                <div class="w-full text-white">
-                <h1 class="">name</h1>
-                <input type="text" class="w-full h-12 text-black text-xl">
-                <h1 class="">Email</h1>
-                <input type="text" class="w-full h-12 text-black text-xl">
-              </div>
-                
-              <div class="w-full text-white">
-                <h1>Last Name</h1>
-                <input type="text" class="w-full h-12 text-black text-xl">
-                <h1>Phone</h1>
-                <input type="text" class="w-full h-12 text-black text-xl">
-              </div>
-
-              </div>
-              
-              <div class="text-white">
-                <h1>Address</h1>
-                <input type="textarea" class="w-full h-28">
-              </div>
-
-              <button class="mt-10 absolute right-24 p-3 bg-[#7DB9B6] w-28 rounded text-white">SAVE</button>
-
-            </div>
-
-          </div>
 
 
         </div>
+      </div>
     </div>
-  </section>
+    </div>
+    </div>
+  </nav>
+
+<!-- black line -->
+  <div class="w-full flex justify-center">
+    <div class="bg-black" style="width: 80%; background-color: black; height: 2px"></div>
+  </div>
 
 </template>
 
 <script>
-import topup from '../data/topup.json'
+import gsap from 'gsap';
 export default {
-    name:'NavUser',
-    data(){
-        return{
-            money: 5000,
-            name:'Tanathip',
-            lname: 'Singhanon',
-            sw: -1,
-            edit: -1,
-            data:''
-        }
-    },
-    methods:{
-      totopup(){
-        this.$router.push('/topup')
-      },
-      logOut(){
-        this.$router.push('/login')
-      },
-      mainPage(){
-        this.$router.push('/main')
-      },
-      checkMoney(){
-        for(let i = 0;i < topup.length;i++){
-          if(this.data[0].userID == topup[i].userId){
-            this.money = topup[i].coin
-            console.log(this.data);
-            return
-          }
-        }
-      }
-    },
-    created(){
-    let madara = localStorage.getItem("user")
-    this.data = JSON.parse(madara);
-   
-    this.checkMoney()
-  },
-  computed:{
-  
+ name: 'NavUser',
+ data(){
+  return{
+    toggleMoblie: -1,
+    nice: 640000000000
   }
+ },
+ mounted(){
+    let menuOpen = false;
+
+    //create timeline
+    let tl = gsap.timeline({
+      paused:true,
+      defaults: { duration: 0.3, ease: "power1.inOut" }});
+
+    // use timeline
+    tl.fromTo(
+        "#menu",
+        { visibility: "hidden" },
+        { visibility: "visible" },
+        0
+      ).fromTo("#menu-items",
+    { opacity: 0, y: "0.5em", stagger: 0.1 },
+    { opacity: 1, y: "0em", stagger: 0.1 }
+    );
+    
+    // add Event profile image (click)
+    document.querySelector("#profile").addEventListener("click", () => {
+      if (!menuOpen) {
+        tl.play();
+        menuOpen = true;
+      } else {
+        tl.reverse();
+        menuOpen = false;
+      }
+    });
+ }
 }
 </script>
 
-<style scoped>
-    
+<style>
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="sticky top-0 z-10 ">
-    <NavBarBtn />
+    <NavBar />
   </div>
   <div class="flex justify-center max-[600px]:flex-col min-h-screen" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
     <div class="w-[35%] max-[600px]:w-full">
@@ -54,10 +54,10 @@
 </template>
 
 <script>
-import NavBarBtn from '@/components/NavBarBtn.vue';
+import NavBar from '@/components/Nav.vue';
 
 export default {
-    components: { NavBarBtn }
+    components: { NavBar }
 }
 </script>
 

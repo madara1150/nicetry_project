@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-screen max-[600px]:min-h-max" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
     <NavUser />
 
     <div>
@@ -11,7 +11,7 @@
         <!-- overflow banks -->
         <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded">
             <div class="flex w-[120%]">
-                <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :id="i" @click="CheckOutput(val.img,i)">
+                <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :id="i" @click="CheckOutput(val.nice_name,i)">
                     <img  :src="require('../image/th/'+val.img)" class="h-32 w-[100px] rounded" href="madara">
                     <div class="w-[100px]">
                     </div>
@@ -20,16 +20,69 @@
         </div>
     </div>
     
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-20 text-white max-[600px]:flex-col">
 
-        <div class="w-[40%] bg-red-500">
-            
+        <!-- qrcode -->
+        <div class="w-[25%] max-[600px]:w-[75%] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r mx-10 rounded">
+            <h1 class="text-center p-5">Payment Receipt</h1>
+            <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded">
+            <div class="flex justify-center p-2">
+                <img src="https://cdn.discordapp.com/attachments/911172780781891614/1090288913463124049/image.png" class="w-[200px] h-[200px]">
+            </div>
+            <h1 class="text-center text-[1vh]">NiceTry Company.co.th</h1>
+            <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded">
+
+            <div class="flex justify-center p-5">
+                <span class="pr-[12vh]">300 nice</span>
+                <span>399 Baht</span>
+            </div>
+
         </div>
 
-        <div class="w-[30%]">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Bank</label>
-            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Bank" disabled :value="selectBank">
-        </div>
+        <!-- ------ -->
+
+        <form class="w-[30%] max-[600px]:w-[75%] max-[600px]:mt-5 ml-[10%]">
+
+            <!-- bank -->
+            <div>
+                <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Bank" disabled :value="selectBank">
+            </div>
+
+            <!-- Account name -->
+            <div class="mt-5">
+                <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Account Name">
+            </div>
+
+            <!-- account num -->
+            <div class="mt-5">
+                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Account Number">
+            </div>
+
+            <!-- time -->
+            <div class="mt-5">
+                
+                <!-- date time amount  -->
+                <div class="flex">
+                    <input type="date" class="bg-gray-50 mr-3 border w-[27%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="date">
+                    <input type="time" class="bg-gray-50 mr-3 border w-[22%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="time">
+                    <input type="number" class="bg-gray-50 border w-[29%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Amount">
+
+                </div>
+            </div>
+
+                <!-- input file -->
+            <div class="mt-5">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload file</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
+            </div>
+
+                <!-- btn submit -->
+            <div class="mt-5">
+                <button type="submit" class="text-gray-100 bg-gray-800 border border-gray-300 focus:outline-none hover:bg-gray-500 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-16 py-2.5 mr-2 mb-2">Submit</button>
+            </div>
+
+        </form>
+
 
         
     </div>
@@ -58,7 +111,7 @@ export default {
     methods:{
         CheckOutput(el,index){
             console.log(el)
-            this.selectBank = index
+            this.selectBank = el
             this.clearSelect()
             document.getElementById(index).style.backgroundColor = "#B8B0B0"
          

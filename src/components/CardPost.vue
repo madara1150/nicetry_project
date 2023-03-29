@@ -59,7 +59,7 @@
                 class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
               >
                 <div
-                  class="relative float-left -mr-[100%] w-full !transform-none opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
+                  class="relative float-left -mr-[100%] w-full h-[300px] !transform-none opacity-0 transition-opacity duration-[600ms] ease-in-out motion-reduce:transition-none"
                   data-te-carousel-fade
                   data-te-carousel-item
                   data-te-carousel-active

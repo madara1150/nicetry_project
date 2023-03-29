@@ -6,7 +6,7 @@
      
       <button
         class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
-        type="button">
+        type="button" @click="this.$router.push('/')">
         <span class="w-7 flex">
           <h1 class="text-black" style="font-size:2vh">NICE</h1>
           <h1 class="text-red-500" style="font-size:2vh">TRY</h1>
@@ -16,7 +16,7 @@
       <!-- desktop -->
       <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
         <a class="mt-2 mr-2 flex items-center hover:text-neutral-900 focus:text-black dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mt-0"
-          href="#">
+         @click="this.$router.push('/')">
           <h1 class="text-[#1F2937] pl-3" style="font-size: 3vh">NICE</h1>
           <h1 class="text-red-500" style="font-size: 3vh">TRY</h1>
         </a>

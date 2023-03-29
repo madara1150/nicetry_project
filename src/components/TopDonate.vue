@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="i in 3" class="bg-gray-900 border-b hover:bg-gray-700">
+            <tr v-for="i,index in 3" :key="index" class="bg-gray-900 border-b hover:bg-gray-700">
                 <td class="w-[15%] p-3">
                     <img src="https://e0.pxfuel.com/wallpapers/351/540/desktop-wallpaper-madara-uchiha-mobile-madara-uchiha-mobile-for-your-mobile-tablet-explore-madara-mobile-madara-madara-uchiha-madara-madara-dark-thumbnail.jpg" class="rounded h-10">
                 </td>

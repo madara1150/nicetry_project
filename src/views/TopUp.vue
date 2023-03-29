@@ -1,29 +1,31 @@
 <template>
-  <div class="min-h-screen max-[600px]:min-h-max" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
+  <div class="min-h-screen max-[600px]:min-h-max bg-[length:100%_100%]" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1090455311028060170/pngwing.com.png)">
     <NavUser />
 
     <div>
-        <h1 class="text-[3vh] text-center mt-5" @click="clearSelect()">Please select the payment bank</h1>
+        <h1 class="text-[3vh] text-center mt-5 max-[600px]:hidden" @click="clearSelect()">Please select the payment bank</h1>
     </div>
     
-    <div class="flex justify-center mt-5">
+    <div class="flex justify-center mt-5 max-[600px]:mt-1">
 
         <!-- overflow banks -->
-        <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded">
+        <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded max-[600px]:hidden">
             <div class="flex w-[120%]">
-                <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :id="i" @click="CheckOutput(val.nice_name,i)">
-                    <img  :src="require('../image/th/'+val.img)" class="h-32 w-[100px] rounded" href="madara">
+                <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :key="i" :id="i" @click="CheckOutput(val.nice_name,i)">
+                    <img  :src="require('../image/th/'+val.img)" class="h-24 w-[100px] rounded-full" href="madara">
                     <div class="w-[100px]">
                     </div>
                 </a>
             </div>
         </div>
+
+       
     </div>
     
-    <div class="flex justify-center mt-20 text-white max-[600px]:flex-col">
+    <div class="flex justify-center mt-20 text-white max-[600px]:flex-col max-[600px]:mt-5">
 
         <!-- qrcode -->
-        <div class="w-[25%] max-[600px]:w-[75%] bg-gradient-to-b from-gray-900 to-gray-600 bg-gradient-to-r mx-10 rounded">
+        <div class="w-[25%] max-[600px]:w-[75%] bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-red-800 via-rose-800 to-black mx-10 rounded">
             <h1 class="text-center p-5">Payment Receipt</h1>
             <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded">
             <div class="flex justify-center p-2">
@@ -41,12 +43,17 @@
 
         <!-- ------ -->
 
-        <form class="w-[30%] max-[600px]:w-[75%] max-[600px]:mt-5 ml-[10%]">
+        <form class="w-[30%] max-[600px]:w-[75%] max-[600px]:mt-5 max-[600px]:ml-[10%] p-5 rounded">
 
             <!-- bank -->
-            <div>
+            <div class="contrast-50 max-[600px]:hidden">
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Bank" disabled :value="selectBank">
             </div>
+
+            <select name="" id="" class="min-[600px]:hidden bg-gray-600 text-white p-2 rounded w-full">
+                <option value="">Please Select Bank ...</option>
+                <option value="" v-for="val,i in bank" :key="i">{{ val.nice_name }}</option>
+            </select>
 
             <!-- Account name -->
             <div class="mt-5">
@@ -78,7 +85,7 @@
 
                 <!-- btn submit -->
             <div class="mt-5">
-                <button type="submit" class="text-gray-100 bg-gray-800 border border-gray-300 focus:outline-none hover:bg-gray-500 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-16 py-2.5 mr-2 mb-2">Submit</button>
+                <button type="submit" class="text-gray-100 bg-gray-800 border border-gray-300 focus:outline-none hover:bg-gray-500 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-16 py-2.5 mr-2 mb-2 max-[600px]:w-full">Submit</button>
             </div>
 
         </form>

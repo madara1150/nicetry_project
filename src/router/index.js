@@ -8,6 +8,7 @@ import TopUp from '../views/TopUp.vue'
 import UsePage from '../views/UsePage.vue'
 import Admin from '../views/Admin.vue'
 import PostAdmin from '../views/PostAdmin.vue'
+import Deposit from '../views/Deposit.vue'
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
     path: "/postadmin",
     name: "PostAdmin",
     component: PostAdmin,
+  },
+  {
+    path: "/deposit",
+    name: "Deposit",
+    component: Deposit,
   },
   
   

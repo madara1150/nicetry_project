@@ -151,13 +151,13 @@ export default {
         trigger:'#container2',
         scrub:true,
         start: "-10%",
-        end:'+=250',
+        end:'+=200',
       }
     })
 
-    tl.from('#text-main', {y:-700,duration:1.5})
-    .from('#card-main', {x:-900,duration:1.5})
-    .from('#image-main',{x:1000,duration:1.5})
+    tl.from('#text-main', {y:-400,duration:1.5})
+    .from('#card-main', {x:-400,duration:1.5})
+    .from('#image-main',{x:600,duration:1.5})
     
   }
 };

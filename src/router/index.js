@@ -3,12 +3,9 @@ import Home from "../views/Home.vue";
 import MainPage from '../views/MainPage.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
-import History from '../views/History.vue'
 import TopUp from '../views/TopUp.vue'
-import UsePage from '../views/UsePage.vue'
-import Admin from '../views/Admin.vue'
-import PostAdmin from '../views/PostAdmin.vue'
 import Deposit from '../views/Deposit.vue'
+import withdraw from '../views/WithDraw.vue'
 
 const routes = [
   {
@@ -45,26 +42,15 @@ const routes = [
     component: TopUp,
   },
   {
-    path: "/usepage",
-    name: "usePage",
-    component: UsePage,
-  },
-  {
-    path: "/admin",
-    name: "Admin",
-    component: Admin,
-  },
-  {
-    path: "/postadmin",
-    name: "PostAdmin",
-    component: PostAdmin,
-  },
-  {
     path: "/deposit",
     name: "Deposit",
     component: Deposit,
   },
-  
+  {
+    path: "/withdraw",
+    name: "WithDraw",
+    component: withdraw,
+  },
   
 ];
 

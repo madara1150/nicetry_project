@@ -57,14 +57,14 @@ import gsap from 'gsap';
 import CardPost from "../components/CardPost.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import TopDonate from './TopDonate.vue';
-import TransferMoney from './TransferMoney.vue'
+
 
 export default {
   name: "Landing",
   components: {
     CardPost,
     TopDonate,
-    TransferMoney
+
   },
   methods:{
     

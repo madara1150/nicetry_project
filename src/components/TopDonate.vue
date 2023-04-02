@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg rounded">
     <table class="w-full text-sm text-left text-gray-500">
         <thead class="text-xs text-white uppercase bg-gray-800">
             <tr>
@@ -16,8 +16,8 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-            <tr v-for="i,index in 3" :key="index" class="bg-gray-900 border-b hover:bg-gray-700">
+        <tbody class="">
+            <tr v-for="i,index in 5" :key="index" class="bg-gray-900 border-b hover:bg-gray-700">
                 <td class="w-[15%] p-3">
                     <img src="https://e0.pxfuel.com/wallpapers/351/540/desktop-wallpaper-madara-uchiha-mobile-madara-uchiha-mobile-for-your-mobile-tablet-explore-madara-mobile-madara-madara-uchiha-madara-madara-dark-thumbnail.jpg" class="rounded h-10">
                 </td>

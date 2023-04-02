@@ -1,14 +1,30 @@
 <template>
   <div>
-<NavUser />
+<NavUser class="z-40" />
     
+    <div class="bg-gradient-to-br from-rose-900 via-black to-rose-700 w-full h-full">
+        <div class="w-[70%] mx-auto bg-gray-200 max-[600px]:w-[100%]">
+            <div class="flex justify-center max-[600px]:p-5" v-for="val,i in 2" :key="i">
+                <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5">
+                    <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="''" />
+                    <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" />
+                </div>
+            </div>
 
-    <div class="flex justify-center" v-for="val,i in 3" :key="i">
-        <div class="flex justify-center content-center mt-10">
-            <CardPost  class="w-[34%] mr-10"/>
-            <TopDonate class="w-[35%] h-[40%] mt-5" />
+            <!-- test level post -->
+            <div class="flex justify-center max-[600px]:p-5" v-for="val,i in 2" :key="i">
+                <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5">
+                    <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="'bg-red-700'" />
+                    <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" />
+                </div>
+            </div>
+
         </div>
+        
     </div>
+
+
+    
 
   </div>
 </template>

@@ -16,7 +16,7 @@
           </div>
           <button
             type="button"
-            class="max-[600px]:m-auto max-[600px]:mt-2 max-[600px]: max-[600px]:h-[10%] max-[600px]:w-[40%] max-[600px]:text-xs inline-block rounded bg-white mt-[8%] ml-[48%] px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:bg-gray-400 focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+            class="max-[600px]:m-auto max-[600px]:mt-2 max-[600px]: max-[600px]:h-[10%] max-[600px]:w-[40%] max-[600px]:text-xs inline-block rounded bg-white mt-[8%] ml-[48%] px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-400 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
             Edit Profile
           </button>
  

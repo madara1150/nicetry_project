@@ -7,6 +7,7 @@ import TopUp from '../views/TopUp.vue'
 import Deposit from '../views/Deposit.vue'
 import withdraw from '../views/WithDraw.vue'
 import Profile from '../views/Profile.vue'
+import Admin from '../views/Admin.vue'
 
 const routes = [
   {
@@ -56,6 +57,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
   },
   
 ];

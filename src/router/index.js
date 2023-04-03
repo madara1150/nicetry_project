@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import TopUp from '../views/TopUp.vue'
 import Deposit from '../views/Deposit.vue'
 import withdraw from '../views/WithDraw.vue'
+import Profile from '../views/Profile.vue'
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
     path: "/withdraw",
     name: "WithDraw",
     component: withdraw,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile
   },
   
 ];

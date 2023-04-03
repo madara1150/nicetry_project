@@ -4,13 +4,13 @@
   </div>
   <div class="flex justify-center max-[600px]:flex-col min-h-screen" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
     <div class="w-[35%] max-[600px]:w-full">
-      <div>
+      <div id="welcomeback">
         <p class="text-5xl mt-14 text-center" >WELCOME <span class="text-red-600">BACK</span></p>
         <p class="text-lg mt-3 text-center text-gray-300">Please enter your detail</p>
       </div>
       
       <!-- input -->
-      <form class="w-full">
+      <form class="w-full" id="image">
         <div class="w-[90%]">
             <div>
               <input type="text" id="username" class="ml-5 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your username" required>
@@ -50,9 +50,16 @@
 
 <script>
 import NavBar from '@/components/Nav.vue';
+import gsap from 'gsap';
 
 export default {
-    components: { NavBar }
+    components: { NavBar },
+    mounted(){
+      let tl = gsap.timeline()
+      tl.from('#welcomeback', {x:100,duration:1.5,autoAlpha:0})
+      .from('#image', {x:-100,duration:0.5,autoAlpha:0})
+      .from('#image-main', {x:-100,duration:0.5,autoAlpha:0})
+    }
 }
 </script>
 

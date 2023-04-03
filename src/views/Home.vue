@@ -155,9 +155,9 @@ export default {
       }
     })
 
-    tl.from('#text-main', {y:-400,duration:1.5})
-    .from('#card-main', {x:-400,duration:1.5})
-    .from('#image-main',{x:600,duration:1.5})
+    tl.from('#text-main', {y:100,duration:1.5,autoAlpha:0},1)
+    .from('#card-main', {x:-100,duration:1.5,autoAlpha:0},1)
+    .from('#image-main',{x:100,duration:1.5,autoAlpha:0},1)
     
   }
 };

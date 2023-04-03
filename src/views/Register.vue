@@ -4,13 +4,13 @@
   </div>
   <div class="flex justify-center max-[600px]:flex-col min-h-screen" style="background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png)">
     <div class="w-[35%] max-[600px]:w-full">
-      <div class="text-center">
+      <div class="text-center" id="start">
         <p class="text-5xl mt-14 text-center" >GET <span class="text-red-600">STARTED</span></p>
         <p class="text-lg mt-3 text-center text-gray-300">create your account now.</p>
       </div>
       
       <!-- input -->
-      <form class="w-full flex justify-center">
+      <form class="w-full flex justify-center" id="form">
         <div class="w-[90%]">
             <div class="flex">
                 <input type="text" id="fname" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your name" required>
@@ -55,9 +55,15 @@
 
 <script>
 import NavBar from '@/components/Nav.vue';
-
+import gsap from 'gsap';
 export default {
-    components: { NavBar }
+    components: { NavBar },
+    mounted(){
+      let tl = gsap.timeline()
+      tl.from('#start', {x:100,duration:1.5,autoAlpha:0})
+      .from('#form', {x:-100,duration:0.5,autoAlpha:0})
+      .from('#image-main', {x:-100,duration:0.5,autoAlpha:0})
+    }
 }
 </script>
 

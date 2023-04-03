@@ -88,7 +88,7 @@ export default {
         
       }})
 
-      tl.from('#NameLanding',{x:300,duration:1.5})
+      tl.from('#NameLanding',{x:-100, opacity:0,autoAlpha:0},0)
       .from('#PostOne',{x:-300,duration:1.5})
       .from('#ContentOne',{x:300, duration:1.5})
 

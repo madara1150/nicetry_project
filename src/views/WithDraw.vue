@@ -9,7 +9,7 @@
     <div class="flex justify-center mt-5 max-[600px]:mt-1">
 
         <!-- overflow banks -->
-        <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded max-[600px]:hidden">
+        <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded max-[600px]:hidden" id="banks">
             <div class="flex w-[120%]">
                 <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :key="i" :id="i" @click="CheckOutput(val.nice_name,i)">
                     <img  :src="require('../image/th/'+val.img)" class="h-24 w-[100px] rounded-full" href="madara">
@@ -56,7 +56,7 @@
         </form>
 
         <!-- Receipt -->
-        <div class="w-[35%] ml-5 rounded p-16 text-gray-400 text-xl bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-black via-rose-900 to-black max-[600px]:w-full max-[600px]:p-5 max-[600px]:ml-0 max-[600px]:mt-5 max-[600px]:text-[90%]">
+        <div class="w-[35%] ml-5 rounded p-16 text-gray-400 sqcode text-xl bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-black via-rose-900 to-black max-[600px]:w-full max-[600px]:p-5 max-[600px]:ml-0 max-[600px]:mt-5 max-[600px]:text-[90%]" id="qrcode">
             <h1 class="pb-2 text-white">Payment Receipt</h1>
             <hr>
             <h1 class="flex mt-2 text-[80%]">Account name : <p class="ml-2 text-white">{{ nameAccount }}</p></h1>
@@ -79,6 +79,7 @@
 <script>
 import NavUser from '@/components/NavUser.vue';
 import bank from '../data/banks.json'
+import gsap from 'gsap';
 export default {
     name :"WithDraw",
     components:{
@@ -108,6 +109,11 @@ export default {
             }
                 
         }
+    },
+    mounted(){
+      let tl = gsap.timeline()
+      tl.from('#banks', {y:-100,duration:1.5,autoAlpha:0})
+      .from('#qrcode', {x:-100,duration:0.5,autoAlpha:0})
     }
     
 }

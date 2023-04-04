@@ -9,7 +9,7 @@
     <div class="flex justify-center mt-5 max-[600px]:mt-1">
 
         <!-- overflow banks -->
-        <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded max-[600px]:hidden">
+        <div class="w-[80%] p-2 bg-gradient-to-br from-black via-gray-800 to-rose-800 overflow-x-scroll rounded max-[600px]:hidden" id="banks">
             <div class="flex w-[120%]">
                 <a v-for="val,i in bank" class="p-2 px-4 bg-white hover:bg-[#B8B0B0]" :key="i" :id="i" @click="CheckOutput(val.nice_name,i)">
                     <img  :src="require('../image/th/'+val.img)" class="h-24 w-[100px] rounded-full" href="madara">
@@ -22,7 +22,7 @@
        
     </div>
     
-    <div class="flex justify-center mt-20 text-white max-[600px]:flex-col max-[600px]:mt-5">
+    <div class="flex justify-center mt-20 text-white max-[600px]:flex-col max-[600px]:mt-5" id="qrcode">
 
         <!-- qrcode -->
         <div class="w-[25%] max-[600px]:w-[75%] bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-red-800 via-rose-800 to-black mx-10 rounded">
@@ -130,6 +130,11 @@ export default {
             }
                 
         }
+    },
+    mounted(){
+      let tl = gsap.timeline()
+      tl.from('#banks', {y:-100,duration:1.5,autoAlpha:0})
+      .from('#qrcode', {x:-100,duration:0.5,autoAlpha:0})
     }
 }
 </script>

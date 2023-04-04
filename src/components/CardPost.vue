@@ -219,7 +219,7 @@
                     </div>
 
                     <!-- content -->
-                    <div class="relative p-4 bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-black via-rose-900 to-black">
+                    <div class="relative p-4 bg-white">
                         <div class="overflow-scroll h-96">
 
                           <div class="mt-2 overflow-scroll" v-for="val, i in 4" :key="i">
@@ -237,9 +237,9 @@
                           <hr>
                         </div>
                       </div>
-                      <form action="" class="mt-5">
-                        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2" placeholder="Write your comment..."></textarea>
-                        <button type="button" class="mt-2 focus:outline-none text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add comment</button>
+                      <form action="" class="mt-5 bg-black p-5">
+                        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-300 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2" placeholder="Write your comment..."></textarea>
+                        <button type="button" class="mt-2 focus:outline-none text-black bg-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add comment</button>
                       </form>
 
                     </div>
@@ -355,11 +355,13 @@
                         </svg>
                       </button>
                     </div>
-                    <div class="relative p-4">
-                      Thank You for Reported.
+                    <div class="relative p-4 text-center">
                       <div class="flex justify-center">
-                        <img src="https://media.tenor.com/9a0QBLnMWaEAAAAM/cute-bear.gif" >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-green-600 w-28 h-28 mt-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                       </div>
+                      Thank You for Reported.
                     </div>
                   </div>
                 </div>
@@ -418,7 +420,8 @@
                       <!-- content -->
                       <div class="relative p-4 bg-white">
                         <div class="p-5 text-2xl max-[600px]:text-[90%] text-center">
-                            Donate to Madara Uchiha? <br>
+                            <h1 class="text-black text-3xl">Nice<span class="text-red-500">TRY</span></h1>
+                            <p class="text-gray-700">Donate to Madara Uchiha?</p> <br>
                             <div class="mt-2">
                                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Put your Nice coin</label>
                                 <div class="flex max-[600px]:flex-col">

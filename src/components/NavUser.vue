@@ -5,8 +5,8 @@
       <!-- phone -->
      
       <button
-        class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
-        type="button" @click="this.$router.push('/')">
+        class="cursor-pointer block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
+        type="button" @click="this.$router.push('/main')">
         <span class="w-7 flex">
           <h1 class="text-black" style="font-size:2vh">NICE</h1>
           <h1 class="text-red-500" style="font-size:2vh">TRY</h1>
@@ -14,9 +14,9 @@
       </button>
 
       <!-- desktop -->
-      <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
+      <div class="cursor-pointer !visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
         <a class="mt-2 mr-2 flex items-center hover:text-neutral-900 focus:text-black lg:mt-0"
-         @click="this.$router.push('/')">
+         @click="this.$router.push('/main')">
           <h1 class="text-[#1F2937] pl-3" style="font-size: 3vh">NICE</h1>
           <h1 class="text-red-500" style="font-size: 3vh">TRY</h1>
         </a>
@@ -109,7 +109,7 @@
                   <!-- input content -->
                   <div class="p-5">
                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Write your content</label>
-                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your content here..."></textarea>
+                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-200 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your content here..."></textarea>
 
                     <!-- file -->
                     <label class="block mb-2 text-sm font-medium text-gray-900 mt-5" for="file_input">Upload file</label>
@@ -189,7 +189,7 @@
         <div class="relative z-40">
 
             <!-- profile Desktop -->
-            <div class="">
+            <div class="cursor-pointer">
               <img src="https://source.unsplash.com/800x600/?nature" class="rounded-full w-14 h-14" id="profile">
               <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                 <li class="text-l p-3" id="menu-items"></li>

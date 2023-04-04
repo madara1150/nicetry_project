@@ -8,6 +8,7 @@ import Deposit from '../views/Deposit.vue'
 import withdraw from '../views/WithDraw.vue'
 import Profile from '../views/Profile.vue'
 import Admin from '../views/Admin.vue'
+import MainAdmin from '../views/MainAdmin.vue'
 
 const routes = [
   {
@@ -62,6 +63,11 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
+  },
+  {
+    path: "/postadmin",
+    name: "MainAdmin",
+    component: MainAdmin,
   },
   
 ];

@@ -16,8 +16,8 @@
           </div>
 
           <div class="w-[50%] max-[600px]:w-full max-[600px]:justify-center">
-            <button id="btn"
-            type="button" data-te-toggle="modal" data-te-target="#exampleModal" data-te-ripple-init data-te-ripple-color="light"
+            <button
+            type="button" data-te-toggle="modal" data-te-target="#editprofile" data-te-ripple-init data-te-ripple-color="light"
             class="max-[600px]:w-1/2 max-[600px]:ml-[50%] max-[600px]:mt-2 max-[600px]: max-[600px]:h-[10%] max-[600px]:w-[40%] max-[600px]:text-xs inline-block rounded bg-white mt-[8%] ml-[48%] px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-400 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
             Edit Profile
           </button>
@@ -30,7 +30,7 @@
     <div
             data-te-modal-init
             class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-            id="exampleModal"
+            id="editprofile"
             tabindex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -160,7 +160,6 @@ export default {
     mounted(){
       let tl = gsap.timeline()
       tl.from('#img', {y:-100,duration:0.5,autoAlpha:1})
-      .from('#btn', {x:-100,duration:0.5,autoAlpha:1})
       
     }
 

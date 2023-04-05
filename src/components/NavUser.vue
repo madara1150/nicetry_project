@@ -193,7 +193,7 @@
               <img src="https://source.unsplash.com/800x600/?nature" class="rounded-full w-14 h-14" id="profile">
               <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                 <li class="text-l p-3" id="menu-items"></li>
-                <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/register"><p class="text-2xl">Proflie</p></a></li>
+                <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/profile"><p class="text-2xl">Proflie</p></a></li>
                 <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"><a href="#"><span class="text-l">{{nice}} nice.</span></a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 hover:bg-red-500" id="menu-items"><a href="/deposit">History</a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>

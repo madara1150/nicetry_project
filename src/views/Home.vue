@@ -150,7 +150,7 @@ export default {
       scrollTrigger:{
         trigger:'#container2',
         scrub:true,
-        start: "-10%",
+        start: "-15%",
         end:'+=200',
       }
     })

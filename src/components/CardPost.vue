@@ -148,7 +148,7 @@
                 >
               </button>
 
-              <div class="w-full p-5 overflow-y-scroll h-20 mt-2 max-[600px]:mt-0">
+              <div class="w-full p-5 overflow-y-scroll h-20 mt-2 max-[600px]:mt-0 max-[100px]:h-0">
                 <p class="overflow-y-scroll h-20">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi aut maiores placeat impedit quia ducimus eius voluptate beatae aliquam sunt doloremque laborum illo tenetur voluptas molestiae enim animi, necessitatibus explicabo.
                 </p>

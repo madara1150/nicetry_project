@@ -9,16 +9,19 @@
     <div class="max-[600px]:flex-col ">
         <div class="flex ml-[10%] mt-5 max-[600px]:flex-col max-[600px]:justify-center max-[600px]:ml-0 max-[600px]:" id="img">
           <img src="https://source.unsplash.com/800x600/?nature" alt="" class="max-[600px]:m-auto shadow-sm shadow-white/50 rounded-full h-36 w-36">
-          <div class="p-5 max-[600px]:p-3 max-[600px]:text-center">
+          <div class="p-5 max-[600px]:p-3 max-[600px]:text-center w-[50%] max-[600px]:w-full">
             <h1 class="text-3xl text-white">Nutaya</h1>
             <h1 class="text-sm mt-3 text-white">TANATHIP SINGHANON</h1>
             <h1 class="text-sm mt-3 text-white">Tel 202101204124124</h1>
           </div>
-          <button id="btn"
+
+          <div class="w-[50%] max-[600px]:w-full max-[600px]:justify-center">
+            <button id="btn"
             type="button" data-te-toggle="modal" data-te-target="#exampleModal" data-te-ripple-init data-te-ripple-color="light"
-            class="max-[600px]:m-auto max-[600px]:mt-2 max-[600px]: max-[600px]:h-[10%] max-[600px]:w-[40%] max-[600px]:text-xs inline-block rounded bg-white mt-[8%] ml-[48%] px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-400 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+            class="max-[600px]:w-1/2 max-[600px]:ml-[50%] max-[600px]:mt-2 max-[600px]: max-[600px]:h-[10%] max-[600px]:w-[40%] max-[600px]:text-xs inline-block rounded bg-white mt-[8%] ml-[48%] px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-400 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
             Edit Profile
           </button>
+          </div>
  
         </div>
 
@@ -118,8 +121,8 @@
     </div>
     
 
-    <div>
-        <div class="w-[70%] mx-auto max-[600px]:w-[100%]">
+    <div class="">
+        <div class="w-[70%] mx-auto max-[600px]:w-[100%] bg-gray-200 rounded">
             <div class="flex justify-center max-[600px]:p-5" v-for="val,i in 2" :key="i">
                 <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5">
                     <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="''" id="post" />

@@ -11,7 +11,7 @@
 
     <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-20 justify-center">
       <div class="w-[40%] max-[600px]:w-[100%]" id="PostOne">
-        <CardPost class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" />
+        <CardPost class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" :color="'bg-gradient-to-br from-slate-700 via-slate-800 to-gray-900'" />
       </div>
 
     
@@ -40,14 +40,16 @@
       </div>
 
     </div>
+    <h1 class="text-2xl text-white text-center mt-20 max-[600px]:mt-16">LEVEL</h1>
+    <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-10 justify-center max-[600px]:mt-3" >
 
-    <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-20 justify-center" >
-
-        <div class="w-[60%]">
-            
+        <div class="w-[80%] max-[600px]:mt-2 max-[600px]:m-auto" v-for="val,index in 4" :key="index">
+          <CardLanding class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)] px-2" :color="ChangeColor(index)" />
         </div>
 
-    </div>   
+    </div>
+
+    
 
     </div>
 </template>
@@ -57,25 +59,43 @@ import gsap from 'gsap';
 import CardPost from "../components/CardPost.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import TopDonate from './TopDonate.vue';
-
+import CardLanding from './CardLanding.vue';
 
 export default {
   name: "Landing",
   components: {
     CardPost,
     TopDonate,
+    CardLanding
 
-  },
-  methods:{
-    
   },
   data(){
     return{
+      indexs:0,
+      color:''
     }
   },
-  mounted() {
 
-    let word = ["This is a sample post. You can post your own lifestyle. You can include up to 3 photos showing what others don't know about you. Supporters will come to support you."]
+
+  methods:{
+    levelPost(){
+      if(this.indexs == 4){
+        this.indexs = 0
+      }
+      else{
+        this.indexs++
+      }
+      
+    },
+    ChangeColor(index){
+      let color = ['bg-gradient-to-br from-green-700 via-slate-800 to-gray-900', 'bg-gradient-to-br from-red-700 via-slate-800 to-gray-900','bg-gradient-to-br from-yellow-700 via-slate-800 to-gray-900', 'bg-gradient-to-br from-orange-600 via-slate-800 to-gray-900','bg-gradient-to-br from-slate-700 via-slate-800 to-gray-900']
+      return color[index]
+    }
+    
+  },
+
+
+  mounted() {
 
     gsap.registerPlugin(ScrollTrigger);
     let tl = gsap.timeline({
@@ -104,6 +124,8 @@ export default {
   },
   created(){
     
+  },
+  computed:{
   }
 };
 </script>

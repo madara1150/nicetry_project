@@ -31,7 +31,7 @@
                              Nice coin
                          </th>
                          <th scope="col" class="px-6 py-3">
-                             Price
+                             Package
                          </th>
                      </tr>
                  </thead>
@@ -73,7 +73,10 @@
                              Nice coin
                          </th>
                          <th scope="col" class="px-6 py-3">
-                             Price
+                             bank
+                         </th>
+                         <th scope="col" class="px-6 py-3">
+                             account number
                          </th>
                      </tr>
                  </thead>
@@ -91,7 +94,10 @@
                              300
                          </td>
                          <td class="px-6 py-3">
-                             399.0
+                             kbank
+                         </td>
+                         <td class="px-6 py-3">
+                             1102321321xxx
                          </td>
                      </tr>
                  </tbody>
@@ -104,7 +110,7 @@
                  <thead class="text-sm text-gray-200 uppercase bg-gradient-to-br from-rose-800 via-slate-800 to-gray-900">
                      <tr>
                          <th scope="col" class="px-6 py-3">
-                             Status
+                             Post
                          </th>
                          <th scope="col" class="px-6 py-3">
                              Date & Time
@@ -121,7 +127,7 @@
                  <tbody>
                      <tr v-for="val, i in 5" :key="i" class="border border-gray-600 bg-white">
                          <td class="px-6 py-3">
-                             wait...
+                             1110231
                          </td>
                          <td class="px-6 py-3">
                              2002-02-02

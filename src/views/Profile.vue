@@ -1,8 +1,8 @@
 <template>
   <div class="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-gray-800 via-gray-900 to-rose-900 w-full h-full">
-    <div class="sticky top-0 z-10">
-      <NavUser />
-    </div>
+   
+    <NavUser />
+
     
 
     <!-- profile -->
@@ -73,22 +73,22 @@
                             <div class="grid gap-6 mb-6 md:grid-cols-2">
                                 <div>
                                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First name</label>
-                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="John">
+                                    <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Change name">
                                 </div>
                                 <div>
                                     <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last name</label>
-                                    <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe">
+                                    <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Change Lastname">
                                 </div>
                             </div>
 
-                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nice coin</label>
-                            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe">
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Contact</label>
+                            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Contact">
 
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe">
+                            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Change your email">
                         
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Tel</label>
-                            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Doe">
+                            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Change phone number">
                         </form>
                     </div>
                 </div>

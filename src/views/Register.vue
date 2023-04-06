@@ -18,8 +18,11 @@
             </div>
             <div>
               <input type="text" id="username" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your username" required>
-              <input type="text" id="email" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your email" required>
               <input type="password" id="pass" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your password" required>
+              <input type="text" id="email" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your email" required>
+              <input type="number" id="" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your phone number" required>
+              <input type="text" id="" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your contact">
+
             </div>
             <button type="button" class="mt-7 drop-shadow-lg w-full h-12 text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">SIGN UP</button>
             <p id="helper-text-explanation" class="mt-2 text-sm text-center text-white">Do you have an account? <a href="/Login" class="font-medium text-red-600 hover:underline bg-gray-100 p-1.5 rounded-[20%]">Sign In</a></p>
@@ -67,6 +70,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>

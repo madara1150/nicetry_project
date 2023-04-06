@@ -149,7 +149,7 @@
               </button>
 
               <div class="w-full p-5 overflow-y-scroll h-20 mt-2 max-[600px]:mt-0 max-[100px]:h-0">
-                <p class="overflow-y-scroll h-20">
+                <p class=" h-20">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi aut maiores placeat impedit quia ducimus eius voluptate beatae aliquam sunt doloremque laborum illo tenetur voluptas molestiae enim animi, necessitatibus explicabo.
                 </p>
             </div>
@@ -220,9 +220,9 @@
 
                     <!-- content -->
                     <div class="relative p-4 bg-white">
-                        <div class="overflow-scroll h-96">
+                        <div class="overflow-y-scroll h-96">
 
-                          <div class="mt-2 overflow-scroll" v-for="val, i in 4" :key="i">
+                          <div class="mt-2" v-for="val, i in 4" :key="i">
                             <div class="flex items-center bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded p-2">
                               <img src="https://source.unsplash.com/800x600/?nature" alt="" class="rounded-full w-10 h-10">
                               <div>
@@ -237,7 +237,7 @@
                           <hr>
                         </div>
                       </div>
-                      <form action="" class="mt-5 bg-black p-5">
+                      <form action="" class="mt-5 bg-black p-5 rounded">
                         <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-300 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2" placeholder="Write your comment..."></textarea>
                         <button type="button" class="mt-2 focus:outline-none text-black bg-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add comment</button>
                       </form>

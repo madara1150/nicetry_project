@@ -5,8 +5,8 @@
       <!-- phone -->
      
       <button
-        class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
-        type="button" @click="this.$router.push('/')">
+        class="block border-0 bg-transparent py-2 px-2.5 text-red-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden cursor-pointer"
+        type="button" @click="this.$router.push('/main')">
         <span class="w-7 flex">
           <h1 class="text-black" style="font-size:2vh">NICE</h1>
           <h1 class="text-red-500" style="font-size:2vh">TRY</h1>
@@ -14,9 +14,9 @@
       </button>
 
       <!-- desktop -->
-      <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
+      <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto cursor-pointer">
         <a class="mt-2 mr-2 flex items-center hover:text-neutral-900 focus:text-black lg:mt-0"
-         @click="this.$router.push('/')">
+         @click="this.$router.push('/main')">
           <h1 class="text-[#1F2937] pl-3" style="font-size: 3vh">NICE</h1>
           <h1 class="text-red-500" style="font-size: 3vh">TRY</h1>
         </a>
@@ -50,7 +50,7 @@
                 <!-- content -->
                 <div class="relative flex-auto p-4 h-96 overflow-y-auto" data-te-modal-body-ref>
                   
-                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black overflow-scroll" v-for="val,i in 10" :key="i">
+                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-for="val,i in 10" :key="i">
                     <h1 class="mt-2 break-words">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus enim explicabo non provident sed fugit inventore quasi doloribus culpa eaque.</h1>
                   </div>
 
@@ -193,7 +193,7 @@
               <img src="https://source.unsplash.com/800x600/?nature" class="rounded-full w-14 h-14" id="profile">
               <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                 <li class="text-l p-3" id="menu-items"></li>
-                <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/register"><p class="text-2xl">Proflie</p></a></li>
+                <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/profile"><p class="text-2xl">Proflie</p></a></li>
                 <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"><a href="#"><span class="text-l">{{nice}} nice.</span></a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 hover:bg-red-500" id="menu-items"><a href="/deposit">History</a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>

@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id String @id @default(uuid())
+  username String @unique
+  password String 
+  firstName String 
+  lastName String
+  role Role? @default(USER)
+  email String
+  phone_number String?
+  info String?
+  coin Int @default(0)
+  CreateAt DateTime @default(now())
+  post   Post[]
+  donation Donation[]
+  comment Comment[]
+  report Report[]
+  image Image[]
+  topup Topup[]
+  withdraw Withdraw[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Post{
+  id String @id @default(uuid())
+  userId String?
+  info String?
+  like Int @default(0)
+  CreateAt DateTime @default(now())
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  donation Donation[]
+  comment Comment[]
+  report Report[]
+  image Image[]
+
+}
+
+model Donation{
+  id String @id @default(uuid())
+  userId String?
+  postId String?
+  amount Int
+  status Boolean @default(false)
+  CreateAt DateTime @default(now())
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  Post Post? @relation(fields: [postId], references: [id] ,onDelete: Cascade)
+}
+
+model Comment{
+  id String @id @default(uuid())
+  userId String?
+  postId String?
+  info String?
+  createAt DateTime @default(now())
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  Post Post? @relation(fields: [postId], references: [id] ,onDelete: Cascade)
+}
+
+model Report {
+  id String @id @default(uuid())
+  postId String?
+  userId String?
+  reson String?
+  status Boolean @default(false)
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  Post Post? @relation(fields: [postId], references: [id] ,onDelete: Cascade)
+}
+
+model Image{
+  id String @id @default(uuid())
+  postId String?
+  userId String?
+  topupId String?
+  filePath String
+  uploadDate DateTime @default(now())
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  Post Post? @relation(fields: [postId], references: [id] ,onDelete: Cascade)
+  Topup Topup? @relation(fields: [topupId], references: [id] ,onDelete: Cascade)
+}
+
+model Topup{
+  id String @id @default(uuid())
+  userId String?
+  amount Int
+  slipImg String
+  bankTopup String
+  topupPackage Float
+  status Boolean
+  topupTime DateTime @default(now())
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+  image Image[]
+}
+
+model Withdraw{
+  id String @id @default(uuid())
+  userId String?
+  amount Int
+  bankName String
+  accNum String
+  status Boolean
+  createAt DateTime @default(now())
+  User User? @relation(fields: [userId], references: [id] ,onDelete: Cascade)
+
+
+}

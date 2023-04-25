@@ -6,9 +6,6 @@
 
 <script>
 
-
-
-import gsap from "gsap";
 export default {
   name: "App",
   components: {
@@ -29,12 +26,12 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Abril Fatface', cursive;
+  font-family: 'Kanit', sans-serif;
   
 }
 

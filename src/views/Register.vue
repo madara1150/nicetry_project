@@ -13,9 +13,10 @@
       <form class="w-full flex justify-center" id="form">
         <div class="w-[90%]">
             <div class="flex">
-                <input type="text" id="fname" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your name" required>
+                <input type="text" v-model="fname" @blur="v$.fname.$touch" id="fname" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your name" required>
                 <input type="text" id="lname" class="ml-4 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your lastname" required>
             </div>
+            <div class="text-red-500" v-if="v$.fname.$error">Name must 8 characters</div>
             <div>
               <input type="text" id="username" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your username" required>
               <input type="password" id="pass" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your password" required>
@@ -59,13 +60,34 @@
 <script>
 import NavBar from '@/components/Nav.vue';
 import gsap from 'gsap';
+import { useVuelidate } from '@vuelidate/core'
+import { required,minLength } from '@vuelidate/validators'
 export default {
-    components: { NavBar },
+  setup () {
+    return { 
+      v$: useVuelidate() 
+    }
+  },
+  data(){
+    return{
+      fname:''
+    }
+  },
+    components: {
+       NavBar
+       },
+
     mounted(){
       let tl = gsap.timeline()
       tl.from('#start', {x:100,duration:1.5,autoAlpha:0})
       .from('#form', {x:-100,duration:0.5,autoAlpha:0})
       .from('#image-main', {x:-100,duration:0.5,autoAlpha:0})
+    },
+
+    validations () {
+      return{
+        fname: { required,minLength: minLength(8), },
+      }
     }
 }
 </script>

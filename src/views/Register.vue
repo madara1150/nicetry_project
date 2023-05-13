@@ -62,6 +62,7 @@ import NavBar from '@/components/Nav.vue';
 import gsap from 'gsap';
 import { useVuelidate } from '@vuelidate/core'
 import { required,minLength } from '@vuelidate/validators'
+import axios from 'axios';
 export default {
   setup () {
     return { 
@@ -71,6 +72,19 @@ export default {
   data(){
     return{
       fname:''
+    }
+  },
+  methods:{
+    register(){
+      axios.get('/api/users')
+
+
+        .then(response => {
+          this.users = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   },
     components: {
@@ -89,6 +103,8 @@ export default {
         fname: { required,minLength: minLength(8), },
       }
     }
+
+
 }
 </script>
 

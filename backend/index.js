@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/api",
-    //http://localhost:5000/api/users
+app.use("/users",
+    //http://localhost:5000/users
  router.use(UersRoute)
 );
 

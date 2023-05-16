@@ -59,7 +59,7 @@ const addLikePost = async (req,res) => {
             like: true,
           }
     })
-    console.log(like[0].like);
+
     try{
         const response = await prisma.Post.update({
             where: {
@@ -76,5 +76,29 @@ const addLikePost = async (req,res) => {
     }
 }
 
+const getPostAll =async (req,res) => {
+    try{
+        const response = await prisma.Post.findMany({
+        })
+        res.status(200).json(response)
+    } catch (err){
+        res.status(404).json({ message: err.message })
+    }
+}
 
-module.exports = {createPost,deleltePost,UpdatePost,addLikePost}
+const getPostById = async (req,res)=> {
+    try {
+        const response = await prisma.Post.findMany({
+            where: {
+                id: req.body.id
+            }
+        })
+        res.status(200).json(response)
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+
+    }
+}
+
+
+module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById}

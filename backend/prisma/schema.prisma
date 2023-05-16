@@ -101,7 +101,7 @@ model Topup{
   slip_img String
   bank_topup String
   topup_package Float
-  status Boolean
+  status Boolean @default(false)
   topup_time DateTime @default(now())
   User User? @relation(fields: [user_id], references: [id] ,onDelete: Cascade)
   image Image[]
@@ -113,7 +113,7 @@ model Withdraw{
   amount Int
   bank_name String
   acc_num String
-  status Boolean
+  status Boolean @default(false)
   createAt DateTime @default(now())
   User User? @relation(fields: [user_id], references: [id] ,onDelete: Cascade)
 

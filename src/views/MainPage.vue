@@ -33,6 +33,8 @@
 import CardPost from '@/components/CardPost.vue';
 import NavUser from '@/components/NavUser.vue';
 import TopDonate from '@/components/TopDonate.vue';
+
+
 export default {
 
     name:'MainPage',

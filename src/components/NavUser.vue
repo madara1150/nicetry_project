@@ -113,7 +113,7 @@
 
                     <!-- file -->
                     <label class="block mb-2 text-sm font-medium text-gray-900 mt-5" for="file_input">Upload file</label>
-                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="file_input_help" id="file_input" type="file">
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="file_input_help" id="file_input" type="file" multiple>
                     <p class="mt-1 text-[10%] text-gray-500" id="file_input_help">SVG, PNG, JPG.</p>
 
                   </div>

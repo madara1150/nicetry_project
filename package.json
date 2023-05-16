@@ -14,7 +14,9 @@
     "autoprefixer": "^10",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
+    "firebase": "^9.22.0",
     "gsap": "^3.11.5",
+    "path": "^0.12.7",
     "pinia": "^2.0.36",
     "pnpm": "^7.30.3",
     "postcss": "^8",
@@ -23,6 +25,7 @@
     "vue": "^3.2.13",
     "vue-carousel": "^0.18.0",
     "vue-router": "^4.1.6",
+    "vuefire": "^3.1.0",
     "vuelidate": "^0.7.7"
   },
   "devDependencies": {

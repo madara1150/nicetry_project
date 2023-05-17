@@ -98,7 +98,6 @@ model Topup{
   id String @id @default(uuid())
   user_id String?
   amount Int
-  slip_img String
   bank_topup String
   topup_package Float
   status Boolean @default(false)

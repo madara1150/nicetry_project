@@ -10,22 +10,22 @@
       </div>
       
       <!-- input -->
-      <form class="w-full flex justify-center" id="form">
+      <form class="w-full flex justify-center" id="form" @submit.prevent="insertData">
         <div class="w-[90%]">
             <div class="flex">
-                <input type="text" v-model="fname" @blur="v$.fname.$touch" id="fname" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your name" required>
-                <input type="text" id="lname" class="ml-4 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your lastname" required>
+                <input type="text" v-model="first_name" id="fname" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your name" required>
+                <input type="text" id="lname" v-model="last_name" class="ml-4 mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5" placeholder="Enter your lastname" required>
             </div>
-            <div class="text-red-500" v-if="v$.fname.$error">Name must 8 characters</div>
+            <!-- <div class="text-red-500" v-if="v$.fname.$error">Name must 8 characters</div> -->
             <div>
-              <input type="text" id="username" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your username" required>
-              <input type="password" id="pass" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your password" required>
-              <input type="text" id="email" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your email" required>
-              <input type="number" id="" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your phone number" required>
-              <input type="text" id="" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your contact">
+              <input type="text" id="username" v-model="username" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your username" required>
+              <input type="password" id="pass" v-model="password" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your password" required>
+              <input type="text" id="email"  v-model="email" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your email" required>
+              <input type="text" id="" v-model="phone_number" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your phone number" required>
+              <input type="text" id="" v-model="info" class="mt-7 drop-shadow-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full block h-12 p-2.5" placeholder="Enter your contact">
 
             </div>
-            <button type="button" class="mt-7 drop-shadow-lg w-full h-12 text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">SIGN UP</button>
+            <button type="submit" class="mt-7 drop-shadow-lg w-full h-12 text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">SIGN UP</button>
             <p id="helper-text-explanation" class="mt-2 text-sm text-center text-white">Do you have an account? <a href="/Login" class="font-medium text-red-600 hover:underline bg-gray-100 p-1.5 rounded-[20%]">Sign In</a></p>
           </div>
       </form>
@@ -60,31 +60,43 @@
 <script>
 import NavBar from '@/components/Nav.vue';
 import gsap from 'gsap';
-import { useVuelidate } from '@vuelidate/core'
+
 import { required,minLength } from '@vuelidate/validators'
 import axios from 'axios';
 export default {
   setup () {
     return { 
-      v$: useVuelidate() 
+      // v$: useVuelidate() 
     }
   },
   data(){
     return{
-      fname:''
+      first_name:"",
+      last_name:"",
+      username: "",
+      password: "",
+      email:"",
+      phone_number:"",
+      info:""
     }
   },
   methods:{
-    register(){
-      axios.get('/api/users')
-
-
-        .then(response => {
-          this.users = response.data;
-        })
-        .catch(error => {
-          console.error(error);
+    async insertData() {
+      try {
+        const response = await axios.post('http://localhost:5000/api/users/create', {
+          first_name:this.first_name,
+          last_name:this.last_name,
+          username: this.username,
+          password: this.password,
+          email:this.email,
+          phone_number:this.phone_number,
+          info:this.info
         });
+        
+      } catch (error) {
+
+        console.error(error);
+      }
     }
   },
     components: {
@@ -98,11 +110,11 @@ export default {
       .from('#image-main', {x:-100,duration:0.5,autoAlpha:0})
     },
 
-    validations () {
-      return{
-        fname: { required,minLength: minLength(8), },
-      }
-    }
+    // validations () {
+    //   return{
+    //     fname: { required,minLength: minLength(8), },
+    //   }
+    // }
 
 
 }

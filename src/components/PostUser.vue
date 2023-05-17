@@ -1,3 +1,4 @@
+/* eslint-disable vue/require-v-for-key */
 <template>
     <div class="w-4/6 bg-red-700 rounded-b">
         
@@ -63,7 +64,8 @@
                 
                 <div class="bg-gray-400">
                     
-                     <div class="w-full h-16 p-3 flex" v-for="i in ans">
+                     // eslint-disable-next-line vue/require-v-for-key
+                     <div class="w-full h-16 p-3 flex" v-for="i in ans" :key="i">
                                 <img src="https://mir-s3-cdn-cf.behance.net/projects/404/93a1b7150592603.Y3JvcCwxNjI2LDEyNzEsMCwxNTI.png" class="w-10 h-10 rounded-full ml-8">
                                 <h1 class="ml-5 text-2xl text-white mt-1">{{i.fname}}{{i.lname}}</h1>
                         </div>

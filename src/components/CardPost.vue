@@ -394,10 +394,10 @@ export default {
   
   name: "CardPost",
   setup() {
-    const $firebase = inject('$firebase');
-    return {
-      $firebase
-    }
+    // const $firebase = inject('$firebase');
+    // return {
+    //   $firebase
+    // }
   },
   computed:{
     // trackStyles() {
@@ -433,25 +433,25 @@ export default {
     }
   },
   methods:{
-    previewImage(event) {
-      this.uploadValue = 0;
-      this.picture = null;
-      this.imageData = event.target.files[0];
-    },
-    async uploadFile(event) {
-      try {
+    // previewImage(event) {
+    //   this.uploadValue = 0;
+    //   this.picture = null;
+    //   this.imageData = event.target.files[0];
+    // },
+    // async uploadFile(event) {
+    //   try {
 
-        this.picture = null;
+    //     this.picture = null;
 
-        const file = event.target.files[0];
-        const datexx = new Date().getTime().toString() + ".jpg";
-        const starsRef = storageRef(storage, `post/${datexx}`);
-        await uploadBytes(starsRef, file);
+    //     const file = event.target.files[0];
+    //     const datexx = new Date().getTime().toString() + ".jpg";
+    //     const starsRef = storageRef(storage, `post/${datexx}`);
+    //     await uploadBytes(starsRef, file);
        
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
     nextSlide() {
       if (this.currentIndex < this.slides.length - 1) {
         this.currentIndex++;

@@ -128,6 +128,7 @@ import NavBar from "../components/Nav.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
   methods: {
     

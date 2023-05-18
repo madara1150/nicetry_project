@@ -62,7 +62,6 @@ import NavBar from '@/components/Nav.vue';
 import gsap from 'gsap';
 
 import { required,minLength } from '@vuelidate/validators'
-import axios from 'axios';
 export default {
   setup () {
     return { 
@@ -83,7 +82,7 @@ export default {
   methods:{
     async insertData() {
       try {
-        const response = await axios.post('http://localhost:5000/api/users/create', {
+        const response = await this.axios.post('http://localhost:5000/api/users/create', {
           first_name:this.first_name,
           last_name:this.last_name,
           username: this.username,

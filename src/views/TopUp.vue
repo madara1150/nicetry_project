@@ -193,6 +193,7 @@ export default {
     previewImage(event) {
       this.picture = URL.createObjectURL(event.target.files[0])
       this.imageData = event.target.files
+      console.log(this.imageData);
     },
     async onUpload() {
       try {

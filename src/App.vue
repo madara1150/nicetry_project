@@ -1,3 +1,10 @@
+<script setup>
+
+import { useFetchStore } from '@/store/index'
+const store = useFetchStore()
+store.fetchData()
+</script>
+
 <template>
   <section class="min-h-screen">
     <router-view />

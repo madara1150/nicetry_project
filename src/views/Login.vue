@@ -44,7 +44,7 @@
             type="button"
             class="ml-5 mt-7 drop-shadow-lg w-full h-12 text-white bg-gray-900 hover:bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
           >
-            SIGN IN {{ me }}
+            SIGN IN
           </button>
           <p
             id="helper-text-explanation"
@@ -162,6 +162,7 @@ export default {
       } catch (error) {
         console.error(error);
       }
+      this.$router.push('/main')
     },
   },
 };

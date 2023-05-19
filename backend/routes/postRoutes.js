@@ -9,4 +9,5 @@ router.put('/addlike',addLikePost)
 router.get('/mainpost',getPostAll)
 router.get('/postUserId/:id',getPostById)
 
+
 module.exports = router;

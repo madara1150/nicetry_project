@@ -2,14 +2,14 @@
   <div>
     <div class="w-full h-full">
       <!-- profile -->
-      <div :class="[`flex items-center p-2 rounded-t-xl w-full ${colorBar}`]">
+      <div :class="myClassColor">
         <img
           src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
           class="rounded-full"
           style="width: 6vh; height: 6vh;"
           alt="Avatar"
         />
-        <h1 class="text-white ml-2 text-[2vh]">MADARA UCHIHA</h1>
+        <h1 class="text-white ml-2 text-[2vh]">{{ user.first_name }} {{ user.last_name }}</h1>
 
        
       </div>
@@ -24,7 +24,7 @@
             <div class="carousel-container">
               <div class="carousel-track w-[700px] h-[400px]" :style="trackStyles">
                 <div class="carousel-slide w-[700px] h-[400px]"  :style="slideStyles" >
-                  <img :src="slides[currentIndex].imageSrc" class="w-[100%] h-[400px]">
+                  <img :src="image[currentIndex]" class="w-[100%] h-[400px]">
                 </div>
               </div>
               <div class="carousel-controls">
@@ -38,8 +38,12 @@
               </div>
               
               <!-- content -->
-              <div class="p-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, dolor rem. Voluptatem veniam hic beatae consequuntur doloremque quas porro ipsum, ut, facilis nesciunt repellat, quaerat veritatis assumenda impedit sequi maxime!
+              <div class="p-3">
+                {{ myObject.info }}
+                <div class="flex">
+                  <p class="text-[1.5vh]">created {{myObject.CreateAt.substring(0, 10) }} : </p>
+                  <p class="text-[1.5vh]"> {{myObject.CreateAt.substring(11, 16) }}</p>
+                </div>
               </div>
             
             <div class="flex pt-2 p-3 bg-whtie">
@@ -109,10 +113,10 @@
                     <div class="relative p-4 bg-white">
                         <div class="overflow-y-scroll h-96">
 
-                          <div class="mt-2" v-for="val, i in 4" :key="i">
-                            <div class="flex items-center bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded p-2">
+                        <div class="mt-2" v-for="val, i in 3" :key="i">
+                          <div class="flex items-center bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded p-2">
                               <img src="https://source.unsplash.com/800x600/?nature" alt="" class="rounded-full w-10 h-10">
-                              <div>
+                            <div>
                                 <h1 class="ml-3 text-white">MADARA UCHIHA</h1>
                                 <h1 class="text-[10%] ml-3 text-white">12 JAN 2002</h1>
                               </div>
@@ -121,7 +125,7 @@
                             <div class="p-3 bg-gray-200">
                               <h1 class="text-black text-[90%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum saepe similique exercitationem autem minus dolores numquam. Suscipit, nihil voluptate itaque accusantium ipsa consequuntur deserunt obcaecati consectetur. Perferendis quasi hic voluptatibus!</h1>
                             </div>
-                          <hr>
+                              <hr>
                         </div>
                       </div>
                       <form action="" class="mt-5 bg-black p-5 rounded">
@@ -389,71 +393,61 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   
   name: "CardPost",
   setup() {
-    // const $firebase = inject('$firebase');
-    // return {
-    //   $firebase
-    // }
+
   },
   computed:{
-    // trackStyles() {
-    //   return {
-    //     transform: `translateX(-${this.currentIndex * 100}%)`
-    //   };
-    // },
-    // slideStyles() {
-    //   return {
-    //     width: `calc(100% / ${this.slides.length})`
-    //   };
-    // }
+   
   },
   components: {
     
   },
+  props: {
+  myObject: {
+    type: Object
+  },
+  myId:{
+    type: String
+  }
+},
   
   data(){
     return{
       imageData: null,
       picture: null,
       uploadValue: 0,
-      
-      like: 1,
-      colorBar: this.color == '' ? 'bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700': this.color,
-      slides: [
-        { imageSrc: 'https://source.unsplash.com/800x600/?boat', imageAlt: 'Image 1' },
-        { imageSrc: 'https://source.unsplash.com/800x600/?tree', imageAlt: 'Image 2' },
-        { imageSrc: 'https://source.unsplash.com/800x600/?mountain', imageAlt: 'Image 3' },
-        
-      ],
+      user: '',
+      image:[],
+      myClassColor:'flex items-center p-2 rounded-t-xl w-full bg-black',
       currentIndex: 0
     }
   },
   methods:{
-    // previewImage(event) {
-    //   this.uploadValue = 0;
-    //   this.picture = null;
-    //   this.imageData = event.target.files[0];
-    // },
-    // async uploadFile(event) {
-    //   try {
+    checkLavel(){
+      if(this.myObject.like > 100){
+        this.myClassColor = 'flex items-center p-2 rounded-t-xl w-full bg-gray-600'
+      }
+      if(this.myObject.like > 500){
+        this.myClassColor = 'flex items-center p-2 rounded-t-xl w-full bg-green-600'
+      }
+      if(this.myObject.like > 1000){
+        this.myClassColor = 'flex items-center p-2 rounded-t-xl w-full bg-blue-600'
+      }
+      if(this.myObject.like > 5000){
+        this.myClassColor = 'flex items-center p-2 rounded-t-xl w-full bg-red-600'
+      }
+      if(this.myObject.like > 10000){
+        this.myClassColor = 'flex items-center p-2 rounded-t-xl w-full bg-yellow-600'
+      }
+    },
 
-    //     this.picture = null;
-
-    //     const file = event.target.files[0];
-    //     const datexx = new Date().getTime().toString() + ".jpg";
-    //     const starsRef = storageRef(storage, `post/${datexx}`);
-    //     await uploadBytes(starsRef, file);
-       
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
     nextSlide() {
-      if (this.currentIndex < this.slides.length - 1) {
+      if (this.currentIndex < this.image.length - 1) {
         this.currentIndex++;
       }
     },
@@ -461,9 +455,38 @@ export default {
       if (this.currentIndex > 0) {
         this.currentIndex--;
       }
+    },
+    async fetchName(){
+      try {
+    const response = await axios.get(`http://localhost:5000/api/users/user/${this.myId}`);
+    const data = response.data;
+    this.user = data
+  } catch (error) {
+    console.error(error);
+
+  }
+    },
+    async fetchImage(){
+      try {
+    const response = await axios.get(`http://localhost:5000/api/images/getpostimage/${this.myObject.id}`);
+    const data = response.data;
+    for(let i = 0;i<data.length;i++){
+      this.image[i] = data[i].filePath
+    }
+
+    console.log(this.image);
+    
+  } catch (error) {
+    console.error(error);
+
+  }
     }
   },
-  props:['color']
+  mounted(){
+    this.fetchName()
+    this.checkLavel()
+    this.fetchImage()
+  }
 };
 </script>
 

@@ -76,6 +76,22 @@ const createImageuser = async (req,res) =>{
     }
  }
 
+ const getImageByPostId = async (req,res) =>{
+
+  try {
+      
+      const response = await prisma.Image.findMany({
+          where: {
+              post_id: req.params.post_id
+          },
+      })
+      res.status(200).json(response) 
+  } catch (err) {
+      res.status(404).json({ message: err.message })
+
+  }
+}
+
  
 
-module.exports = {createImageuser,createImagePost,createImageTopup,editProfile}
+module.exports = {createImageuser,createImagePost,createImageTopup,editProfile,getImageByPostId}

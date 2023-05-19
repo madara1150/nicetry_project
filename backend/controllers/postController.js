@@ -91,7 +91,26 @@ const getPostById = async (req,res)=> {
         const response = await prisma.Post.findMany({
             where: {
                 id: req.body.id
-            }
+            },
+            
+        })
+        res.status(200).json(response)
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+
+    }
+}
+
+const CheckImage = async (req,res)=> {
+    data = req.body
+    try {
+        const response = await prisma.Post.findMany({
+            where: {
+                info: data.info,
+                user_id: data.user_id,
+                CreateAt: new Date(data.CreateAt)
+            },
+            
         })
         res.status(200).json(response)
     } catch (err) {
@@ -101,4 +120,4 @@ const getPostById = async (req,res)=> {
 }
 
 
-module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById}
+module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,CheckImage}

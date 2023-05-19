@@ -66,7 +66,6 @@
             </div>
           </div>
 
-      
 
       <!-- upload -->
       <div class="relative flex items-center">
@@ -112,7 +111,7 @@
                     
                     <form @submit.prevent="onUpload">
                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Write your content</label>
-                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your content here..."></textarea>
+                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your content here..." v-model="info" ></textarea>
 
                     <!-- file -->
                     <label class="block mb-2 text-sm font-medium text-gray-900 mt-5" for="file_input">Upload file</label>
@@ -124,13 +123,6 @@
                   </form>
                   </div>
 
-                </div>
-
-                <!-- footer -->
-                <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
-                  <button type="sumbit" class="inline-block rounded bg-black px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-gray-600 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200" data-te-modal-dismiss data-te-ripple-init data-te-ripple-color="light">
-                    Close
-                  </button>
                 </div>
 
               </div>
@@ -147,7 +139,7 @@
           <span class="w-5">
             <button type="button" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"
               class="inline-block w-32 truncate rounded bg-[#F9FAFB] px-6 pt-2.5 pb-2 text-[2vh] font-medium uppercase leading-normal text-[#1F2937] shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#9FA6B2] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#9FA6B2] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-           {{ nice }} nice
+           {{ me.coin }} nice
             </button>
           </span>
         </a>
@@ -201,7 +193,7 @@
               <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                 <li class="text-l p-3" id="menu-items"></li>
                 <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/profile"><p class="text-2xl">Proflie</p></a></li>
-                <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"><a href="#"><span class="text-l">{{nice}} nice.</span></a></li>
+                <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"><a href="#"><span class="text-l">{{me.coin}} nice.</span></a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 hover:bg-red-500" id="menu-items"><a href="/deposit">History</a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>
               </ul>
@@ -223,15 +215,32 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
+
+
 import gsap from 'gsap';
 import promotion from '../data/topupPackage.json'
-import {
-  ref as storageRef,
-
-  uploadBytes,
-} from "firebase/storage";
+import {ref as storageRef,uploadBytes,} from "firebase/storage";
 import { useFirebaseStorage } from "vuefire";
+
 export default {
+  setup() {
+    const storage = useFirebaseStorage();
+    const apiStore = useFetchStore();
+    const { data } = storeToRefs(apiStore);
+    async function fetchData() {
+      await apiStore.fetchData();
+    }
+
+    return {
+      fetchData,
+      me: data,
+      storage
+    };
+  },
  name: 'NavUser',
  data(){
   return{
@@ -239,13 +248,11 @@ export default {
     nice: 640000000000,
     niceTopup:promotion,
     imageData: [],
-      picture: []
+      picture: [],
+      info:''
   }
  },
- setup() {
-    const storage = useFirebaseStorage();
-    return { storage };
-  },
+
  methods:{
   previewImage(event) {
     for(let i=0;i<3;i++){
@@ -259,8 +266,19 @@ export default {
     },
     async onUpload() {
       try {
+        const response = await axios.post(`http://localhost:5000/api/posts/create`,
+        {
+          user_id: this.me.id,
+          info:this.info,
+          like: 0
+        })
         for(let i=0;i<3;i++){
         const datexx = new Date().getTime().toString() + ".jpg"
+        const imageDB = await axios.post(`http://localhost:5000/api/images/createpost`,{
+          post_id: response.data.id,
+          filePath: `https://firebasestorage.googleapis.com/v0/b/nicetry-webpro.appspot.com/o/${datexx}?alt=media`
+        })
+        console.log(imageDB);
         const starsRef = storageRef(this.storage, `${datexx}`)
         await uploadBytes(starsRef, this.imageData[i])
         }

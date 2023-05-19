@@ -10,9 +10,9 @@
         <div class="flex ml-[10%] mt-5 max-[600px]:flex-col max-[600px]:justify-center max-[600px]:ml-0 max-[600px]:" id="img">
           <img src="https://source.unsplash.com/800x600/?nature" alt="" class="max-[600px]:m-auto shadow-sm shadow-white/50 rounded-full h-36 w-36">
           <div class="p-5 max-[600px]:p-3 max-[600px]:text-center w-[50%] max-[600px]:w-full">
-            <h1 class="text-3xl text-white">Nutaya</h1>
-            <h1 class="text-sm mt-3 text-white">TANATHIP SINGHANON</h1>
-            <h1 class="text-sm mt-3 text-white">Tel 202101204124124</h1>
+            <h1 class="text-3xl text-white">{{me.username}}</h1>
+            <h1 class="text-sm mt-3 text-white">{{ me.first_name }} {{ me.last_name }}</h1>
+            <h1 class="text-sm mt-3 text-white">{{ me.info }}</h1>
           </div>
 
           <div class="w-[50%] max-[600px]:w-full max-[600px]:justify-center">
@@ -123,18 +123,10 @@
 
     <div class="">
         <div class="w-[70%] mx-auto max-[600px]:w-[100%] bg-gray-200 rounded">
-            <div class="flex justify-center max-[600px]:p-5" v-for="val,i in 2" :key="i">
+            <div class="flex justify-center max-[600px]:p-5" v-for="i in post" :key="i">
                 <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5">
-                    <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="''" id="post" />
+                    <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="''" id="post" :my-object="i" :myId="me.id" />
                     <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" id="top" />
-                </div>
-            </div>
-
-            <!-- test level post -->
-            <div class="flex justify-center max-[600px]:p-5" v-for="val,i in 10" :key="i">
-                <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5">
-                    <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="'bg-red-700'" />
-                    <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" />
                 </div>
             </div>
 
@@ -149,6 +141,9 @@
 import NavUser from '@/components/NavUser.vue';
 import CardPost from '@/components/CardPost.vue';
 import TopDonate from '@/components/TopDonate.vue';
+import axios from 'axios';
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
 import gsap from 'gsap';
 export default {
     name: 'Profile',
@@ -157,11 +152,44 @@ export default {
       CardPost,
       TopDonate
     },
+    setup() {
+    const apiStore = useFetchStore()
+    const { data } = storeToRefs(apiStore)
+
+    return {
+      me: data
+    };
+  },
+  methods:{
+    async fetchPost() {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/posts/postUserId/${this.me.id}`);
+    const data = response.data;
+    for(let i=0;i<data.length;i++){
+        this.post[i] = data[i]
+    }
+  } catch (error) {
+    console.error(error);
+
+  }
+}
+  },
     mounted(){
+        this.fetchPost()
       let tl = gsap.timeline()
       tl.from('#img', {y:-100,duration:0.5,autoAlpha:1})
       
+    },
+    data(){
+        return{
+            myData: {
+        name: 'John',
+        age: 25,
+        
+        },
+        post: []
     }
+}
 
 }
 </script>

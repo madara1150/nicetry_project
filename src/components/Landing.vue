@@ -10,12 +10,12 @@
     <hr class="h-px my-8 bg-gray-200 border-0" />
 
     <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-20 justify-center">
-      <div class="w-[40%] max-[600px]:w-[100%]" id="PostOne">
+      <div class="w-[50%] max-[600px]:w-[100%]" id="PostOne">
         <CardPost class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" />
       </div>
 
     
-      <div class="mx-3 flex items-center justify-center w-[55%] max-[600px]:w-full max-[600px]:mt-5" id="ContentOne">
+      <div class="mx-3 flex items-center justify-center w-[45%] max-[600px]:w-full max-[600px]:mt-5" id="ContentOne">
           <a class="block w-[90%] bg-white rounded shadow hover:bg-gray-100">
           <h5 class="mb-2 text-2xl font-bold tracking-tight p-5 text-white bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded-t text-center">POST</h5>
           <h3 class="text-xl text-gray-700 p-5 rounded-b" id="text-a">This is a sample post. You can post your own lifestyle. You can include up to 3 photos showing what others don't know about you. Supporters will come to support you.</h3>

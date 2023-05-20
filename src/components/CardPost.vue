@@ -31,7 +31,7 @@
                 <button class="carousel-control" @click="prevSlide" :disabled="currentIndex === 0">
                   &lt;
                 </button>
-                <button class="carousel-control" @click="nextSlide" :disabled="currentIndex === slides.length - 1">
+                <button class="carousel-control" @click="nextSlide" :disabled="currentIndex === image.length - 1">
                   &gt;
                 </button>
               </div>
@@ -49,95 +49,52 @@
             <div class="flex pt-2 p-3 bg-whtie">
 
               <!-- like -->
-                <img @click="like *= -1"
+                <img @click="clickLike"
                 src="../image/heart-regular.svg"
                 alt=""
                 :class="[like == 1 ? 'w-[5%] mx-2': 'w-[5%] mx-2 hidden']"
                />
 
-              <img @click="like *= -1"
+              <img @click="clickLike"
                 src="../image/heart-solid.svg"
                 alt=""
                 :class="[like == -1 ? 'w-[5%] mx-2': 'w-[5%] mx-2 hidden']"
               />
 
-             
-              <!-- comment -->
-              <button class="w-[5%] mx-2"> <img
-                src="../image/comment-regular.svg"
-                data-te-toggle="modal" data-te-target="#exampleModalLg" data-te-ripple-init data-te-ripple-color="light"/>
-              </button>
+              <img src="../image/comment-regular.svg" @click="openCommentModal" class="w-[5%] mx-2': 'w-[5%] mx-2" >
 
-              <!-- modal comment -->
-              <div
-                data-te-modal-init
-                class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-                id="exampleModalLg"
-                tabindex="-1"
-                aria-labelledby="exampleModalLgLabel"
-                aria-modal="true"
-                role="dialog">
-                <div
-                  data-te-modal-dialog-ref
-                  class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px] min-[992px]:max-w-[800px] max-[600px]:max-w-[370px]">
-                  <div
-                    class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none">
-                    <div
-                      class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4">
-                      <h5
-                        class="text-xl font-medium leading-normal text-neutral-800"
-                        id="exampleModalLgLabel">
-                        Comment
-                      </h5>
-                      <button
-                        type="button"
-                        class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
-                        data-te-modal-dismiss
-                        aria-label="Close">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="h-6 w-6">
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
+             <!-- comment -->
+             <div class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"  v-if="isCommentModalOpen">
+              <div class="bg-white rounded-lg shadow-lg p-4 h-[50%] overflow-y-scroll">
 
-                    <!-- content -->
-                    <div class="relative p-4 bg-white">
-                        <div class="overflow-y-scroll h-96">
-
-                        <div class="mt-2" v-for="val, i in 3" :key="i">
-                          <div class="flex items-center bg-gradient-to-br from-gray-800 via-gray-800 to-slate-700 rounded p-2">
-                              <img src="https://source.unsplash.com/800x600/?nature" alt="" class="rounded-full w-10 h-10">
-                            <div>
-                                <h1 class="ml-3 text-white">MADARA UCHIHA</h1>
-                                <h1 class="text-[10%] ml-3 text-white">12 JAN 2002</h1>
-                              </div>
-                            
-                            </div>
-                            <div class="p-3 bg-gray-200">
-                              <h1 class="text-black text-[90%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum saepe similique exercitationem autem minus dolores numquam. Suscipit, nihil voluptate itaque accusantium ipsa consequuntur deserunt obcaecati consectetur. Perferendis quasi hic voluptatibus!</h1>
-                            </div>
-                              <hr>
-                        </div>
-                      </div>
-                      <form action="" class="mt-5 bg-black p-5 rounded">
-                        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-300 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2" placeholder="Write your comment..."></textarea>
-                        <button type="button" class="mt-2 focus:outline-none text-black bg-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Add comment</button>
-                      </form>
-
-                    </div>
-
-                  </div>
+                <!-- แสดงความคิดเห็น -->
+                <div class="bg-gray-700 p-5 rounded">
+                  <h2 class="text-lg font-semibold mb-2 text-white">Comment</h2>
                 </div>
+                <ul>
+                  <div v-for="(comment, index) in comment" :key="index" class="mt-2 rounded px-2">
+                    <div class="flex p-3 bg-red-500">
+                      <h1 class="ml-2 text-white" @load="checkProfile(comment.user_id)">{{ comment.User.first_name }}&nbsp; {{ comment.User.last_name }}</h1>
+                    </div>
+
+                    <div class="bg-gray-200">
+                      <h1>{{comment.info}}</h1>
+                    </div>
+                  </div>
+                  
+                </ul>
+
+                <!-- ฟอร์มเขียนความคิดเห็น -->
+                <form @submit.prevent="submitComment" class="mt-2">
+                  <textarea v-model="newComment" class="w-full h-20 border border-gray-300 rounded p-2 mb-2" placeholder="เขียนความคิดเห็น"></textarea>
+                  <button class="bg-red-500 text-white px-4 py-2 rounded" type="submit">send comment</button>
+                  <button class="bg-black text-white px-10 py-2 rounded ml-2" @click="openCommentModal">close</button>
+
+                </form>
               </div>
+
+            </div>
+
 
               <!-- report -->
               <button class="w-[5%] mx-2">
@@ -393,6 +350,7 @@
 </template>
 
 <script>
+import { tsThisType } from '@babel/types';
 import axios from 'axios';
 
 export default {
@@ -423,11 +381,74 @@ export default {
       uploadValue: 0,
       user: '',
       image:[],
+      checklike:'',
+      like:1,
+      isCommentModalOpen: false,
       myClassColor:'flex items-center p-2 rounded-t-xl w-full bg-black',
-      currentIndex: 0
+      currentIndex: 0,
+      comment:[],
+      newComment: '',
     }
   },
   methods:{
+    openCommentModal() {
+      if(this.isCommentModalOpen == true){
+        this.isCommentModalOpen = false
+      }else{
+        this.isCommentModalOpen = true
+      }
+    },
+    async submitComment() {
+      const createlike = await axios.post(`http://localhost:5000/api/comments/create/${this.myObject.id}/${this.myId}`,
+      {
+        info: this.newComment
+      })
+      this.fetchComment()
+      this.newComment = ''
+    },
+    async clickLike(){
+      this.like *= -1
+      if(this.like == 1){
+        const createlike = await axios.post(`http://localhost:5000/api/likes/create/${this.myObject.id}/${this.myId}`,{
+          state:false
+        })
+        const dislike = await axios.put(`http://localhost:5000/api/posts/dislike/${this.myObject.id}`)
+      }
+      else{
+        const createlike = await axios.post(`http://localhost:5000/api/likes/create/${this.myObject.id}/${this.myId}`,{
+          state:true
+        })
+        const addLike = await axios.put(`http://localhost:5000/api/posts/addlike/${this.myObject.id}`)
+      }
+    },
+
+    async fetchLike(){
+      try {
+    const fetchlike = await axios.get(`http://localhost:5000/api/likes/getlike/${this.myObject.id}`,
+    {
+      user_id:this.myId.id,
+    })
+    const data = fetchlike.data
+    if(data.length != 0){
+      this.checklike = data[0].state
+      if(this.checklike){
+        this.like = -1
+      }
+      else{
+        this.like = 1
+      }
+    }
+    else{
+      const createlike = await axios.post(`http://localhost:5000/api/likes/create/${this.myObject.id}/${this.myId}`)
+      const ans = createlike.data
+    }
+
+
+  } catch (error) {
+    console.error(error);
+
+  }
+    },
     checkLavel(){
       if(this.myObject.like > 100){
         this.myClassColor = 'flex items-center p-2 rounded-t-xl w-full bg-gray-600'
@@ -467,6 +488,7 @@ export default {
   }
     },
     async fetchImage(){
+      
       try {
     const response = await axios.get(`http://localhost:5000/api/images/getpostimage/${this.myObject.id}`);
     const data = response.data;
@@ -474,20 +496,34 @@ export default {
       this.image[i] = data[i].filePath
     }
 
-    console.log(this.image);
-    
   } catch (error) {
     console.error(error);
 
   }
-    }
+    },
+    async fetchComment(){
+      
+      try {
+    const response = await axios.get(`http://localhost:5000/api/users/checkcomment/${this.myObject.id}`);
+    const data = response.data;
+    this.comment = [...data];
+  } catch (error) {
+    console.error(error);
+
+  }
+    },
+    
   },
   mounted(){
     this.fetchName()
     this.checkLavel()
     this.fetchImage()
+    this.fetchLike()
+    this.fetchComment()
+
   }
-};
+
+}
 </script>
 
 <style scoped>

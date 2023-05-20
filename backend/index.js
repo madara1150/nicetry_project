@@ -6,6 +6,7 @@ const ReportRoute = require('./routes/reportRoutes.js')
 const WithdrawRoute = require('./routes/withdrawRoutes.js')
 const TopupRoute = require('./routes/topupRoutes.js')
 const ImageRoute = require('./routes/imageRoutes.js')
+const LikeRoute = require('./routes/likeRoutes.js')
 
 
 const express = require('express');
@@ -28,7 +29,8 @@ app.use("/api",
     router.use('/reports',ReportRoute),
     router.use('/withdraws',WithdrawRoute),
     router.use('/topups',TopupRoute),
-    router.use('/images',ImageRoute)
+    router.use('/images',ImageRoute),
+    router.use('/likes',LikeRoute)
 );
 
 app.listen(5000, () => {

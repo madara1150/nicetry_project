@@ -30,6 +30,7 @@ model User{
   image Image[]
   topup Topup[]
   withdraw Withdraw[]
+  like Like[]
 }
 
 enum Role {
@@ -48,6 +49,7 @@ model Post{
   comment Comment[]
   report Report[]
   image Image[]
+  Like Like[]
 
 }
 
@@ -117,4 +119,13 @@ model Withdraw{
   User User? @relation(fields: [user_id], references: [id] ,onDelete: Cascade)
 
 
+}
+
+model Like{
+  user_id String
+  post_id String
+  state Boolean @default(false)
+  User User? @relation(fields: [user_id], references: [id] ,onDelete: Cascade)
+  Post Post? @relation(fields: [post_id], references: [id] ,onDelete: Cascade)
+  @@id([post_id, user_id])
 }

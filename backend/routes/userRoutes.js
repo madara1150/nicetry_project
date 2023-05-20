@@ -7,6 +7,8 @@ const {
   UpdateRoleUser,
   login,
   me,
+  getComment,
+  checkImgProfile
 } = require("../controllers/userController.js");
 const express = require("express");
 const router = express.Router();
@@ -38,5 +40,7 @@ router.get("/user", GetAllUser);
 router.put("/updaterole", UpdateRoleUser);
 router.post("/login", login);
 router.get("/me", authenticate, me);
+router.get('/checkcomment/:id',getComment)
+router.get('/checkimg/:user_id',checkImgProfile)
 
 module.exports = router;

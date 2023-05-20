@@ -172,6 +172,39 @@ const UpdateRoleUser = async (req, res) => {
   }
 };
 
+const getComment = async (req,res) =>{
+  try {
+    const getComments = await prisma.Comment.findMany({
+      where: { 
+        post_id: req.params.id 
+      },
+      include: {
+        User: true,
+        Post:true,
+      }
+    })
+    res.status(200).json(getComments);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+
+  }
+}
+
+
+const checkImgProfile = async (req,res) =>{
+  try {
+    const getComments = await prisma.Image.findMany({
+      where: { user_id: req.params.user_id },
+    })
+    res.status(200).json(getComments);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+
+  }
+}
+
+
+
 module.exports = {
   CreateUser,
   DeleteUser,
@@ -181,4 +214,6 @@ module.exports = {
   UpdateRoleUser,
   login,
   me,
+  getComment,
+  checkImgProfile
 };

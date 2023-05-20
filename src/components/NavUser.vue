@@ -282,6 +282,10 @@ export default {
         const starsRef = storageRef(this.storage, `${datexx}`)
         await uploadBytes(starsRef, this.imageData[i])
         }
+        this.$router.go(0)
+
+
+        
       } catch (err) {
         alert(err)
       }

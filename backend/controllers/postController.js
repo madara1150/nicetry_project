@@ -50,10 +50,9 @@ const deleltePost = async (req,res) =>{
 }
 
 const addLikePost = async (req,res) => {
-    const data = req.body
     const like = await prisma.Post.findMany({
         where:{
-            id: data.id
+            id: req.params.id
         },
         select: {
             like: true,
@@ -63,10 +62,36 @@ const addLikePost = async (req,res) => {
     try{
         const response = await prisma.Post.update({
             where: {
-                id: data.id
+                id: req.params.id
             },
             data:{
               like: like[0].like+1,
+            },
+        })
+        res.send('success')
+    } catch (err){
+
+        res.status(404).json({ message: err.message })
+    }
+}
+
+const DisLikePost = async (req,res) => {
+    const like = await prisma.Post.findMany({
+        where:{
+            id: req.params.id
+        },
+        select: {
+            like: true,
+          }
+    })
+
+    try{
+        const response = await prisma.Post.update({
+            where: {
+                id: req.params.id
+            },
+            data:{
+              like: like[0].like-1,
             },
         })
         res.send('success')
@@ -92,6 +117,9 @@ const getPostById = async (req,res)=> {
             where: {
                 id: req.body.id
             },
+            orderBy: {
+                CreateAt: 'desc'
+              }
             
         })
         res.status(200).json(response)
@@ -120,4 +148,4 @@ const CheckImage = async (req,res)=> {
 }
 
 
-module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,CheckImage}
+module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,CheckImage,DisLikePost}

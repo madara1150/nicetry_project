@@ -7,8 +7,8 @@ const reportCreate = async (req,res) => {
         
         const response = await prisma.Report.create({
             data: {
-                user_id: data.user_id,
-                post_id: data.post_id,
+                user_id: req.params.user_id,
+                post_id: req.params.post_id,
                 reson: data.reson
                 }
         })

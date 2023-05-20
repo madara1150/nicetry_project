@@ -126,7 +126,7 @@
             <div class="flex justify-center max-[600px]:p-5" v-for="i in post" :key="i">
                 <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5">
                     <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :color="''" id="post" :my-object="i" :myId="me.id" />
-                    <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" id="top" />
+                    <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" :my-object="i" id="top" />
                 </div>
             </div>
 

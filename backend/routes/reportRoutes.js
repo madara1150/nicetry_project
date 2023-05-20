@@ -2,7 +2,7 @@ const {reportCreate ,changeStatus,getReportAll} = require("../controllers/report
 const express = require('express');
 const router = express.Router();
 
-router.post('/create', reportCreate)
+router.post('/create/:post_id/:user_id', reportCreate)
 router.put('/updatestatus/:id',changeStatus)
 router.get('/report',getReportAll)
 

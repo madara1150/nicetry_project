@@ -5,9 +5,7 @@
     <table class="w-full text-sm text-left text-gray-500">
         <thead class="text-xs text-white uppercase bg-gray-800">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    <span class="sr-only">Image</span>
-                </th>
+                
                 <th scope="col" class="px-6 py-3">
                     Name
                 </th>
@@ -17,15 +15,12 @@
             </tr>
         </thead>
         <tbody class="">
-            <tr v-for="i,index in 5" :key="index" class="bg-gray-900 border-b hover:bg-gray-700">
-                <td class="w-[15%] p-3">
-                    <img src="https://e0.pxfuel.com/wallpapers/351/540/desktop-wallpaper-madara-uchiha-mobile-madara-uchiha-mobile-for-your-mobile-tablet-explore-madara-mobile-madara-madara-uchiha-madara-madara-dark-thumbnail.jpg" class="rounded h-10">
+            <tr v-for="i,index in donate" :key="index" class="bg-gray-900 border-b hover:bg-gray-700">
+                <td class="px-6 py-4 font-semibold text-gray-200 hover:text-red-200">
+                    {{i.User.first_name}} {{ i.User.last_name }}
                 </td>
                 <td class="px-6 py-4 font-semibold text-gray-200 hover:text-red-200">
-                    Apple Watch
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-200 hover:text-red-200">
-                    $599
+                    ${{ i.amount }}
                 </td>
             </tr>
 
@@ -38,8 +33,28 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-
+    props: {
+    myObject: {
+      type: Object,
+    }
+  },
+  data(){
+    return{
+        donate:[],
+    }
+  },
+  methods:{
+    async fetchTopDonate(){
+        const res = await axios.get(`http://localhost:5000/api/donate/topdonate/${this.myObject.id}`)
+        this.donate = res.data
+    }
+    
+  },
+  mounted(){
+    this.fetchTopDonate()
+  }
 }
 </script>
 

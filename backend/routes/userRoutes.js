@@ -8,7 +8,8 @@ const {
   login,
   me,
   getComment,
-  checkImgProfile
+  checkImgProfile,
+  updateMoney
 } = require("../controllers/userController.js");
 const express = require("express");
 const router = express.Router();
@@ -42,5 +43,6 @@ router.post("/login", login);
 router.get("/me", authenticate, me);
 router.get('/checkcomment/:id',getComment)
 router.get('/checkimg/:user_id',checkImgProfile)
+router.put('/updatemoney/:id',updateMoney)
 
 module.exports = router;

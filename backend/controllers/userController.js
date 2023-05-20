@@ -15,8 +15,6 @@ const me = async (req, res) => {
   try {
     const { sub } = req.user;
 
-    console.log(req.user);
-    console.log(sub);
     const user = await prisma.User.findUnique({
       where: {
         id: sub,
@@ -129,6 +127,24 @@ const UpdateUser = async (req, res) => {
   }
 };
 
+const updateMoney = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await prisma.User.update({
+      where: {
+        id: req.params.id,
+      },
+      data: {
+        coin: data.coin
+      },
+    });
+    res.send("success");
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+
 const GetUserById = async (req, res) => {
   try {
     const response = await prisma.User.findUnique({
@@ -215,5 +231,6 @@ module.exports = {
   login,
   me,
   getComment,
-  checkImgProfile
+  checkImgProfile,
+  updateMoney
 };

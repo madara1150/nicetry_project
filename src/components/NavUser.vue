@@ -311,6 +311,7 @@ export default {
     );
     
     // add Event profile image (click)
+    
     document.querySelector("#profile").addEventListener("click", () => {
       if (!menuOpen) {
         tl.play();

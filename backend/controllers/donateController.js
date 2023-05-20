@@ -3,12 +3,13 @@ const prisma = new PrismaClient();
 
 const donateCreate = async (req,res) =>{
     const data = req.body
+
     try {
         
         const response = await prisma.Donation.create({
             data: {
-                user_id: data.user_id,
-                post_id: data.post_id,
+                user_id: req.params.user_id,
+                post_id: req.params.post_id,
                 amount: data.amount
                 }
         })
@@ -51,6 +52,27 @@ const getDonateById = async (req,res) => {
     }
 }
 
+const getTopDonate = async (req,res) => {
+    try {
+        const response = await prisma.Donation.findMany({
+            where:{
+                post_id : req.params.post_id
+            },
+            orderBy: {
+                amount: 'desc',
+              },
+              take:5,
+              include: {
+                User: true,
+              }
+        })
+        res.status(200).json(response)
+        
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+    }
+}
+
 const getDonate = async (req,res) => {
     try {
         const response = await prisma.Donation.findMany({
@@ -62,4 +84,4 @@ const getDonate = async (req,res) => {
     }
 }
 
-module.exports = {donateCreate,changeStatus,getDonateById,getDonate}
+module.exports = {donateCreate,changeStatus,getDonateById,getDonate,getTopDonate}

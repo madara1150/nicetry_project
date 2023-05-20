@@ -264,7 +264,7 @@
                 class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"
                 v-if="swDonated">
                 <div
-                  class="bg-white rounded-lg shadow-lg p-4 h-[45%] w-[50%] overflow-y-scroll"
+                  class="bg-white rounded-lg shadow-lg h-[45%] w-[50%] overflow-y-scroll"
                 >
                  
                   <div class="bg-gray-700 p-5 rounded">
@@ -286,7 +286,7 @@
 
                   <!-- from donate -->
                   <form @submit.prevent="submitDonate" class="mt-2 w-full px-20">
-                    <div class="relative mb-4 flex flex-wrap items-stretch mt-5 mb-10">
+                    <div class="relative mb-4 flex flex-wrap items-stretch mt-5 mb-16">
                         <span
                           class="flex items-center whitespace-nowrap rounded-l border border-r-0 border-solid border-neutral-300 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-neutral-700"
                           >$</span
@@ -297,7 +297,7 @@
                            />
                       </div>
                       <hr>
-                    <div class="w-full m-auto mx-14 mt-3">
+                    <div class="w-full m-auto mx-20 mt-3">
                       <button
                       class="bg-red-500 text-white px-4 py-2 rounded"
                       type="submit"

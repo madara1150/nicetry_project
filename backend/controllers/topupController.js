@@ -74,6 +74,40 @@ const getTopup = async (req,res) =>{
     }
 }
 
+const getTopupimg = async (req,res) =>{
+
+    try {
+        
+        const response = await prisma.Image.findMany({
+            include:{
+                Topup:true
+            }
+        })
+        res.status(200).json(response) 
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+
+    }
+}
+
+const UpdateStatus = async (req, res) => {
+    try {
+      const data = req.body;
+      const response = await prisma.Topup.update({
+        where: {
+          id: req.params.id,
+        },
+        data: {
+          status: true
+        },
+      });
+      res.send("success");
+    } catch (err) {
+      res.status(404).json({ message: err.message });
+    }
+  };
+  
 
 
-module.exports = { topupCreate,getTopupById,getTopup,getTopupByIdTrue};
+
+module.exports = { topupCreate,getTopupById,getTopup,getTopupByIdTrue,getTopupimg,UpdateStatus};

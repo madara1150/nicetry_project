@@ -254,6 +254,10 @@ export default {
     },
   },
   mounted() {
+    const token = localStorage.getItem('token')
+       if(!token){
+        this.$router.push('/login')
+       }
     let tl = gsap.timeline();
     tl.from("#banks", { y: -100, duration: 1.5, autoAlpha: 0 }).from(
       "#qrcode",

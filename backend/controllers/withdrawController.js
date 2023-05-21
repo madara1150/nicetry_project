@@ -42,5 +42,21 @@ const getwithdraw = async (req,res) =>{
    }
 }
 
+const UpdateStatus = async (req, res) => {
+    try {
+      const response = await prisma.Withdraw.update({
+        where: {
+          id: req.params.id,
+        },
+        data: {
+            status: true
+        },
+      });
+      res.send("success");
+    } catch (err) {
+      res.status(404).json({ message: err.message });
+    }
+  };
 
-module.exports = {withdrawCreate ,withdrawById,getwithdraw};
+
+module.exports = {withdrawCreate ,withdrawById,getwithdraw,UpdateStatus};

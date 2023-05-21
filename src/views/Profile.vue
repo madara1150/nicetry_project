@@ -97,7 +97,7 @@
                         >First name</label
                       >
                       <input
-                        v-model="first_name"
+
                         :value="me.first_name"
                         type="text"
                         id="first_name"
@@ -112,7 +112,7 @@
                         >Last name</label
                       >
                       <input
-                      :value="me.last_name"
+
                         v-model="last_name"
                         type="text"
                         id="last_name"
@@ -130,7 +130,7 @@
                     >Email</label
                   >
                   <input
-                  :value="me.email"
+
                     v-model="email"
                     type="text"
                     id="last_name"
@@ -147,7 +147,7 @@
                     v-model="phone_number"
                     type="text"
                     id="last_name"
-                    :value="me.phone_number"
+
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Change phone number"
                   />

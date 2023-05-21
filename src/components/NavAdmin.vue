@@ -67,7 +67,7 @@
                   <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                     <li class="text-l p-3" id="menu-items"></li>
                     <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/admin"><p class="text-2xl">Admin</p></a></li>
-                    <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>
+                    <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" @click="Logout" id="menu-items"><a href="">Log out</a></li>
                   </ul>
                 </div>
 
@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
 import gsap from 'gsap';
 export default {
   name: 'NavAdmin',
@@ -113,6 +115,22 @@ export default {
         menuOpen = false;
       }
     });
+ },
+ setup(){
+  const apiStore = useFetchStore();
+    const { data } = storeToRefs(apiStore);
+    async function fetchData() {
+      await apiStore.fetchData();
+    }
+    async function Logout(){
+      await apiStore.Logout()
+    }
+
+    return {
+      fetchData,
+      me: data,
+      Logout,
+    };
  }
 }
 </script>

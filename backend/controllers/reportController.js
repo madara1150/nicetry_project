@@ -38,7 +38,7 @@ const changeStatus = async (req,res) => {
 
 const getReportAll = async (req,res) =>{
     try {
-        const response = await prisma.Report.findUique({
+        const response = await prisma.Report.findMany({
         })
         res.status(200).json(response)
         

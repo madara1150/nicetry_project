@@ -7,11 +7,12 @@ const topupCreate = async (req,res) =>{
         
         const response = await prisma.Topup.create({
             data: {
-                user_id: data.user_id,
+                user_id: req.params.user_id,
                 amount: data.amount,
-                slip_img: data.slip_img,
                 bank_topup: data.bank_topup,
-                topup_package: data.topup_package
+                topup_package: data.topup_package,
+                bank_num: data.bank_num,
+                topup_time: new Date(data.topup_time)
                 }
         })
         res.status(200).json(response) 
@@ -28,7 +29,30 @@ const getTopupById = async (req,res) =>{
         const response = await prisma.Topup.findMany({
             where: {
                 user_id: req.params.user_id
-            }
+            },
+            orderBy: {
+                topup_time: 'desc',
+              },
+        })
+        res.status(200).json(response) 
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+
+    }
+}
+
+const getTopupByIdTrue = async (req,res) =>{
+
+    try {
+        
+        const response = await prisma.Topup.findMany({
+            where: {
+                user_id: req.params.user_id,
+                status: true
+            },
+            orderBy: {
+                topup_time: 'desc',
+              },
         })
         res.status(200).json(response) 
     } catch (err) {
@@ -52,4 +76,4 @@ const getTopup = async (req,res) =>{
 
 
 
-module.exports = { topupCreate,getTopupById,getTopup};
+module.exports = { topupCreate,getTopupById,getTopup,getTopupByIdTrue};

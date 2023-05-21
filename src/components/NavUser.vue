@@ -25,7 +25,7 @@
       <!-- bell -->
       <div class="relative flex items-center">
         
-        <button class="max-[600px]:w-[16%] w-[7%] mr-3" data-te-toggle="modal" data-te-target="#aleart" data-te-ripple-init data-te-ripple-color="light">
+        <button class="max-[600px]:w-[16%] w-[7%] mr-3" data-te-toggle="modal" @click="sumReport" data-te-target="#aleart" data-te-ripple-init data-te-ripple-color="light">
               <img src="../image/bell-regular.svg" class="w-5 h-[7%]">
         </button>
 
@@ -49,9 +49,11 @@
 
                 <!-- content -->
                 <div class="relative flex-auto p-4 h-96 overflow-y-auto" data-te-modal-body-ref>
-                  
-                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-for="val,i in 10" :key="i">
-                    <h1 class="mt-2 break-words">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus enim explicabo non provident sed fugit inventore quasi doloribus culpa eaque.</h1>
+                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-if="reportRemove" >
+                    <h1 class="mt-2 break-words">{{ reportRemove.message }}</h1>
+                  </div>
+                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-for="val,i in reportAll" :key="i">
+                    <h1 class="mt-2 break-words">เติมเงินจำนวน {{ val.amount }} ราคา {{ val.topup_package }} สำเร็จ</h1>
                   </div>
 
                 </div>
@@ -137,7 +139,7 @@
 
           <!-- btn credit -->
           <span class="w-5">
-            <button type="button" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"
+            <button type="button" @click="swTopup"
               class="inline-block w-32 truncate rounded bg-[#F9FAFB] px-6 pt-2.5 pb-2 text-[2vh] font-medium uppercase leading-normal text-[#1F2937] shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#9FA6B2] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#9FA6B2] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
            {{ me.coin }} nice
             </button>
@@ -145,44 +147,36 @@
         </a>
         
         <!-- modal -->
-        <div data-te-modal-init class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="topup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          
-          <div data-te-modal-dialog-ref class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]">
-            <div class="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none">
-              <div class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4">
-                <h5 class="text-xl font-medium leading-normal text-neutral-800 " id="exampleModalLabel">
-                  TOP UP
-                </h5>
+        <div
+                class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"
+                v-if="swTopuped">
+                <div
+                  class="bg-white rounded-lg shadow-lg p-4 h-[45%] w-[60%] overflow-y-scroll"
+                >
 
-                <button type="button" class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-modal-dismiss
-                  aria-label="Close">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+                  <div class="flex text-3xl content-center justify-center mt-3 w-full">
+                    <h1 class="">Nice</h1>
+                    <h1 class="text-red-600">Try</h1>
+                  </div>
 
-              <!-- content -->
-              <div class="relative flex-auto p-4" data-te-modal-body-ref>
-                
-                <div class="grid grid-cols-2 gap-4 px-5" v-for="val,i in niceTopup" :key="i">
                   
-                  <h1> {{val.nice}} Nice</h1>
-                  <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2.5 mr-2 mb-2">{{val.price}} Baht</button>
+                  <hr>
+
                 
+                <div class="grid grid-cols-2 gap-4 px-5 mt-2" v-for="val,i in niceTopup" :key="i">
+                  <h1> {{val.nice}} Nice</h1>
+                  <button type="submit" @click="setPromotion(val)" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2.5 mr-2 mb-2">{{val.price}} Baht</button>
                 </div>
 
+
+              <hr>
+
+              <div class="w-full mt-2">
+                <button class="bg-black text-white px-10 py-2 rounded ml-[70%] m-auto" @click="swTopup">Close</button>
               </div>
 
-              <!-- footer -->
-              <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
-                <button type="button" class="inline-block rounded bg-black px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-gray-600 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200" data-te-modal-dismiss data-te-ripple-init data-te-ripple-color="light">
-                  Close
-                </button>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
 
         <div class="relative z-40">
@@ -234,10 +228,14 @@ export default {
     async function fetchData() {
       await apiStore.fetchData();
     }
+    async function Logout(){
+      await apiStore.Logout()
+    }
 
     return {
       fetchData,
       me: data,
+      Logout,
       storage
     };
   },
@@ -249,11 +247,41 @@ export default {
     niceTopup:promotion,
     imageData: [],
       picture: [],
-      info:''
+      info:'',
+      reportAll:[],
+      reportRemove:'',
+      swTopuped:false,
   }
  },
 
  methods:{
+  swTopup(){
+
+    if(this.swTopuped == true){
+        this.swTopuped = false
+      }else{
+        this.swTopuped = true
+
+      }
+  },
+  setPromotion(val){
+    localStorage.setItem('pro', JSON.stringify(val))
+    this.$router.push('/topup')
+  },
+  sumReport(){
+    this.fetchTopup()
+    this.fetchReport()
+  },
+  async fetchTopup(){
+    const topup = await axios.get(`http://localhost:5000/api/topups/checktopup/${this.me.id}`)
+    const data = topup.data
+    console.log(data);
+    this.reportAll = [...data]
+  },
+  async fetchReport(){
+    const report = await axios.get(`http://localhost:5000/api/reports/reported/${this.me.id}`)
+    this.reportRemove = report.data
+  },
   previewImage(event) {
     for(let i=0;i<3;i++){
       this.picture[i] = URL.createObjectURL(event.target.files[i])
@@ -291,7 +319,11 @@ export default {
       }
     },
  },
+ created(){
+ },
  mounted(){
+  this.fetchTopup()
+  this.fetchReport()
     let menuOpen = false;
 
     //create timeline

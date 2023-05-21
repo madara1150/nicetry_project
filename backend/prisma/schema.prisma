@@ -101,6 +101,7 @@ model Topup{
   user_id String?
   amount Int
   bank_topup String
+  bank_num String
   topup_package Float
   status Boolean @default(false)
   topup_time DateTime @default(now())

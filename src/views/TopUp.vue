@@ -53,14 +53,14 @@
         <h1 class="text-center p-5">Payment Receipt</h1>
         <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded" />
         <div class="flex justify-center p-2">
-          <img :src="picture" class="w-[200px] h-[200px]" />
+          <img src="https://cdn.discordapp.com/attachments/1030819283787333652/1109704077446742157/IMG_2974.jpg" class="w-[200px] h-[200px]" />
         </div>
         <h1 class="text-center text-[1vh]">NiceTry Company.co.th</h1>
         <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded" />
 
         <div class="flex justify-center p-5">
-          <span class="pr-[12vh]">300 nice</span>
-          <span>399 Baht</span>
+          <span class="pr-[12vh]">{{ pro.nice}} nice</span>
+          <span>{{ pro.price }} Baht</span>
         </div>
       </div>
 
@@ -78,16 +78,18 @@
             placeholder="Bank"
             disabled
             :value="selectBank"
+            
+
           />
         </div>
 
-        <select
+        <select v-model="bank_topup"
           name=""
           id=""
           class="min-[600px]:hidden bg-gray-600 text-white p-2 rounded w-full"
         >
           <option value="">Please Select Bank ...</option>
-          <option value="" v-for="(val, i) in bank" :key="i">
+          <option :value="val.nice_name" v-for="(val, i) in bank" :key="i">
             {{ val.nice_name }}
           </option>
         </select>
@@ -97,16 +99,16 @@
           <input
             type="text"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Account Name"
+            placeholder="Account Name" 
           />
         </div>
 
         <!-- account num -->
         <div class="mt-5">
           <input
-            type="number"
+            type="text"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Account Number"
+            placeholder="Account Number" v-model="bank_num"
           />
         </div>
 
@@ -117,15 +119,15 @@
             <input
               type="date"
               class="bg-gray-50 mr-3 border w-[27%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="date"
+              placeholder="date" v-model="time1"
             />
             <input
               type="time"
               class="bg-gray-50 mr-3 border w-[22%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="time"
+              placeholder="time" v-model="time2"
             />
             <input
-              type="number"
+              type="number" :value="pro.nice" disabled
               class="bg-gray-50 border w-[29%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Amount"
             />
@@ -171,41 +173,71 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { useFirebaseStorage } from "vuefire";
+import axios from 'axios';
+
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
 export default {
   name: "TopUp",
   setup() {
     const storage = useFirebaseStorage();
-    return { storage };
+    const apiStore = useFetchStore();
+    const { data } = storeToRefs(apiStore);
+    async function fetchData() {
+      await apiStore.fetchData();
+    }
+    return {storage,me:data,fetchData};
   },
   data() {
     return {
       bank: bank,
       selectBank: "",
       imageData: null,
-      picture: null
+      picture: null,
+      pro:'',
+      amount:'',
+      bank_topup:'',
+      bank_num:'',
+      topup_package:'',
+
     };
   },
   components: {
     NavUser,
   },
-  mounted() {},
+  mounted() {
+
+  },
   methods: {
+  
     previewImage(event) {
       this.picture = URL.createObjectURL(event.target.files[0])
       this.imageData = event.target.files
-      console.log(this.imageData);
     },
     async onUpload() {
       try {
         const datexx = new Date().getTime().toString() + ".jpg"
         const starsRef = storageRef(this.storage, `${datexx}`)
         await uploadBytes(starsRef, this.imageData)
+
+        const commitTopup = await axios.post(`http://localhost:5000/api/topups/create/${this.me.id}`,{
+          bank_num: this.bank_num,
+          amount: this.pro.nice,
+          bank_topup: this.selectBank,
+          topup_package: this.pro.price,
+          topup_time: this.time1+"T"+this.time2
+        })
+
+        const imageDB = await axios.post(`http://localhost:5000/api/images/createtopup`,{
+          topup_id: commitTopup.data.id,
+          filePath: `https://firebasestorage.googleapis.com/v0/b/nicetry-webpro.appspot.com/o/${datexx}?alt=media`
+        })
+
       } catch (err) {
         alert(err)
       }
     },
     CheckOutput(el, index) {
-      console.log(el);
       this.selectBank = el;
       this.clearSelect();
       document.getElementById(index).style.backgroundColor = "#B8B0B0";
@@ -223,6 +255,11 @@ export default {
       "#qrcode",
       { x: -100, duration: 0.5, autoAlpha: 0 }
     );
+
+    const storedUser = localStorage.getItem('pro')
+    this.pro = JSON.parse(storedUser)
+    console.log(this.pro);
+    
   },
 };
 </script>

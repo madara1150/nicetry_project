@@ -38,7 +38,7 @@ const changeStatus = async (req,res) => {
 
 const getReportAll = async (req,res) =>{
     try {
-        const response = await prisma.Report.findMany({
+        const response = await prisma.Report.findUique({
         })
         res.status(200).json(response)
         
@@ -47,6 +47,29 @@ const getReportAll = async (req,res) =>{
     }
 }
 
+const getReportAllbyId = async (req,res) =>{
+    try {
+        const response = await prisma.Post.findMany({
+            where:{
+                user_id: req.params.user_id
+            },
+        })
+        for (let i = 0; i < response.length; i++) {
+            const checkReport = await prisma.Report.findMany({
+                where:{
+                    post_id: response[i].id,
+                    status: true
+                }
+            })
+            if(checkReport){
+                return res.json({message: `โพสของคุณโดนลบ เนื่องจากการรายงาน`})
+            }
+        }
+        
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+    }
+}
 
 
-module.exports = { reportCreate,changeStatus,getReportAll };
+module.exports = { reportCreate,changeStatus,getReportAll ,getReportAllbyId};

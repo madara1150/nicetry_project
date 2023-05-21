@@ -60,8 +60,10 @@
 <script>
 import NavBar from '@/components/Nav.vue';
 import gsap from 'gsap';
+import axios from 'axios';
 
-import { required,minLength } from '@vuelidate/validators'
+
+
 export default {
   setup () {
     return { 

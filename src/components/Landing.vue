@@ -11,7 +11,7 @@
 
     <div class="flex px-64 max-[600px]:flex-col max-[600px]:px-0 mt-20 justify-center">
       <div class="w-[50%] max-[600px]:w-[100%]" id="PostOne">
-        <CardPost class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" />
+        <CradTest class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]"  />
       </div>
 
     
@@ -36,7 +36,7 @@
         </div>
 
       <div class="w-[45%] max-[600px]:w-[100%] max-[600px]:mt-5" id="postTwo">
-        <TopDonate class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" />
+        <TopTest class="drop-shadow-[0_45px_45px_rgba(0,255,255,0.6)]" :myObject="post.user_id" />
       </div>
 
     </div>
@@ -54,27 +54,33 @@
 
 <script>
 import gsap from 'gsap';
-import CardPost from "../components/CardPost.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import TopDonate from './TopDonate.vue';
-
+import TopTest from './TopTest.vue';
+import axios from 'axios';
+import CradTest from './CardTest.vue'
 
 export default {
   name: "Landing",
   components: {
-    CardPost,
-    TopDonate,
+
+    TopTest,
+    CradTest
 
   },
   methods:{
-    
+    async fetchPost(){
+      const post = await axios.get(`http://localhost:5000/api/posts/mainpost`)
+      this.post = post.data[0]
+    }
   },
   data(){
     return{
+      post:[],
+      
     }
   },
   mounted() {
-
+    this.fetchPost()
     let word = ["This is a sample post. You can post your own lifestyle. You can include up to 3 photos showing what others don't know about you. Supporters will come to support you."]
 
     gsap.registerPlugin(ScrollTrigger);

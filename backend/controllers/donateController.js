@@ -43,6 +43,9 @@ const getDonateById = async (req,res) => {
         const response = await prisma.Donation.findMany({
             where:{
                 user_id : req.params.user_id
+            },
+            include:{
+                User:true
             }
         })
         res.status(200).json(response)

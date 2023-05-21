@@ -1,9 +1,10 @@
 <template>
-  <div>
-<NavUser class="z-40" />
+  <div class="min-h-screen">
+    <NavAdmin class="z-40" v-if="me.role === 'ADMIN'" />
+<NavUser class="z-40" v-if="me.role === 'USER'" />
     
-    <div class="bg-gradient-to-br from-rose-900 via-black to-rose-700 w-full h-full">
-        <div class="w-[70%] mx-auto bg-gray-200 max-[600px]:w-[100%]">
+    <div class="bg-gradient-to-br from-rose-900 via-black to-rose-700 w-full h-full min-h-screen">
+        <div class="w-[70%] mx-auto bg-gray-200 max-[600px]:w-[100%] min-h-screen">
 
             <div class="flex justify-center max-[600px]:p-5 w-full" v-for="val,i in post" :key="i">
                 <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5 w-full">
@@ -26,7 +27,7 @@
 import CardPost from '@/components/CardPost.vue';
 import NavUser from '@/components/NavUser.vue';
 import TopDonate from '@/components/TopDonate.vue';
-
+import NavAdmin from '@/components/NavAdmin.vue';
 import axios from 'axios';
 import { useFetchStore } from "../store/index";
 import { storeToRefs } from "pinia";
@@ -37,7 +38,7 @@ export default {
     components:{
         CardPost,
         NavUser,
-        TopDonate
+        TopDonate,NavAdmin
     },
     setup() {
     const apiStore = useFetchStore()
@@ -54,6 +55,10 @@ export default {
     },
     mounted(){
         this.fetchPost()
+        const token = localStorage.getItem('token')
+       if(!token){
+        this.$router.push('/login')
+       }
     },
     methods:{
         async fetchPost() {

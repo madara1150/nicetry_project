@@ -25,110 +25,22 @@
           <!-- bell -->
           <div class="relative flex items-center">
             
-            <button class="max-[600px]:w-[16%] w-[7%] mr-3" data-te-toggle="modal" data-te-target="#aleart" data-te-ripple-init data-te-ripple-color="light">
-                  <img src="../image/bell-regular.svg" class="w-5 h-[7%]">
-            </button>
+          
 
             <!-- modal aleart -->
-            <div data-te-modal-init class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="aleart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                
-                <div data-te-modal-dialog-ref class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]">
-                  <div class="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none">
-                    <div class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4">
-                      <h5 class="text-xl font-medium leading-normal text-neutral-800 " id="exampleModalLabel">
-                        aleart
-                      </h5>
-
-                      <button type="button" class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-modal-dismiss
-                        aria-label="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-
-                    <!-- content -->
-                    <div class="relative flex-auto p-4 h-96 overflow-y-auto" data-te-modal-body-ref>
-                      
-                      <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black overflow-scroll" v-for="val,i in 10" :key="i">
-                        <h1 class="mt-2 break-words">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus enim explicabo non provident sed fugit inventore quasi doloribus culpa eaque.</h1>
-                      </div>
-
-                    </div>
-
-                    <!-- footer -->
-                    <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
-                      <button type="button" class="inline-block rounded bg-black px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-gray-600 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200" data-te-modal-dismiss data-te-ripple-init data-te-ripple-color="light">
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            
 
           
 
           <!-- upload -->
           <div class="relative flex items-center">
 
-              <button class="w-16 text-black text-[2vh] mr-5 max-[600px]:mr-1" data-te-toggle="modal" data-te-target="#uploadPost" data-te-ripple-init data-te-ripple-color="light">
-                  Upload
-              </button>
+            
             
 
-            <!-- modal post -->
-              <div data-te-modal-init class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="uploadPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                
-                <div data-te-modal-dialog-ref class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]">
-                  <div class="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none">
-                    <div class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4">
-                      <h5 class="text-xl font-medium leading-normal text-neutral-800 " id="exampleModalLabel">
-                        Post your content
-                      </h5>
 
-                      <button type="button" class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" data-te-modal-dismiss
-                        aria-label="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
+              
 
-                    <!-- content -->
-                    <div class="relative flex-auto p-4" data-te-modal-body-ref>
-                      
-                      <div class="grid grid-cols-2 gap-4 px-5">
-
-                        <div>
-                          <img src="https://source.unsplash.com/800x600/?mountain" alt="">
-                          <img src="https://source.unsplash.com/800x600/?tree" alt="" class="mt-2">
-                        </div>
-                        <img  class="h-full" src="https://source.unsplash.com/800x600/?boat" alt="">
-                      </div>
-
-                      <!-- input content -->
-                      <div class="p-5">
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Write your content</label>
-                        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your content here..."></textarea>
-
-                        <!-- file -->
-                        <label class="block mb-2 text-sm font-medium text-gray-900 mt-5" for="file_input">Upload file</label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" aria-describedby="file_input_help" id="file_input" type="file">
-                        <p class="mt-1 text-[10%] text-gray-500" id="file_input_help">SVG, PNG, JPG.</p>
-
-                      </div>
-
-                    </div>
-
-                    <!-- footer -->
-                    <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
-                      <button type="button" class="inline-block rounded bg-black px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-gray-600 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200" data-te-modal-dismiss data-te-ripple-init data-te-ripple-color="light">
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
 
           <!-- admin  -->
@@ -154,7 +66,6 @@
                   <img src="https://source.unsplash.com/800x600/?nature" class="rounded-full w-14 h-14" id="profile">
                   <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                     <li class="text-l p-3" id="menu-items"></li>
-                    <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/adminprofile"><p class="text-2xl">Proflie</p></a></li>
                     <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/admin"><p class="text-2xl">Admin</p></a></li>
                     <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>
                   </ul>

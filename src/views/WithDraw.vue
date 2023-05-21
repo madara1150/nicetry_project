@@ -23,7 +23,7 @@
     </div>
     
     <div class="flex justify-center mt-10 max-[600px]:w-full max-[600px]:flex-col max-[600px]:p-5 max-[600px]:mt-5">
-        <form action="" class="w-[30%] max-[600px]:w-full">
+        <form @submit.prevent="submitwithdraw" class="w-[30%] max-[600px]:w-full">
             <div>
                 <!-- Bank -->
                 
@@ -41,7 +41,7 @@
                 
                 <!-- bank number -->
                 <label for="first_name" class="block mb-2 mt-5 text-sm font-medium text-gray-900">Bank Account Number</label>
-                <input v-model="numberAccount" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="number" required>
+                <input v-model="numberAccount" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="number" required>
                 
                 <!-- amount -->
                 <label for="first_name" class="block mb-2 mt-5 text-sm font-medium text-gray-900">Amount</label>
@@ -80,11 +80,25 @@
 import NavUser from '@/components/NavUser.vue';
 import bank from '../data/banks.json'
 import gsap from 'gsap';
+
+import axios from 'axios';
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
+import { throwStatement } from '@babel/types';
 export default {
     name :"WithDraw",
     components:{
         NavUser
     },
+    setup() {
+
+const apiStore = useFetchStore();
+const { data } = storeToRefs(apiStore);
+async function fetchData() {
+  await apiStore.fetchData();
+}
+return {me:data,fetchData};
+},
     data(){
         return{
             bank:bank,
@@ -95,6 +109,13 @@ export default {
         }
     },
     methods:{
+        async submitwithdraw(){
+            const sumbit =  await axios.post(`http://localhost:5000/api/withdraws/create/${this.me.id}`,{
+                amount:this.amountAccount,
+                bank_name:this.selectBank,
+                acc_num:this.numberAccount
+            })
+        },
         CheckOutput(el,index){
             console.log(el)
             this.selectBank = el
@@ -111,6 +132,10 @@ export default {
         }
     },
     mounted(){
+        const token = localStorage.getItem('token')
+       if(!token){
+        this.$router.push('/login')
+       }
       let tl = gsap.timeline()
       tl.from('#banks', {y:-100,duration:1.5,autoAlpha:0})
       .from('#qrcode', {x:-100,duration:0.5,autoAlpha:0})

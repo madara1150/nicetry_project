@@ -35,7 +35,7 @@
 
                   <img
                     class="h-40 w-full rounded-t-lg object-cover md:w-48 md:rounded-none md:rounded-l-lg mt-5 ml-2"
-                    src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg"  />
+                    src="https://cdn.dribbble.com/userupload/3490861/file/original-0b29724a46be9ff56784bbfbd37b1e02.png?compress=1&resize=752x"  />
                 
                   </div>
 
@@ -80,15 +80,15 @@
               <div class="relative w-full overflow-hidden after:clear-both after:block after:content-[''] rounded">
     
                   <div class="rounded relative float-left -mr-[100%] w-full h-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item data-te-carousel-active>
-                    <img src="https://m.media-amazon.com/images/M/MV5BM2JjYmUyN2MtODIyOC00ZmNiLWI5YTUtN2NiMWQzNmM3OGU1XkEyXkFqcGdeQXVyNDk3NDEzMzk@._V1_FMjpg_UX1000_.jpg" class="block w-full max-[600px]:h-80 h-[450px] max-[600px]:w-80" alt="Wild Landscape" />
+                    <img src="https://cdn.dribbble.com/users/13612369/screenshots/19940307/media/8ca21635fae3bada7cf9e88ccbc2d22e.png?compress=1&resize=1600x1200&vertical=top" class="block w-full max-[600px]:h-80 h-[450px] max-[600px]:w-80" alt="Wild Landscape" />
                   </div>
     
                   <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
-                    <img src="https://qph.cf2.quoracdn.net/main-qimg-54caf0d24d3f87fb42b6532614ae7f9c-lq" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]"  alt="Camera" />
+                    <img src="https://cdn.discordapp.com/attachments/911172780781891614/1109858710081245324/741710b199585f154343eb507767f147.png" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]"  alt="Camera" />
                   </div>
     
                   <div class="rounded relative float-left -mr-[100%] hidden w-full max-[600px]:h-80 max-[600px]:w-80 transition-transform duration-[600ms] h-max w-96 ease-in-out motion-reduce:transition-none" data-te-carousel-item>
-                    <img src="https://cdnb.artstation.com/p/assets/images/images/038/151/293/large/sajol-hasan-madara-sammm.jpg?1622314122" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]" alt="Exotic Fruits" />
+                    <img src="https://cdn.dribbble.com/userupload/6404271/file/original-a93266d08f3427fe7ae4417606536d3b.jpg?compress=1&resize=2048x1536&vertical=center" class="block w-full max-[600px]:h-80 max-[600px]:w-80 h-[450px]" alt="Exotic Fruits" />
                   </div>
 
 
@@ -126,12 +126,18 @@ import gsap from 'gsap';
 import Landing from '../components/Landing.vue';
 import NavBar from "../components/Nav.vue";
 import ScrollTrigger from "gsap/ScrollTrigger";
-
+import axios from "axios";
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
   methods: {
-    
+    async fetchPost(){
+      const post = await axios.get(`http://localhost:5000/api/posts/most`)
+      this.post = post.data
+      console.log(this.post);
+    }
   },
   components: {
     NavBar,
@@ -139,12 +145,27 @@ export default {
    
    
   },
+  setup() {
+    const apiStore = useFetchStore();
+    const { data } = storeToRefs(apiStore);
+    async function fetchData() {
+      await apiStore.fetchData();
+    }
+
+    return {
+      me: data,
+      fetchData,
+    };
+  },
   data() {
-    return {};
+    return {
+      post:[]
+    };
   },
 
   mounted(){
-
+    this.fetchPost()
+    
     gsap.registerPlugin(ScrollTrigger);
     
     let tl = gsap.timeline({

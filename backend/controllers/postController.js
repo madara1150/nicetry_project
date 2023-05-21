@@ -115,7 +115,7 @@ const getPostById = async (req,res)=> {
     try {
         const response = await prisma.Post.findMany({
             where: {
-                id: req.body.id
+                user_id: req.params.user_id
             },
             orderBy: {
                 CreateAt: 'desc'
@@ -123,6 +123,31 @@ const getPostById = async (req,res)=> {
             
         })
         res.status(200).json(response)
+    } catch (err) {
+        res.status(404).json({ message: err.message })
+
+    }
+}
+const mostPost = async (req,res) =>{
+    try {
+        const response = await prisma.Post.findMany({
+            orderBy: {
+                like: 'desc'
+              },
+        })
+        console.log(response[0].id)
+        const image = await prisma.image.findMany({
+            where:{
+                post_id: response[0].id
+            }
+        })
+        console.log(image);
+        res.status(200).json({
+            post:
+                response[0],
+            image:image
+            
+        })
     } catch (err) {
         res.status(404).json({ message: err.message })
 
@@ -148,4 +173,4 @@ const CheckImage = async (req,res)=> {
 }
 
 
-module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,CheckImage,DisLikePost}
+module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,CheckImage,DisLikePost,mostPost}

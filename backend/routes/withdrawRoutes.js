@@ -2,7 +2,7 @@ const {withdrawCreate,withdrawById,getwithdraw } = require("../controllers/withd
 const express = require('express');
 const router = express.Router();
 
-router.post('/create',withdrawCreate )
+router.post('/create/:user_id',withdrawCreate )
 router.get('/withdraw/:user_id',withdrawById)
 router.get('/withdraw',getwithdraw)
 

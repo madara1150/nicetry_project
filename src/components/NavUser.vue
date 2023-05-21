@@ -49,8 +49,8 @@
 
                 <!-- content -->
                 <div class="relative flex-auto p-4 h-96 overflow-y-auto" data-te-modal-body-ref>
-                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-if="reportRemove" >
-                    <h1 class="mt-2 break-words">{{ reportRemove.message }}</h1>
+                  <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-for="val,i in reportRemove" :key="i" >
+                    <h1 v-if="reportRemove.length != 0" class="mt-2 break-words">{{ reportRemove.message }}</h1>
                   </div>
                   <div class="w-full bg-red-500 flex items-center text-white rounded-[2px] border-b-2 p-5 border-black" v-for="val,i in reportAll" :key="i">
                     <h1 class="mt-2 break-words">เติมเงินจำนวน {{ val.amount }} ราคา {{ val.topup_package }} สำเร็จ</h1>
@@ -151,10 +151,10 @@
                 class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"
                 v-if="swTopuped">
                 <div
-                  class="bg-white rounded-lg shadow-lg p-4 h-[45%] w-[60%] overflow-y-scroll"
+                  class="bg-white rounded-lg shadow-lg p-4 h-[60%] w-[60%] overflow-y-scroll"
                 >
 
-                  <div class="flex text-3xl content-center justify-center mt-3 w-full">
+                  <div class="flex text-3xl content-center justify-center mt-3 w-full mb-3">
                     <h1 class="">Nice</h1>
                     <h1 class="text-red-600">Try</h1>
                   </div>
@@ -163,7 +163,7 @@
                   <hr>
 
                 
-                <div class="grid grid-cols-2 gap-4 px-5 mt-2" v-for="val,i in niceTopup" :key="i">
+                <div class="grid grid-cols-2 gap-4 px-5 mt-5" v-for="val,i in niceTopup" :key="i">
                   <h1> {{val.nice}} Nice</h1>
                   <button type="submit" @click="setPromotion(val)" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2.5 mr-2 mb-2">{{val.price}} Baht</button>
                 </div>
@@ -172,7 +172,7 @@
               <hr>
 
               <div class="w-full mt-2">
-                <button class="bg-black text-white px-10 py-2 rounded ml-[70%] m-auto" @click="swTopup">Close</button>
+                <button class="bg-black text-white px-10 py-2 rounded ml-[75%] m-auto" @click="swTopup">Close</button>
               </div>
 
                 </div>
@@ -187,9 +187,9 @@
               <ul class="absolute list-none w-[20em] bg-gradient-to-br from-black via-gray-800 to-rose-800 top-[100%] invisible right-0 rounded p-5 text-white" id="menu">
                 <li class="text-l p-3" id="menu-items"></li>
                 <li class="cursor-pointer rounded p-3 hover:bg-red-500 pb-2" id="menu-items"><a href="/profile"><p class="text-2xl">Proflie</p></a></li>
-                <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"><a href="#"><span class="text-l">{{me.coin}} nice.</span></a></li>
+                <li class="text-l cursor-pointer rounded pl-3 p-1" id="menu-items" data-te-toggle="modal" data-te-target="#topup" data-te-ripple-init data-te-ripple-color="light"><a href="/withdraw"><span class="text-l">{{me.coin}} nice.</span></a></li>
                 <li class="text-2xl cursor-pointer rounded p-3 hover:bg-red-500" id="menu-items"><a href="/deposit">History</a></li>
-                <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items"><a href="">Log out</a></li>
+                <li class="text-2xl cursor-pointer rounded p-3 bg-red-400 hover:bg-red-800" id="menu-items" @click="Logout" ><a href="/login" @click="Logout" >Log out</a></li>
               </ul>
             </div>
 
@@ -249,7 +249,7 @@ export default {
       picture: [],
       info:'',
       reportAll:[],
-      reportRemove:'',
+      reportRemove:[],
       swTopuped:false,
   }
  },
@@ -281,6 +281,7 @@ export default {
   async fetchReport(){
     const report = await axios.get(`http://localhost:5000/api/reports/reported/${this.me.id}`)
     this.reportRemove = report.data
+    console.log(this.reportRemove);
   },
   previewImage(event) {
     for(let i=0;i<3;i++){

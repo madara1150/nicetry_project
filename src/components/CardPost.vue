@@ -4,7 +4,7 @@
       <!-- profile -->
       <div :class="myClassColor">
         <img
-          src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
+          src="https://source.unsplash.com/800x600/?human"
           class="rounded-full"
           style="width: 6vh; height: 6vh"
           alt="Avatar"
@@ -85,6 +85,46 @@
                 @click="openCommentModal"
                 class="w-[5%] mx-2': 'w-[5%] mx-2"
               />
+
+              <img v-if="checkroles"
+                src="../image/screwdriver-wrench-solid.svg"
+                @click="swEdit"
+                class="w-[5%] mx-2': 'w-[5%] mx-2"
+              />
+
+              <!-- editor -->
+              <div
+                class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[70%]"
+                v-if="swEdited"
+              >
+                <div
+                  class="bg-white rounded-lg shadow-lg h-[20%] overflow-y-scroll"
+                >
+                  <!-- แสดงความคิดเห็น -->
+                  
+                  
+
+                  <!-- ฟอร์มเขียนความคิดเห็น -->
+                  <form @submit.prevent="editPostt" class="mt-2 mx-2">
+                    <input
+                      v-model="postedit"
+                      class="w-full h-20 border border-gray-300 rounded p-2 mb-2"
+                    >
+                    <button
+                      class="bg-red-500 ml-[45%] text-white px-4 py-2 rounded"
+                      type="submit"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="bg-black text-white px-10 py-2 rounded ml-2"
+                      @click="swEdit"
+                    >
+                      close
+                    </button>
+                  </form>
+                </div>
+              </div>
 
               <!-- comment -->
               <div
@@ -377,10 +417,44 @@ export default {
       reported5: "",
       donated: 0,
       swDonated:false,
-      swReported:false
+      swReported:false,
+      proifle:'',
+      swEdited:false,
+      checkroles:false,
+      postedit:'',
+
     };
   },
   methods: {
+    async editPostt(){
+      const post = await axios.put(`http://localhost:5000/api/posts/update`,{
+        id: this.myObject.id,
+        info: this.postedit
+      })
+      this.swEdited = false
+      this.$router.go(0)
+    },
+    checkrole(){
+      if(this.me.role == 'ADMIN' || this.me.id === this.myObject.user_id){
+        this.checkroles = true
+      }
+    },
+    swEdit(){
+      if(this.swEdited == true){
+        this.swEdited = false
+      }else{
+        this.swEdited = true
+
+      }
+    },
+    async fetchImageUser(){
+      const image = await axios.get(`http://localhost:5000/api/images/getuserimage/${this.myObject.user_id}`)
+      const data = image.data
+      this.profile = data[0].filePath
+      console.log(this.profile[0].filePath)
+
+
+    },
     swReport(){
       if(this.swReported == true){
         this.swReported = false
@@ -593,6 +667,9 @@ export default {
     },
   },
   mounted() {
+    this.checkrole()
+    console.log(this.me.role);
+    this.fetchImageUser()
     this.fetchName();
     this.checkLavel();
     this.fetchImage();

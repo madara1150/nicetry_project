@@ -2,6 +2,9 @@ const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
 const { request } = require("express");
 const prisma = new PrismaClient();
+const Joi = require('joi');
+
+
 
 const jwt = require("jsonwebtoken");
 
@@ -60,8 +63,12 @@ const login = async (req, res) => {
   }
 };
 
+
+
+
 //create user
 const CreateUser = async (req, res) => {
+  
   try {
     const {
       first_name,
@@ -72,6 +79,17 @@ const CreateUser = async (req, res) => {
       phone_number,
       info,
     } = req.body;
+    const user = await prisma.User.findMany({
+      where: {
+        username:username,
+      },
+    });
+    if (user.length === 1) {
+      throw new Error("Username is used");
+    }
+    if(password.length < 8){
+      throw new Error("Password must 8-15");
+    }
     const hash = await bcrypt.hash(password, 13);
     const response = await prisma.User.create({
       data: {
@@ -106,7 +124,6 @@ const DeleteUser = async (req, res) => {
 const UpdateUser = async (req, res) => {
   try {
     const data = req.body;
-    const hashh = await bcrypt.hash(data.password, 13);
     const response = await prisma.User.update({
       where: {
         id: data.id,
@@ -114,11 +131,8 @@ const UpdateUser = async (req, res) => {
       data: {
         first_name: data.first_name,
         last_name: data.last_name,
-        username: data.username,
         email: data.email,
-        role: data.role,
         phone_number: data.phone_number,
-        password: hashh,
       },
     });
     res.send("success");

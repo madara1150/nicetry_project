@@ -54,6 +54,9 @@ const getReportAllbyId = async (req,res) =>{
                 user_id: req.params.user_id
             },
         })
+        if(response.length == 0){
+            return res.json({message: `สวัสดียินดีต้อนรับเข้าสู่ระบบ`})
+        }
         for (let i = 0; i < response.length; i++) {
             const checkReport = await prisma.Report.findMany({
                 where:{
@@ -61,7 +64,7 @@ const getReportAllbyId = async (req,res) =>{
                     status: true
                 }
             })
-            if(checkReport){
+            if(checkReport.length){
                 return res.json({message: `โพสของคุณโดนลบ เนื่องจากการรายงาน`})
             }
         }

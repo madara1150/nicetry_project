@@ -10,10 +10,12 @@ import axiosInstanec from "./plugin/axios";
 import { createPinia } from 'pinia'
 
 
+
 const app = createApp(App);
 app.use(VueFire, {
     storage,
   });
+
 app.use(Vuelidate);
 app.use(createPinia())
 app.use(router)

@@ -8,6 +8,7 @@
       background-image: url(https://cdn.discordapp.com/attachments/911172780781891614/1089188257331433543/black-and-white-city-silhouette-background-abstract-skyline-of-city-buildings-with-blue-sky-illustration-vector.png);
     "
   >
+    <!-- modal error -->
     <div class="w-[35%] max-[600px]:w-full">
       <div id="welcomeback">
         <p class="text-5xl mt-14 text-center">
@@ -17,6 +18,20 @@
           Please enter your detail
         </p>
       </div>
+
+      <div
+    class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 m-auto"
+    v-show="isOpen"
+  >
+    <div class="bg-white p-8 rounded shadow w-[30%]">
+      <h2 class="text-xl font-bold mb-4 text-center ">Error</h2>
+      <hr>
+      <p class="text-center mt-2 p-10">{{ errors }}</p>
+      <div class="flex items-center w-full justify-center">
+        <button class="mt-4 bg-red-500 hover:bg-red-600 text-white px-7 py-2 rounded" @click="isOpen=false">Close</button>
+      </div>
+    </div>
+  </div>
 
       <!-- input -->
       <form class="w-full" id="image">
@@ -124,6 +139,8 @@ export default {
     return {
       username: "",
       password: "",
+      isOpen:false,
+      errors:"",
     };
   },
   components: { NavBar },
@@ -159,10 +176,18 @@ export default {
           localStorage.setItem("token", response.data.token);
           this.fetchData();
         }
-      } catch (error) {
-        console.error(error);
+        if(this.me.role === "ADMIN"){
+          this.$router.push('/admin')
+        }
+        else{
+          this.$router.push('/main')
+        }
+      } catch (err) {
+        this.isOpen = true
+        this.errors = err.response.data.message
       }
-      this.$router.push('/main')
+      
+      
     },
   },
 };

@@ -206,6 +206,10 @@ export default {
     NavUser,
   },
   mounted() {
+    const token = localStorage.getItem('token')
+       if(!token){
+        this.$router.push('/login')
+       }
 
   },
   methods: {
@@ -232,7 +236,7 @@ export default {
           topup_id: commitTopup.data.id,
           filePath: `https://firebasestorage.googleapis.com/v0/b/nicetry-webpro.appspot.com/o/${datexx}?alt=media`
         })
-
+        this.$router.push('/deposit')
       } catch (err) {
         alert(err)
       }

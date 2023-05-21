@@ -38,18 +38,18 @@
  
                  <!-- deposit -->
                  <tbody>
-                     <tr v-for="val, i in 5" :key="i" class="border border-gray-600 bg-white">
+                     <tr v-for="val, i in topup" :key="i" class="border border-gray-600 bg-white">
                          <td class="px-6 py-3">
-                         wait...
+                         {{val.status?'success': 'wait...'}}
                      </td>
                      <td class="px-6 py-3">
-                         2022-02-02
+                         {{ val.topup_time }}
                      </td>
                      <td class="px-6 py-3">
-                         300
+                         {{ val.amount }}
                      </td>
                      <td class="px-6 py-3">
-                         399.0
+                        {{val.topup_package }}
                      </td>
                      </tr>
                      
@@ -83,21 +83,21 @@
  
                  <!-- withdraw -->
                  <tbody>
-                     <tr v-for="val, i in 5" :key="i" class="border border-gray-600 bg-white">
+                     <tr v-for="val, i in withdraws" :key="i" class="border border-gray-600 bg-white">
                          <td class="px-6 py-3">
-                             wait...
+                            {{val.status?"success":"wait..." }}
                          </td>
                          <td class="px-6 py-3">
-                             2022-02-02
+                             {{ val.createAt }}
                          </td>
                          <td class="px-6 py-3">
-                             300
+                             {{ val.amount }}
                          </td>
                          <td class="px-6 py-3">
-                             kbank
+                            {{ val.bank_name }}
                          </td>
                          <td class="px-6 py-3">
-                             1102321321xxx
+                             {{ val.acc_num }}
                          </td>
                      </tr>
                  </tbody>
@@ -125,18 +125,18 @@
                  </thead>
                  <!-- transfer -->
                  <tbody>
-                     <tr v-for="val, i in 5" :key="i" class="border border-gray-600 bg-white">
+                     <tr v-for="val, i in donate" :key="i" class="border border-gray-600 bg-white">
                          <td class="px-6 py-3">
-                             1110231
+                             {{ val.post_id }}
                          </td>
                          <td class="px-6 py-3">
-                             2002-02-02
+                            {{ val.CreateAt }}
                          </td>
                          <td class="px-6 py-3">
-                             -300
+                             {{ val.amount }}
                          </td>
                          <td class="px-6 py-3">
-                             100012
+                             {{ val.User.username }}
                          </td>
                      </tr>
                     
@@ -153,13 +153,49 @@
  <script>
  import NavUser from '../components/NavUser.vue'
  import gsap from 'gsap';
+ import axios from 'axios';
+
+import { useFetchStore } from "../store/index";
+import { storeToRefs } from "pinia";
  export default {
      name:'Deposit',
      components:{
          NavUser
      },
+     data(){
+        return{
+            topup:'',
+            donate:'',
+            withdraws:"",
+            token:""
+
+        }
+     },
+     setup() {
+
+    const apiStore = useFetchStore();
+    const { data } = storeToRefs(apiStore);
+    async function fetchData() {
+      await apiStore.fetchData();
+    }
+    return {me:data,fetchData};
+  },
      methods: {
+        async fetchWithdraw(){
+            const withdraw = await axios.get(`http://localhost:5000/api/withdraws/withdraw/${this.me.id}`)
+            this.withdraws = withdraw.data
+
+        },
+        async fetchTopup(){
+            const topupp = await axios.get(`http://localhost:5000/api/topups/topup/${this.me.id}`)
+            this.topup = topupp.data
+        },
+        async fetchDonate(){
+            const donatee = await axios.get(`http://localhost:5000/api/donate/getdonate/${this.me.id}`)
+            this.donate = donatee.data
+        },
          deposit(){
+            this.fetchTopup()
              let ans1 = document.getElementById('deposit');
              let ans2 = document.getElementById('withdraw');
              ans2.style.display = 'none';
@@ -168,6 +204,7 @@
              return ans1.style.display = 'block'
          },
          withdraw(){
+            this.fetchWithdraw()
              let ans1 = document.getElementById('deposit');
              ans1.style.display = 'none';
              let ans2 = document.getElementById('withdraw');
@@ -176,6 +213,7 @@
              return ans2.style.display = 'block'
          },
          transfer(){
+            this.fetchDonate()
              let ans1 = document.getElementById('deposit');
              ans1.style.display = 'none';
              let ans2 = document.getElementById('withdraw');
@@ -185,11 +223,16 @@
          }
      },
      mounted(){
+        this.fetchTopup()
        let tl = gsap.timeline()
        tl.from('#group', {x:100,duration:0.5,autoAlpha:1})
        .from('#deposit', {x:-100,duration:0.5,autoAlpha:1})
  
-       
+       const token = localStorage.getItem('token')
+       if(!token){
+        this.$router.push('/login')
+       }
+
      }
  }
  </script>

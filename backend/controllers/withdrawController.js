@@ -6,7 +6,7 @@ const withdrawCreate = async (req,res) =>{
         const data = req.body
         const response = await prisma.Withdraw.create({
             data: {
-                user_id: data.user_id,
+                user_id: req.params.user_id,
                 amount: data.amount,
                 bank_name: data.bank_name,
                 acc_num: data.acc_num

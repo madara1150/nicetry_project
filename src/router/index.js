@@ -9,6 +9,7 @@ import withdraw from '../views/WithDraw.vue'
 import Profile from '../views/Profile.vue'
 import Admin from '../views/Admin.vue'
 
+
 const routes = [
   {
     path: "/",
@@ -19,6 +20,7 @@ const routes = [
     path: "/main",
     name: "MainPage",
     component: MainPage,
+    meta: { requiresAuth: true }
   },
 
   {
@@ -64,5 +66,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+
+
 
 export default router;

@@ -50,6 +50,9 @@
                        <td class="px-6 py-3">
                            <input type="checkbox" @click="checkTopup(val)" class="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 w-4 h-4 focus:ring-2">
                        </td>
+                       <td class="px-6 py-3">
+                        {{ val.Topup.status ? "success": "wail.." }}
+                       </td>
                     </div>
                        
                    </tr>
@@ -76,6 +79,9 @@
                        <th scope="col" class="px-6 py-3">
                            confirm
                        </th>
+                       <th scope="col" class="px-6 py-3">
+                           Status
+                       </th>
                    </tr>
                </thead>
                
@@ -92,6 +98,9 @@
                        </td>
                        <td class="px-6 py-3">
                            <input type="checkbox" @click="checkWithdraw(val)" class="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 w-4 h-4 focus:ring-2">
+                       </td>
+                       <td class="px-6 py-3">
+                        {{ val.status ? "success" : "wait" }}
                        </td>
                    </tr>
                </tbody>

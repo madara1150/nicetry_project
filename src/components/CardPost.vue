@@ -600,23 +600,23 @@ export default {
     checkLavel() {
       if (this.myObject.like > 100) {
         this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-gray-600";
+          "flex items-center p-2 rounded-t-xl w-full bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900";
       }
       if (this.myObject.like > 500) {
         this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-green-600";
+          "flex items-center p-2 rounded-t-xl w-full bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900";
       }
       if (this.myObject.like > 1000) {
         this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-blue-600";
+          "flex items-center p-2 rounded-t-xl w-full bg-[conic-gradient(at_left,_var(--tw-gradient-stops))] from-rose-500 to-indigo-700";
       }
       if (this.myObject.like > 5000) {
         this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-red-600";
+          "flex items-center p-2 rounded-t-xl w-full bg-gradient-to-r from-green-300 via-blue-500 to-purple-600";
       }
       if (this.myObject.like > 10000) {
         this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-yellow-600";
+          "flex items-center p-2 rounded-t-xl w-full  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500";
       }
     },
 

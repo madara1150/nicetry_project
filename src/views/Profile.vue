@@ -97,8 +97,6 @@
                         >First name</label
                       >
                       <input
-
-                        :value="me.first_name"
                         type="text"
                         id="first_name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -122,6 +120,20 @@
                     </div>
                   </div>
 
+                  <label
+                    
+                    for="last_name"
+                    class="block mb-2 text-sm font-medium text-gray-900"
+                    >Password</label
+                  >
+                  <input
+                    v-model="password"
+                    type="password"
+                    id="last_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Change your password"
+                  />
+                  
 
                   <label
                     
@@ -132,7 +144,7 @@
                   <input
 
                     v-model="email"
-                    type="text"
+                    type="email"
                     id="last_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Change your email"
@@ -151,8 +163,6 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Change phone number"
                   />
-                  <input type="file" class="mt-2" @change="previewImage"
-            accept="image/*" >
                   <button
                 type="submit"
                 class="ml-1 inline-block mt-5 rounded bg-black px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-gray-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
@@ -164,20 +174,7 @@
                 </form>
               </div>
             </div>
-            <div
-              class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4"
-            >
-              <button
-                type="button"
-                class="inline-block rounded bg-gray-100 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-gary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
-                data-te-modal-dismiss
-                data-te-ripple-init
-                data-te-ripple-color="light"
-              >
-                Close
-              </button>
-              
-            </div>
+
           </div>
         </div>
       </div>
@@ -282,12 +279,13 @@ export default {
           phone_number:this.phone_number,
           email:this.email,
           first_name:this.first_name,
-          last_name:this.last_name
+          last_name:this.last_name,
+          password : this.password
 
         })
         this.$router.go(0)
       } catch (err) {
-        alert(err)
+        alert(err.response.data.message)
       }
     },
     async fetchPost() {

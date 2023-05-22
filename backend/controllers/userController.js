@@ -63,6 +63,11 @@ const login = async (req, res) => {
   }
 };
 
+const schema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required().min(8).max(15),
+  phone_number: Joi.string().pattern(/^0\d{8,10}$/)
+});
 
 
 
@@ -79,6 +84,12 @@ const CreateUser = async (req, res) => {
       phone_number,
       info,
     } = req.body;
+    const result = schema.validate({
+      email,password,phone_number
+    })
+    if(result.error){
+      throw new Error(result.error.message);
+    }
     const user = await prisma.User.findMany({
       where: {
         username:username,
@@ -122,17 +133,30 @@ const DeleteUser = async (req, res) => {
 };
 
 const UpdateUser = async (req, res) => {
+  const data =req.body
   try {
-    const data = req.body;
+   const {first_name,
+    last_name,
+    password,
+    email,
+    phone_number} = req.body;
+    const result = schema.validate({
+      email,password,phone_number
+    })
+    if(result.error){
+      throw new Error(result.error.message);
+    }
+    const hash = await bcrypt.hash(password, 13);
     const response = await prisma.User.update({
       where: {
         id: data.id,
       },
       data: {
-        first_name: data.first_name,
-        last_name: data.last_name,
+        first_name:first_name,
+        last_name: last_name,
         email: data.email,
         phone_number: data.phone_number,
+        password: hash
       },
     });
     res.send("success");

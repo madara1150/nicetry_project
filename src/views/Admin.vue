@@ -42,7 +42,7 @@
                            {{ val.Topup.amount }}
                        </td>
                        <td class="px-6 py-3">
-                           {{val.filePath }}
+                           <a :href="val.filePath" target="_blank" rel="noopener noreferrer">{{val.filePath }}</a>
                        </td>
                        <td class="px-6 py-3">
                            {{ val.Topup.bank_topup }}

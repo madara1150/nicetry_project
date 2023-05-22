@@ -164,6 +164,10 @@ export default {
   },
 
   mounted(){
+    const token = localStorage.getItem('token')
+       if(token){
+        this.$router.push('/main')
+       }
     this.fetchPost()
     
     gsap.registerPlugin(ScrollTrigger);

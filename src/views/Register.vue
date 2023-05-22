@@ -225,6 +225,10 @@ export default {
   },
 
   mounted() {
+    const token = localStorage.getItem('token')
+       if(token){
+        this.$router.push('/main')
+       }
     let tl = gsap.timeline();
     tl.from("#start", { x: 100, duration: 1.5, autoAlpha: 0 })
       .from("#form", { x: -100, duration: 0.5, autoAlpha: 0 })

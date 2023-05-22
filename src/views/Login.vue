@@ -145,6 +145,10 @@ export default {
   },
   components: { NavBar },
   mounted() {
+    const token = localStorage.getItem('token')
+       if(token){
+        this.$router.push('/main')
+       }
     let tl = gsap.timeline();
     tl.from("#welcomeback", { x: 100, duration: 1.5, autoAlpha: 0 })
       .from("#image", { x: -100, duration: 0.5, autoAlpha: 0 })

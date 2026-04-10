@@ -1,4 +1,4 @@
-# nicetry_project
+# nicetry_project gg
 
 ## Project setup
 ```

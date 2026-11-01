@@ -9,7 +9,7 @@ const Joi = require('joi');
 const jwt = require("jsonwebtoken");
 
 const generateToken = (user) => {
-  const secret = "nicetrywebpro";
+  const secret = process.env.JWT_SECRET;
   const expiresIn = "7d";
   return jwt.sign({ sub: user[0].id }, secret, { expiresIn });
 };

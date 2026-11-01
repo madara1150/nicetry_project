@@ -1,3 +1,9 @@
+require('dotenv').config();
+
+if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is not set');
+}
+
 const UersRoute = require('./routes/userRoutes.js')
 const PostsRoute = require('./routes/postRoutes.js')
 const CommentsRoute = require('./routes/commentRoutes.js')

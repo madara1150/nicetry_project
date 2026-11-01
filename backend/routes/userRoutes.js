@@ -25,7 +25,7 @@ const authenticate = async (req, res, next) => {
   }
 
   try {
-    const decodedToken = jwt.verify(token, "nicetrywebpro");
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decodedToken;
     next();
   } catch (error) {

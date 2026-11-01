@@ -1,6 +1,12 @@
-# nicetry_project
+# NiceTry
 
-## Project setup
+A Vue 3 web app with an Express and Prisma API backed by MySQL.
+
+## Frontend
+
+Run these commands from the project root.
+
+### Project setup
 ```
 npm install
 ```
@@ -22,3 +28,22 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Backend
+
+The API runs on `http://localhost:5000/api`, which is the base URL the frontend uses.
+
+The database connection is set in `backend/prisma/schema.prisma` and expects a local MySQL server with a `nicetry` database.
+
+Run these commands from the `backend` folder.
+
+### Project setup
+```
+npm install
+npx prisma db push
+```
+
+### Starts the API
+```
+node index.js
+```

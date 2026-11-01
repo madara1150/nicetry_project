@@ -1,129 +1,67 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
+const { HttpError, handle, parseAmount, publicUser } = require("../lib/http");
 
-const publicUser = {
-    id: true,
-    first_name: true,
-    last_name: true,
-    username: true,
-}
+const createDonation = handle(async (req, res) => {
+  const { post_id, user_id } = req.params;
+  const amount = parseAmount(req.body.amount);
 
-const donateCreate = async (req,res) =>{
-    const amount = Number(req.body.amount)
+  const post = await prisma.post.findUnique({ where: { id: post_id } });
+  if (!post) {
+    throw new HttpError(404, "ไม่พบโพสต์");
+  }
 
-    try {
-        if(!Number.isInteger(amount) || amount <= 0){
-            return res.status(400).json({ message: "Invalid amount" })
-        }
-        const post = await prisma.Post.findUnique({
-            where:{
-                id: req.params.post_id
-            }
-        })
-        if(!post){
-            return res.status(404).json({ message: "Post not found" })
-        }
-        const response = await prisma.$transaction(async (tx) => {
-            const paid = await tx.user.updateMany({
-                where:{
-                    id: req.params.user_id,
-                    coin: { gte: amount }
-                },
-                data:{
-                    coin: { decrement: amount }
-                }
-            })
-            if(paid.count === 0){
-                throw new Error("Not enough coin")
-            }
-            await tx.user.update({
-                where:{
-                    id: post.user_id
-                },
-                data:{
-                    coin: { increment: amount }
-                }
-            })
-            return tx.donation.create({
-                data: {
-                    user_id: req.params.user_id,
-                    post_id: req.params.post_id,
-                    amount: amount
-                    }
-            })
-        })
-        res.status(200).json(response)
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
+  const donation = await prisma.$transaction(async (tx) => {
+    const paid = await tx.user.updateMany({
+      where: { id: user_id, coin: { gte: amount } },
+      data: { coin: { decrement: amount } },
+    });
+    if (paid.count === 0) {
+      throw new HttpError(400, "เหรียญไม่เพียงพอ");
     }
-}
+    await tx.user.update({
+      where: { id: post.user_id },
+      data: { coin: { increment: amount } },
+    });
+    return tx.donation.create({ data: { user_id, post_id, amount } });
+  });
+  res.json(donation);
+});
 
-const changeStatus = async (req,res) => {
-    try {
-        const response = await prisma.Donation.update({
-            where:{
-                id : req.params.id
-            },
-            data:{
-                status: true
-            }
-        })
-        res.status(200).send('update status sucess')
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
+const approveDonation = handle(async (req, res) => {
+  await prisma.donation.update({
+    where: { id: req.params.id },
+    data: { status: true },
+  });
+  res.send("success");
+});
 
+const getDonationsByUser = handle(async (req, res) => {
+  const donations = await prisma.donation.findMany({
+    where: { user_id: req.params.user_id },
+    orderBy: { CreateAt: "desc" },
+    include: { Post: { select: { info: true } } },
+  });
+  res.json(donations);
+});
 
-const getDonateById = async (req,res) => {
-    try {
-        const response = await prisma.Donation.findMany({
-            where:{
-                user_id : req.params.user_id
-            },
-            include:{
-                User: { select: publicUser }
-            }
-        })
-        res.status(200).json(response)
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
+const getTopDonations = handle(async (req, res) => {
+  const donations = await prisma.donation.findMany({
+    where: { post_id: req.params.post_id },
+    orderBy: { amount: "desc" },
+    take: 5,
+    include: { User: { select: publicUser } },
+  });
+  res.json(donations);
+});
 
-const getTopDonate = async (req,res) => {
-    try {
-        const response = await prisma.Donation.findMany({
-            where:{
-                post_id : req.params.post_id
-            },
-            orderBy: {
-                amount: 'desc',
-              },
-              take:5,
-              include: {
-                User: { select: publicUser },
-              }
-        })
-        res.status(200).json(response)
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
+const getDonations = handle(async (req, res) => {
+  res.json(await prisma.donation.findMany());
+});
 
-const getDonate = async (req,res) => {
-    try {
-        const response = await prisma.Donation.findMany({
-        })
-        res.status(200).json(response)
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
-
-module.exports = {donateCreate,changeStatus,getDonateById,getDonate,getTopDonate}
+module.exports = {
+  createDonation,
+  approveDonation,
+  getDonationsByUser,
+  getDonations,
+  getTopDonations,
+};

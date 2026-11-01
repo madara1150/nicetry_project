@@ -1,136 +1,82 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../lib/prisma");
+const { HttpError, handle, parseAmount, publicUser } = require("../lib/http");
 
-const topupCreate = async (req,res) =>{
-    const data = req.body
-    try {
-        if(!Number.isInteger(data.amount) || data.amount <= 0){
-            return res.status(400).json({ message: "Invalid amount" })
-        }
-        const response = await prisma.Topup.create({
-            data: {
-                user_id: req.params.user_id,
-                amount: data.amount,
-                bank_topup: data.bank_topup,
-                topup_package: data.topup_package,
-                bank_num: data.bank_num,
-                topup_time: new Date(data.topup_time)
-                }
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
+const createTopup = handle(async (req, res) => {
+  const { bank_topup, topup_package, bank_num } = req.body;
+  const topup_time = new Date(req.body.topup_time);
+  if (Number.isNaN(topup_time.getTime())) {
+    throw new HttpError(400, "วันเวลาที่โอนไม่ถูกต้อง");
+  }
+  const topup = await prisma.topup.create({
+    data: {
+      user_id: req.params.user_id,
+      amount: parseAmount(req.body.amount),
+      bank_topup,
+      topup_package,
+      bank_num,
+      topup_time,
+    },
+  });
+  res.json(topup);
+});
 
+const getTopupsByUser = handle(async (req, res) => {
+  const topups = await prisma.topup.findMany({
+    where: { user_id: req.params.user_id },
+    orderBy: { topup_time: "desc" },
+  });
+  res.json(topups);
+});
+
+const getApprovedTopupsByUser = handle(async (req, res) => {
+  const topups = await prisma.topup.findMany({
+    where: { user_id: req.params.user_id, status: true },
+    orderBy: { topup_time: "desc" },
+  });
+  res.json(topups);
+});
+
+const getTopups = handle(async (req, res) => {
+  res.json(await prisma.topup.findMany());
+});
+
+const getTopupsWithSlip = handle(async (req, res) => {
+  const topups = await prisma.topup.findMany({
+    orderBy: { topup_time: "desc" },
+    include: {
+      image: true,
+      User: { select: publicUser },
+    },
+  });
+  res.json(topups);
+});
+
+const approveTopup = handle(async (req, res) => {
+  await prisma.$transaction(async (tx) => {
+    const topup = await tx.topup.findUnique({ where: { id: req.params.id } });
+    if (!topup) {
+      throw new HttpError(404, "ไม่พบรายการเติมเหรียญ");
     }
-}
-
-const getTopupById = async (req,res) =>{
-
-    try {
-        
-        const response = await prisma.Topup.findMany({
-            where: {
-                user_id: req.params.user_id
-            },
-            orderBy: {
-                topup_time: 'desc',
-              },
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
+    const approved = await tx.topup.updateMany({
+      where: { id: topup.id, status: false },
+      data: { status: true },
+    });
+    if (approved.count === 0) {
+      throw new HttpError(409, "รายการนี้อนุมัติไปแล้ว");
     }
-}
+    await tx.user.update({
+      where: { id: topup.user_id },
+      data: { coin: { increment: topup.amount } },
+    });
+  });
+  res.send("success");
+});
 
-const getTopupByIdTrue = async (req,res) =>{
-
-    try {
-        
-        const response = await prisma.Topup.findMany({
-            where: {
-                user_id: req.params.user_id,
-                status: true
-            },
-            orderBy: {
-                topup_time: 'desc',
-              },
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
-    }
-}
-
-const getTopup = async (req,res) =>{
-
-    try {
-        
-        const response = await prisma.Topup.findMany({
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
-    }
-}
-
-const getTopupimg = async (req,res) =>{
-
-    try {
-        
-        const response = await prisma.Image.findMany({
-            include:{
-                Topup:true
-            }
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
-    }
-}
-
-const UpdateStatus = async (req, res) => {
-    try {
-      await prisma.$transaction(async (tx) => {
-        const topup = await tx.topup.findUnique({
-          where: {
-            id: req.params.id,
-          },
-        });
-        if (!topup) {
-          throw new Error("Topup not found");
-        }
-        const approved = await tx.topup.updateMany({
-          where: {
-            id: req.params.id,
-            status: false,
-          },
-          data: {
-            status: true
-          },
-        });
-        if (approved.count === 0) {
-          throw new Error("Topup already approved");
-        }
-        await tx.user.update({
-          where: {
-            id: topup.user_id,
-          },
-          data: {
-            coin: { increment: topup.amount },
-          },
-        });
-      });
-      res.send("success");
-    } catch (err) {
-      res.status(404).json({ message: err.message });
-    }
-  };
-  
-
-
-
-module.exports = { topupCreate,getTopupById,getTopup,getTopupByIdTrue,getTopupimg,UpdateStatus};
+module.exports = {
+  createTopup,
+  getTopupsByUser,
+  getApprovedTopupsByUser,
+  getTopups,
+  getTopupsWithSlip,
+  approveTopup,
+};

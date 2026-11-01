@@ -1,47 +1,17 @@
 <script setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import AppNav from "@/components/AppNav.vue";
 
-import { useFetchStore } from '@/store/index'
-const store = useFetchStore()
-store.fetchData()
+const route = useRoute();
+const showNav = computed(() => !route.meta.hideNav);
 </script>
 
 <template>
-  <section class="min-h-screen">
-    <router-view />
-  </section>
+  <div class="flex min-h-screen flex-col">
+    <AppNav v-if="showNav" />
+    <main class="flex-1">
+      <router-view />
+    </main>
+  </div>
 </template>
-
-<script>
-
-export default {
-  name: "App",
-  components: {
-
-
-  },
-  methods:{
-      
-    
-  },
-  data(){
-    return {
-      
-      
-    }
-  }
-};
-</script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Kanit', sans-serif;
-  
-}
-
-
-  
-</style>

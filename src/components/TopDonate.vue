@@ -1,63 +1,37 @@
-<template>
-  <div>
+<script setup>
+import { onMounted, ref } from "vue";
+import api from "@/api";
+import { formatNumber, fullName } from "@/utils/format";
+import AppIcon from "./AppIcon.vue";
+import UserAvatar from "./UserAvatar.vue";
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg rounded">
-    <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-white uppercase bg-gray-800">
-            <tr>
-                
-                <th scope="col" class="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Amount
-                </th>
-            </tr>
-        </thead>
-        <tbody class="">
-            <tr v-for="i,index in donate" :key="index" class="bg-gray-900 border-b hover:bg-gray-700">
-                <td class="px-6 py-4 font-semibold text-gray-200 hover:text-red-200">
-                    {{i.User.first_name}} {{ i.User.last_name }}
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-200 hover:text-red-200">
-                    ${{ i.amount }}
-                </td>
-            </tr>
+const props = defineProps({
+  postId: { type: String, required: true },
+});
 
-        </tbody>
+const donations = ref([]);
 
-    </table>
-</div>
+const load = async () => {
+  const { data } = await api.get(`/donate/topdonate/${props.postId}`);
+  donations.value = data;
+};
 
-  </div>
-</template>
-
-<script>
-import axios from "axios";
-export default {
-    props: {
-    myObject: {
-      type: Object,
-    }
-  },
-  data(){
-    return{
-        donate:[],
-    }
-  },
-  methods:{
-    async fetchTopDonate(){
-        const res = await axios.get(`http://localhost:5000/api/donate/topdonate/${this.myObject.id}`)
-        this.donate = res.data
-    }
-    
-  },
-  mounted(){
-    this.fetchTopDonate()
-  }
-}
+onMounted(load);
+defineExpose({ load });
 </script>
 
-<style>
-
-</style>
+<template>
+  <section v-if="donations.length" class="border-t border-line px-4 py-3 sm:px-5">
+    <h3 class="mb-2 flex items-center gap-1.5 text-xs font-medium text-ink-faint">
+      <AppIcon name="star" :size="14" />
+      ผู้สนับสนุนสูงสุด
+    </h3>
+    <ol class="space-y-1.5">
+      <li v-for="donation in donations" :key="donation.id" class="flex items-center gap-2 text-sm">
+        <UserAvatar :user="donation.User" size="h-6 w-6 text-[11px]" />
+        <span class="min-w-0 flex-1 truncate">{{ fullName(donation.User) }}</span>
+        <span class="font-medium text-brand">{{ formatNumber(donation.amount) }} Nice</span>
+      </li>
+    </ol>
+  </section>
+</template>

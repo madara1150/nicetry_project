@@ -1,175 +1,63 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../lib/prisma");
+const { handle, publicUser } = require("../lib/http");
 
-const createPost = async (req,res) =>{
-   try{
-        const data = req.body
-        const response = await prisma.Post.create({
-            data: {
-                user_id: req.user.sub,
-                info: data.info,
-                }
-        })
-        res.status(200).json(response)
-   } catch(err){
-        res.status(404).json({ message: err.message })
-   }
-}
+const postDetails = {
+  User: { select: publicUser },
+  image: true,
+  _count: { select: { comment: true } },
+};
 
-const deleltePost = async (req,res) =>{
-    try{
-         const response = await prisma.Post.delete({
-            where: {
-                id: req.params.id
-              },
-         })
-         res.status(200).json(response)
-    } catch(err){
-         res.status(404).json({ message: err.message })
-    }
- }
+const createPost = handle(async (req, res) => {
+  const post = await prisma.post.create({
+    data: {
+      user_id: req.user.sub,
+      info: req.body.info,
+    },
+  });
+  res.json(post);
+});
 
- const UpdatePost = async (req,res) => {
-    try{
+const deletePost = handle(async (req, res) => {
+  const post = await prisma.post.delete({ where: { id: req.params.id } });
+  res.json(post);
+});
 
-        const data = req.body
-        const response = await prisma.Post.update({
-            where: {
-                id: data.id
-            },
-            data:{
-              info: data.info,
-            },
-        })
-        res.send('success')
-    } catch (err){
+const updatePost = handle(async (req, res) => {
+  const { id, info } = req.body;
+  await prisma.post.update({ where: { id }, data: { info } });
+  res.send("success");
+});
 
-        res.status(404).json({ message: err.message })
-    }
-}
+const getAllPosts = handle(async (req, res) => {
+  const posts = await prisma.post.findMany({
+    orderBy: { CreateAt: "desc" },
+    include: postDetails,
+  });
+  res.json(posts);
+});
 
-const addLikePost = async (req,res) => {
-    const like = await prisma.Post.findMany({
-        where:{
-            id: req.params.id
-        },
-        select: {
-            like: true,
-          }
-    })
+const getPostsByUser = handle(async (req, res) => {
+  const posts = await prisma.post.findMany({
+    where: { user_id: req.params.user_id },
+    orderBy: { CreateAt: "desc" },
+    include: postDetails,
+  });
+  res.json(posts);
+});
 
-    try{
-        const response = await prisma.Post.update({
-            where: {
-                id: req.params.id
-            },
-            data:{
-              like: like[0].like+1,
-            },
-        })
-        res.send('success')
-    } catch (err){
+const getMostLikedPost = handle(async (req, res) => {
+  const post = await prisma.post.findFirst({
+    orderBy: { like: "desc" },
+    include: postDetails,
+  });
+  res.json(post);
+});
 
-        res.status(404).json({ message: err.message })
-    }
-}
-
-const DisLikePost = async (req,res) => {
-    const like = await prisma.Post.findMany({
-        where:{
-            id: req.params.id
-        },
-        select: {
-            like: true,
-          }
-    })
-
-    try{
-        const response = await prisma.Post.update({
-            where: {
-                id: req.params.id
-            },
-            data:{
-              like: like[0].like-1,
-            },
-        })
-        res.send('success')
-    } catch (err){
-
-        res.status(404).json({ message: err.message })
-    }
-}
-
-const getPostAll =async (req,res) => {
-    try{
-        const response = await prisma.Post.findMany({
-        })
-        res.status(200).json(response)
-    } catch (err){
-        res.status(404).json({ message: err.message })
-    }
-}
-
-const getPostById = async (req,res)=> {
-    try {
-        const response = await prisma.Post.findMany({
-            where: {
-                user_id: req.params.user_id
-            },
-            orderBy: {
-                CreateAt: 'desc'
-              }
-            
-        })
-        res.status(200).json(response)
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
-    }
-}
-const mostPost = async (req,res) =>{
-    try {
-        const response = await prisma.Post.findMany({
-            orderBy: {
-                like: 'desc'
-              },
-        })
-        console.log(response[0].id)
-        const image = await prisma.image.findMany({
-            where:{
-                post_id: response[0].id
-            }
-        })
-        console.log(image);
-        res.status(200).json({
-            post:
-                response[0],
-            image:image
-            
-        })
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
-    }
-}
-
-const CheckImage = async (req,res)=> {
-    data = req.body
-    try {
-        const response = await prisma.Post.findMany({
-            where: {
-                info: data.info,
-                user_id: data.user_id,
-                CreateAt: new Date(data.CreateAt)
-            },
-            
-        })
-        res.status(200).json(response)
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-
-    }
-}
-
-
-module.exports = {createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,CheckImage,DisLikePost,mostPost}
+module.exports = {
+  createPost,
+  deletePost,
+  updatePost,
+  getAllPosts,
+  getPostsByUser,
+  getMostLikedPost,
+};

@@ -1,78 +1,48 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../lib/prisma");
+const { handle, publicUser } = require("../lib/http");
 
-const reportCreate = async (req,res) => {
-    const data = req.body
-    try {
-        
-        const response = await prisma.Report.create({
-            data: {
-                user_id: req.params.user_id,
-                post_id: req.params.post_id,
-                reson: data.reson
-                }
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
+const createReport = handle(async (req, res) => {
+  const { post_id, user_id } = req.params;
+  const report = await prisma.report.create({
+    data: { user_id, post_id, reson: req.body.reson },
+  });
+  res.json(report);
+});
 
-    }
-}
+const approveReport = handle(async (req, res) => {
+  await prisma.report.update({
+    where: { id: req.params.id },
+    data: { status: true },
+  });
+  res.send("success");
+});
 
-const changeStatus = async (req,res) => {
-    try {
-        const response = await prisma.Report.update({
-            where:{
-                id : req.params.id
-            },
-            data:{
-                status: true
-            }
-        })
-        res.status(200).send('update status sucess')
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
+const getReports = handle(async (req, res) => {
+  const reports = await prisma.report.findMany({
+    include: {
+      User: { select: publicUser },
+      Post: { select: { info: true } },
+    },
+  });
+  res.json(reports);
+});
 
-const getReportAll = async (req,res) =>{
-    try {
-        const response = await prisma.Report.findMany({
-        })
-        res.status(200).json(response)
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
+const getReportNotice = handle(async (req, res) => {
+  const posts = await prisma.post.findMany({
+    where: { user_id: req.params.user_id },
+    select: { id: true },
+  });
+  const removed = await prisma.report.findFirst({
+    where: {
+      post_id: { in: posts.map((post) => post.id) },
+      status: true,
+    },
+  });
+  res.json({
+    message: removed
+      ? "โพสต์ของคุณถูกลบ เนื่องจากการรายงาน"
+      : "ยินดีต้อนรับเข้าสู่ NiceTry",
+  });
+});
 
-const getReportAllbyId = async (req,res) =>{
-    try {
-        const response = await prisma.Post.findMany({
-            where:{
-                user_id: req.params.user_id
-            },
-        })
-        if(response.length == 0){
-            return res.json({message: `สวัสดียินดีต้อนรับเข้าสู่ระบบ`})
-        }
-        for (let i = 0; i < response.length; i++) {
-            const checkReport = await prisma.Report.findMany({
-                where:{
-                    post_id: response[i].id,
-                    status: true
-                }
-            })
-            if(checkReport.length){
-                return res.json({message: `โพสของคุณโดนลบ เนื่องจากการรายงาน`})
-            }
-        }
-        
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
-
-
-module.exports = { reportCreate,changeStatus,getReportAll ,getReportAllbyId};
+module.exports = { createReport, approveReport, getReports, getReportNotice };

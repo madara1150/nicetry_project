@@ -1,28 +1,18 @@
-const {
-  CreateUser,
-  DeleteUser,
-  UpdateUser,
-  GetUserById,
-  GetAllUser,
-  UpdateRoleUser,
-  login,
-  me,
-  getComment,
-  checkImgProfile
-} = require("../controllers/userController.js");
 const express = require("express");
-const router = express.Router();
-const { authenticate, requireAdmin } = require("../middleware/auth.js");
+const users = require("../controllers/userController");
+const { authenticate, requireAdmin } = require("../middleware/auth");
 
-router.post("/create", CreateUser);
-router.delete("/delete/:id", requireAdmin, DeleteUser);
-router.put("/update", authenticate, UpdateUser);
-router.get("/user/:id", GetUserById);
-router.get("/user", requireAdmin, GetAllUser);
-router.put("/updaterole", requireAdmin, UpdateRoleUser);
-router.post("/login", login);
-router.get("/me", authenticate, me);
-router.get('/checkcomment/:id',getComment)
-router.get('/checkimg/:user_id',checkImgProfile)
+const router = express.Router();
+
+router.post("/create", users.createUser);
+router.post("/login", users.login);
+router.get("/me", authenticate, users.me);
+router.put("/update", authenticate, users.updateUser);
+router.get("/user/:id", users.getUserById);
+router.get("/user", requireAdmin, users.getAllUsers);
+router.put("/updaterole", requireAdmin, users.updateUserRole);
+router.delete("/delete/:id", requireAdmin, users.deleteUser);
+router.get("/checkcomment/:id", users.getPostComments);
+router.get("/checkimg/:user_id", users.getUserImages);
 
 module.exports = router;

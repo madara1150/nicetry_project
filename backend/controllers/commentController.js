@@ -1,66 +1,32 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
+const { handle } = require("../lib/http");
 
-const commentCreate = async (req,res) => {
-    const data = req.body
-    try {
-        
-        const response = await prisma.Comment.create({
-            data: {
-                user_id: req.params.user_id,
-                post_id: req.params.post_id,
-                info: data.info
-                }
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
+const createComment = handle(async (req, res) => {
+  const { post_id, user_id } = req.params;
+  const comment = await prisma.comment.create({
+    data: { user_id, post_id, info: req.body.info },
+  });
+  res.json(comment);
+});
 
-    }
-}
+const deleteComment = handle(async (req, res) => {
+  await prisma.comment.delete({ where: { id: req.params.id } });
+  res.send("success");
+});
 
-const deleteComment = async (req,res) => {
+const updateComment = handle(async (req, res) => {
+  await prisma.comment.update({
+    where: { id: req.params.id },
+    data: { info: req.body.info },
+  });
+  res.send("success");
+});
 
-    try {
-        const response = await prisma.Comment.delete({
-            where :{
-                id: req.params.id
-            }
-        })
-        res.status(200).send('delete successs') 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-    
-}
+const getComments = handle(async (req, res) => {
+  const comments = await prisma.comment.findMany({
+    where: { post_id: req.params.post_id },
+  });
+  res.json(comments);
+});
 
-const updateComment = async (req,res) => {
-    try {
-        const response = await prisma.Comment.update({
-            where :{
-                id: req.params.id,
-            },data: {
-                info: req.body.info
-            }
-        })
-        res.status(200).send('success')
-    } catch (err) {
-        
-    }
-}
-
-const getAllComment = async (req,res) => {
-    try {
-        const response = await prisma.Comment.findMany({
-            where :{
-                post_id: req.params.post_id,
-            }
-        })
-        res.status(200).json(response)
-    } catch (err) {
-        res.status(404).json({ message: err.message })
-    }
-}
-
-
-module.exports = {commentCreate,deleteComment,updateComment,getAllComment}
+module.exports = { createComment, deleteComment, updateComment, getComments };

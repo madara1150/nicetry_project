@@ -1,16 +1,14 @@
-const { createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,DisLikePost ,mostPost} = require("../controllers/postController.js")
-const { authenticate,requireOwner } = require("../middleware/auth.js")
-const express = require('express');
+const express = require("express");
+const posts = require("../controllers/postController");
+const { authenticate, requireOwner } = require("../middleware/auth");
+
 const router = express.Router();
 
-router.post('/create', authenticate, createPost)
-router.delete('/delete/:id', requireOwner('Post'), deleltePost)
-router.put('/update', requireOwner('Post',(req) => req.body.id), UpdatePost)
-router.put('/addlike/:id',authenticate,addLikePost)
-router.put('/dislike/:id',authenticate,DisLikePost)
-router.get('/mainpost',getPostAll)
-router.get('/postUserId/:user_id',getPostById)
-router.get('/most',mostPost)
-
+router.post("/create", authenticate, posts.createPost);
+router.put("/update", requireOwner("post", (req) => req.body.id), posts.updatePost);
+router.delete("/delete/:id", requireOwner("post"), posts.deletePost);
+router.get("/mainpost", posts.getAllPosts);
+router.get("/postUserId/:user_id", posts.getPostsByUser);
+router.get("/most", posts.getMostLikedPost);
 
 module.exports = router;

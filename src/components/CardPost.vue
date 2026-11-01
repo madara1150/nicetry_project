@@ -1,716 +1,305 @@
-<template>
-  <div>
-    <div class="w-full h-full">
-      <!-- profile -->
-      <div :class="myClassColor">
-        <img
-          src="https://source.unsplash.com/800x600/?human"
-          class="rounded-full"
-          style="width: 6vh; height: 6vh"
-          alt="Avatar"
-        />
-        <h1 class="text-white ml-2 text-[2vh]">
-          {{ user.first_name }} {{ user.last_name }}
-        </h1>
-      </div>
+<script setup>
+import { computed, onMounted, ref } from "vue";
+import api, { errorMessage } from "@/api";
+import { useUserStore } from "@/store";
+import { formatDate, formatNumber, fullName, postLevel } from "@/utils/format";
+import AppIcon from "./AppIcon.vue";
+import AppModal from "./AppModal.vue";
+import ErrorNotice from "./ErrorNotice.vue";
+import TopDonate from "./TopDonate.vue";
+import UserAvatar from "./UserAvatar.vue";
 
-      <!-- body -->
-      <div class="flex justify-center">
-        <div
-          class="flex flex-col rounded-b bg-white shadow-lg md:flex-row w-full"
-        >
-          <div class="flex flex-col justify-start w-full">
-            <!-- carousel https://source.unsplash.com/800x600/?boat -->
-            <div class="carousel-container">
-              <div
-                class="carousel-track w-[700px] h-[400px]"
-                :style="trackStyles"
-              >
-                <div
-                  class="carousel-slide w-[700px] h-[400px]"
-                  :style="slideStyles"
-                >
-                  <img :src="image[currentIndex]" class="w-[100%] h-[400px]" />
-                </div>
-              </div>
-              <div class="carousel-controls">
-                <button
-                  class="carousel-control"
-                  @click="prevSlide"
-                  :disabled="currentIndex === 0"
-                >
-                  &lt;
-                </button>
-                <button
-                  class="carousel-control"
-                  @click="nextSlide"
-                  :disabled="currentIndex === image.length - 1"
-                >
-                  &gt;
-                </button>
-              </div>
-            </div>
+const REPORT_REASONS = [
+  "รูปภาพไม่เหมาะสม (18+)",
+  "หลอกลวงหรือมีไวรัส",
+  "การพนันหรือคาสิโน",
+  "ผิดกฎของเว็บไซต์",
+  "สแปม",
+];
 
-            <!-- content -->
-            <div class="p-3">
-              {{ myObject.info }}
-              <div class="flex">
-                <p class="text-[1.5vh]">
-                  created {{ myObject.CreateAt.substring(0, 10) }} :
-                </p>
-                <p class="text-[1.5vh]">
-                  {{ myObject.CreateAt.substring(11, 16) }}
-                </p>
-              </div>
-            </div>
+const props = defineProps({
+  post: { type: Object, required: true },
+});
 
-            <div class="flex pt-2 p-3 bg-whtie">
-              <!-- like -->
-              <img
-                @click="clickLike"
-                src="../image/heart-regular.svg"
-                alt=""
-                :class="[like == 1 ? 'w-[5%] mx-2' : 'w-[5%] mx-2 hidden']"
-              />
+const store = useUserStore();
+const topDonate = ref(null);
 
-              <img
-                @click="clickLike"
-                src="../image/heart-solid.svg"
-                alt=""
-                :class="[like == -1 ? 'w-[5%] mx-2' : 'w-[5%] mx-2 hidden']"
-              />
+const info = ref(props.post.info);
+const likes = ref(props.post.like);
+const liked = ref(false);
+const commentCount = ref(props.post._count?.comment ?? 0);
+const slide = ref(0);
 
-              <img
-                src="../image/comment-regular.svg"
-                @click="openCommentModal"
-                class="w-[5%] mx-2': 'w-[5%] mx-2"
-              />
+const modal = ref("");
+const error = ref("");
+const saving = ref(false);
 
-              <img v-if="checkroles"
-                src="../image/screwdriver-wrench-solid.svg"
-                @click="swEdit"
-                class="w-[5%] mx-2': 'w-[5%] mx-2"
-              />
+const comments = ref([]);
+const newComment = ref("");
+const donation = ref(10);
+const reasons = ref([]);
+const editedInfo = ref("");
+const reported = ref(false);
 
-              <!-- editor -->
-              <div
-                class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[70%]"
-                v-if="swEdited"
-              >
-                <div
-                  class="bg-white rounded-lg shadow-lg h-[20%] overflow-y-scroll"
-                >
-                  <!-- แสดงความคิดเห็น -->
-                  
-                  
+const images = computed(() => props.post.image ?? []);
+const level = computed(() => postLevel(likes.value));
+const canEdit = computed(() => store.isAdmin || store.user?.id === props.post.user_id);
+const authorName = computed(() => fullName(props.post.User));
 
-                  <!-- ฟอร์มเขียนความคิดเห็น -->
-                  <form @submit.prevent="editPostt" class="mt-2 mx-2">
-                    <input
-                      v-model="postedit"
-                      class="w-full h-20 border border-gray-300 rounded p-2 mb-2"
-                    >
-                    <button
-                      class="bg-red-500 ml-[45%] text-white px-4 py-2 rounded"
-                      type="submit"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="bg-black text-white px-10 py-2 rounded ml-2"
-                      @click="swEdit"
-                    >
-                      close
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-              <!-- comment -->
-              <div
-                class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"
-                v-if="isCommentModalOpen"
-              >
-                <div
-                  class="bg-white rounded-lg shadow-lg h-[60%] overflow-y-scroll"
-                >
-                  <!-- แสดงความคิดเห็น -->
-                  <div class="bg-gray-700 p-5 rounded">
-                    <h2 class="text-lg font-semibold mb-2 text-white">
-                      Comment
-                    </h2>
-                  </div>
-                  <div class="rounded mx-3">
-                    <div
-                      v-for="(comment, index) in comment"
-                      :key="index"
-                      class="mt-2 rounded px-2"
-                    >
-                      <div class="p-2 bg-red-500 rounded-t-lg">
-                        <h1
-                          class="ml-2 text-white flex text-lg"
-                          @load="checkProfile(comment.user_id)"
-                        >
-                          {{ comment.User.first_name }}&nbsp;
-                          {{ comment.User.last_name }}
-                        </h1>
-                        <p class="text-[10px] text-white m-3">Created : {{ comment.createAt }}</p>
-                      </div>
-
-                      <div class="bg-gray-200 rounded-b-lg p-2">
-                        <h1>{{ comment.info }}</h1>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- ฟอร์มเขียนความคิดเห็น -->
-                  <form @submit.prevent="submitComment" class="mt-2 mx-2">
-                    <textarea
-                      v-model="newComment"
-                      class="w-full h-20 border border-gray-300 rounded p-2 mb-2"
-                      placeholder="เขียนความคิดเห็น"
-                    ></textarea>
-                    <button
-                      class="bg-red-500 text-white px-4 py-2 rounded"
-                      type="submit"
-                    >
-                      send comment
-                    </button>
-                    <button
-                      class="bg-black text-white px-10 py-2 rounded ml-2"
-                      @click="openCommentModal"
-                    >
-                      close
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-              <!-- report -->
-                <img
-                  src="../image/triangle-exclamation-solid.svg" class="w-[5%] mx-2"
-                  @click="swReport"
-                />
-           
-              <!-- modal report -->
-              <div
-                class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"
-                v-if="swReported">
-                <div
-                  class="bg-white rounded-lg shadow-lg p-4 h-[45%] w-[50%] overflow-y-scroll"
-                >
-
-                  <div class="flex text-3xl content-center justify-center mt-3 w-full">
-                    <h1 class="">Nice</h1>
-                    <h1 class="text-red-600">Try</h1>
-                  </div>
-
-                  <div class="text-3xl content-center justify-center mt-3 w-full flex mb-3">
-                    <span class="flex">Report to &nbsp;<p class="text-red-500"> {{ user.first_name }}</p></span>
-                  </div>
-                  <hr>
-
-                  <div class="m-auto w-full px-16">
-                  <div class="flex items-center mb-4 m-auto w-full mt-2">
-                          <input
-                            id="default-checkbox"
-                            v-model="reported1"
-                            type="checkbox"
-                            value="Picture is 18+"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                          />
-                          <label
-                            for="default-checkbox"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                            >Picture is 18+</label
-                          >
-                        </div>
-
-                        <div class="flex items-center mb-4">
-                          <input
-                            id="default-checkbox"
-                            type="checkbox"
-                            v-model="reported2"
-                            value="Chest , virus"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                          />
-                          <label
-                            for="default-checkbox"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                            >Chest , virus</label
-                          >
-                        </div>
-
-                        <div class="flex items-center mb-4">
-                          <input
-                            id="default-checkbox"
-                            type="checkbox"
-                            v-model="reported3"
-                            value="casino, bacara"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                          />
-                          <label
-                            for="default-checkbox"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                            >casino, bacara</label
-                          >
-                        </div>
-
-                        <div class="flex items-center mb-4">
-                          <input
-                            id="default-checkbox"
-                            type="checkbox"
-                            v-model="reported4"
-                            value="wrong rule"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                          />
-                          <label
-                            for="default-checkbox"
-                            class="ml-2 text-sm font-medium text-gray-900"
-                            >wrong rule</label
-                          >
-                        </div>
-                  </div>
-
-                  <!-- from donate -->
-                  <form @submit.prevent="submitReport" class="mt-2 w-full px-20">
-                      <hr>
-                    <div class="w-full m-auto mx-14 mt-3">
-                      <button
-                      class="bg-red-500 text-white px-4 py-2 rounded"
-                      type="submit"
-                    >
-                      SUBMIT
-                    </button>
-                    <button
-                      class="bg-black text-white px-10 py-2 rounded ml-2"
-                      @click="swReport"
-                    >
-                      close
-                    </button>
-                    </div>
-                    
-                  </form>
-                </div>
-              </div>
-
-
-              <!-- donate -->
-                <img src="../image/circle-dollar-to-slot-solid.svg" @click="swDonate" class="w-[5%] mx-2"  alt="" />
-             
-
-              <!-- modal donate -->
-              <div
-                class="fixed inset-0 flex items-center left-[14%] justify-center z-50 w-[72%]"
-                v-if="swDonated">
-                <div
-                  class="bg-white rounded-lg shadow-lg h-[45%] w-[50%] overflow-y-scroll"
-                >
-                 
-                  <div class="bg-gray-700 p-5 rounded">
-                    <h2 class="text-lg font-semibold mb-2 text-white text-center">
-                      Donate
-                    </h2>
-                  </div>
-
-                  <div class="flex text-3xl content-center justify-center mt-3 w-full">
-                    <h1 class="">Nice</h1>
-                    <h1 class="text-red-600">Try</h1>
-                  </div>
-
-                  <div class="text-3xl content-center justify-center mt-3 w-full flex">
-                    <span class="flex">Donate to &nbsp;<p class="text-red-500"> {{ user.first_name }}</p></span>
-                  </div>
-                  
-                  
-
-                  <!-- from donate -->
-                  <form @submit.prevent="submitDonate" class="mt-2 w-full px-20">
-                    <div class="relative mb-4 flex flex-wrap items-stretch mt-5 mb-16">
-                        <span
-                          class="flex items-center whitespace-nowrap rounded-l border border-r-0 border-solid border-neutral-300 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-neutral-700"
-                          >$</span
-                        >
-                        <input
-                          type="number" v-model="donated"
-                          class="relative m-0 block w-[1px] min-w-0 flex-auto border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none"
-                           />
-                      </div>
-                      <hr>
-                    <div class="w-full m-auto mx-20 mt-3">
-                      <button
-                      class="bg-red-500 text-white px-4 py-2 rounded"
-                      type="submit"
-                    >
-                      SUBMIT
-                    </button>
-                    <button
-                      class="bg-black text-white px-10 py-2 rounded ml-2"
-                      @click="swDonate"
-                    >
-                      close
-                    </button>
-                    </div>
-                    
-                  </form>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import { tsThisType } from "@babel/types";
-import axios from "axios";
-
-import { useFetchStore } from "../store/index";
-import { storeToRefs } from "pinia";
-
-export default {
-  name: "CardPost",
-  setup() {
-    const apiStore = useFetchStore();
-    const { data } = storeToRefs(apiStore);
-    async function fetchData() {
-      await apiStore.fetchData();
-    }
-
-    return {
-      fetchData,
-      me: data,
-    };
-  },
-  computed: {},
-  components: {},
-  props: {
-    myObject: {
-      type: Object,
-    },
-    myId: {
-      type: String,
-    },
-  },
-
-  data() {
-    return {
-      imageData: null,
-      picture: null,
-      uploadValue: 0,
-      user: "",
-      image: [],
-      checklike: "",
-      like: 1,
-      isCommentModalOpen: false,
-      myClassColor: "flex items-center p-2 rounded-t-xl w-full bg-black",
-      currentIndex: 0,
-      comment: [],
-      newComment: "",
-      reported1: "",
-      reported2: "",
-      reported3: "",
-      reported4: "",
-      reported5: "",
-      donated: 0,
-      swDonated:false,
-      swReported:false,
-      proifle:'',
-      swEdited:false,
-      checkroles:false,
-      postedit:'',
-
-    };
-  },
-  methods: {
-    async editPostt(){
-      const post = await axios.put(`http://localhost:5000/api/posts/update`,{
-        id: this.myObject.id,
-        info: this.postedit
-      })
-      this.swEdited = false
-      this.$router.go(0)
-    },
-    checkrole(){
-      if(this.me.role == 'ADMIN' || this.me.id === this.myObject.user_id){
-        this.checkroles = true
-      }
-    },
-    swEdit(){
-      if(this.swEdited == true){
-        this.swEdited = false
-      }else{
-        this.swEdited = true
-
-      }
-    },
-    async fetchImageUser(){
-      const image = await axios.get(`http://localhost:5000/api/images/getuserimage/${this.myObject.user_id}`)
-      const data = image.data
-      this.profile = data[0].filePath
-      console.log(this.profile[0].filePath)
-
-
-    },
-    swReport(){
-      if(this.swReported == true){
-        this.swReported = false
-      }else{
-        this.swReported = true
-
-      }
-    },
-    swDonate(){
-      if(this.swDonated == true){
-        this.swDonated = false
-      }else{
-        this.swDonated = true
-
-      }
-    },
-    async submitDonate() {
-      this.swDonated = false
-      try {
-        const donatee = await axios.post(
-          `http://localhost:5000/api/donate/create/${this.myObject.id}/${this.me.id}`,
-          {
-            amount: this.donated,
-          }
-        );
-        this.fetchData()
-        this.$router.go(0)
-      } catch (err) {
-        alert(err.response.data.message)
-      }
-    },
-    async submitReport() {
-      const strings = [];
-      strings.push(this.reported1);
-      strings.push(this.reported2);
-      strings.push(this.reported3);
-      strings.push(this.reported4);
-      strings.push(this.reported5);
-      const report = [
-        "Picture is 18+",
-        "Chest , virus",
-        "casino, bacara",
-        "wrong rule",
-        "spam",
-      ];
-
-      for (let i = 0; i < strings.length; i++) {
-        if (strings[i] == true) {
-          strings[i] = report[i];
-        } else {
-          strings[i] = "";
-        }
-      }
-
-      const reportCreate = await axios.post(
-        `http://localhost:5000/api/reports/create/${this.myObject.id}/${this.myId}`,
-        {
-          reson: String(strings),
-        }
-      );
-        this.swReported = false
-        this.reported1 = ""
-        this.reported2 = ""
-        this.reported3 = ""
-        this.reported4 = ""
-        this.reported5 = ""
-    },
-    openCommentModal() {
-      if (this.isCommentModalOpen == true) {
-        this.isCommentModalOpen = false;
-      } else {
-        this.isCommentModalOpen = true;
-      }
-    },
-    async submitComment() {
-      const createlike = await axios.post(
-        `http://localhost:5000/api/comments/create/${this.myObject.id}/${this.myId}`,
-        {
-          info: this.newComment,
-        }
-      );
-      this.fetchComment();
-      this.newComment = "";
-    },
-    async clickLike() {
-      this.like *= -1;
-      if (this.like == 1) {
-        const createlike = await axios.post(
-          `http://localhost:5000/api/likes/create/${this.myObject.id}/${this.me.id}`,
-          {
-            state: false,
-          }
-        );
-        const dislike = await axios.put(
-          `http://localhost:5000/api/posts/dislike/${this.myObject.id}`
-        );
-      } else {
-        const createlike = await axios.post(
-          `http://localhost:5000/api/likes/create/${this.myObject.id}/${this.me.id}`,
-          {
-            state: true,
-          }
-        );
-        const addLike = await axios.put(
-          `http://localhost:5000/api/posts/addlike/${this.myObject.id}`
-        );
-      }
-    },
-
-    async fetchLike() {
-      try {
-        const fetchlike = await axios.get(
-          `http://localhost:5000/api/likes/getlike/${this.myObject.id}`,
-          {
-            user_id: this.myId.id,
-          }
-        );
-        const data = fetchlike.data;
-        if (data.length != 0) {
-          this.checklike = data[0].state;
-          if (this.checklike) {
-            this.like = -1;
-          } else {
-            this.like = 1;
-          }
-        } else {
-          const createlike = await axios.post(
-            `http://localhost:5000/api/likes/create/${this.myObject.id}/${this.me.id}`
-          );
-          const ans = createlike.data;
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    checkLavel() {
-      if (this.myObject.like > 100) {
-        this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900";
-      }
-      if (this.myObject.like > 500) {
-        this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900";
-      }
-      if (this.myObject.like > 1000) {
-        this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-[conic-gradient(at_left,_var(--tw-gradient-stops))] from-rose-500 to-indigo-700";
-      }
-      if (this.myObject.like > 5000) {
-        this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full bg-gradient-to-r from-green-300 via-blue-500 to-purple-600";
-      }
-      if (this.myObject.like > 10000) {
-        this.myClassColor =
-          "flex items-center p-2 rounded-t-xl w-full  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500";
-      }
-    },
-
-    nextSlide() {
-      if (this.currentIndex < this.image.length - 1) {
-        this.currentIndex++;
-      }
-    },
-    prevSlide() {
-      if (this.currentIndex > 0) {
-        this.currentIndex--;
-      }
-    },
-    async fetchName() {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/users/user/${this.myId}`
-        );
-        const data = response.data;
-        this.user = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async fetchImage() {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/images/getpostimage/${this.myObject.id}`
-        );
-        const data = response.data;
-        for (let i = 0; i < data.length; i++) {
-          this.image[i] = data[i].filePath;
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async fetchComment() {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/users/checkcomment/${this.myObject.id}`
-        );
-        const data = response.data;
-        this.comment = [...data];
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-  mounted() {
-    this.checkrole()
-    console.log(this.me.role);
-    this.fetchImageUser()
-    this.fetchName();
-    this.checkLavel();
-    this.fetchImage();
-    this.fetchLike();
-    this.fetchComment();
-  },
+const moveSlide = (step) => {
+  slide.value = (slide.value + step + images.value.length) % images.value.length;
 };
+
+const openModal = (name) => {
+  error.value = "";
+  modal.value = name;
+};
+
+// Runs a modal action and shows any failure inside the modal
+const run = async (action) => {
+  error.value = "";
+  saving.value = true;
+  try {
+    await action();
+  } catch (err) {
+    error.value = errorMessage(err);
+  } finally {
+    saving.value = false;
+  }
+};
+
+const toggleLike = async () => {
+  const { data } = await api.post(`/likes/toggle/${props.post.id}/${store.user.id}`);
+  liked.value = data.state;
+  likes.value = data.like;
+};
+
+const loadComments = async () => {
+  const { data } = await api.get(`/users/checkcomment/${props.post.id}`);
+  comments.value = data;
+  commentCount.value = data.length;
+};
+
+const openComments = () => {
+  openModal("comment");
+  loadComments();
+};
+
+const submitComment = () =>
+  run(async () => {
+    await api.post(`/comments/create/${props.post.id}/${store.user.id}`, {
+      info: newComment.value,
+    });
+    newComment.value = "";
+    await loadComments();
+  });
+
+const submitDonate = () =>
+  run(async () => {
+    await api.post(`/donate/create/${props.post.id}/${store.user.id}`, {
+      amount: donation.value,
+    });
+    await Promise.all([store.fetchUser(), topDonate.value.load()]);
+    modal.value = "";
+  });
+
+const submitReport = () =>
+  run(async () => {
+    await api.post(`/reports/create/${props.post.id}/${store.user.id}`, {
+      reson: reasons.value.join(", "),
+    });
+    reasons.value = [];
+    reported.value = true;
+    modal.value = "";
+  });
+
+const openEdit = () => {
+  editedInfo.value = info.value;
+  openModal("edit");
+};
+
+const submitEdit = () =>
+  run(async () => {
+    await api.put("/posts/update", { id: props.post.id, info: editedInfo.value });
+    info.value = editedInfo.value;
+    modal.value = "";
+  });
+
+onMounted(async () => {
+  const { data } = await api.get(`/likes/getlike/${props.post.id}`);
+  liked.value = data.state;
+});
 </script>
 
-<style scoped>
-.carousel-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-}
+<template>
+  <article class="card overflow-hidden">
+    <header class="flex items-center gap-3 px-4 py-3 sm:px-5">
+      <UserAvatar :user="post.User" />
+      <div class="min-w-0 flex-1">
+        <p class="truncate font-medium leading-tight">{{ authorName }}</p>
+        <p class="text-xs text-ink-faint">{{ formatDate(post.CreateAt) }}</p>
+      </div>
+      <span
+        v-if="level"
+        class="rounded-full px-2.5 py-0.5 text-xs font-medium"
+        :class="level.className"
+      >
+        {{ level.name }}
+      </span>
+    </header>
 
-.carousel-track {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease-in-out;
-}
+    <div v-if="images.length" class="relative bg-stone-100">
+      <img
+        :src="images[slide].filePath"
+        :alt="`รูปที่ ${slide + 1} ของโพสต์`"
+        class="aspect-[4/3] w-full object-cover"
+      />
+      <template v-if="images.length > 1">
+        <button
+          class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-1.5 shadow"
+          type="button"
+          aria-label="รูปก่อนหน้า"
+          @click="moveSlide(-1)"
+        >
+          <AppIcon name="chevronLeft" :size="18" />
+        </button>
+        <button
+          class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-1.5 shadow"
+          type="button"
+          aria-label="รูปถัดไป"
+          @click="moveSlide(1)"
+        >
+          <AppIcon name="chevronRight" :size="18" />
+        </button>
+        <div class="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+          <span
+            v-for="(image, index) in images"
+            :key="image.id"
+            class="h-1.5 w-1.5 rounded-full"
+            :class="index === slide ? 'bg-white' : 'bg-white/50'"
+          ></span>
+        </div>
+      </template>
+    </div>
 
-.carousel-slide {
-  flex-shrink: 0;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    <p class="whitespace-pre-line px-4 pt-3 text-[15px] leading-relaxed sm:px-5">{{ info }}</p>
 
-.carousel-controls {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
+    <footer class="flex flex-wrap items-center gap-0.5 px-2 py-2 sm:px-3">
+      <button
+        class="icon-btn"
+        :class="{ '!text-brand': liked }"
+        type="button"
+        :aria-pressed="liked"
+        aria-label="ถูกใจ"
+        @click="toggleLike"
+      >
+        <AppIcon name="heart" :filled="liked" />
+        {{ formatNumber(likes) }}
+      </button>
+      <button class="icon-btn" type="button" aria-label="ความคิดเห็น" @click="openComments">
+        <AppIcon name="message" />
+        {{ formatNumber(commentCount) }}
+      </button>
+      <button class="icon-btn" type="button" @click="openModal('donate')">
+        <AppIcon name="coin" />
+        สนับสนุน
+      </button>
+      <span class="ml-auto flex">
+        <button v-if="canEdit" class="icon-btn" type="button" aria-label="แก้ไขโพสต์" @click="openEdit">
+          <AppIcon name="pencil" :size="18" />
+        </button>
+        <button
+          class="icon-btn"
+          type="button"
+          :disabled="reported"
+          :aria-label="reported ? 'รายงานแล้ว' : 'รายงานโพสต์'"
+          @click="openModal('report')"
+        >
+          <AppIcon name="flag" :size="18" :class="{ 'text-brand': reported }" />
+        </button>
+      </span>
+    </footer>
 
-.carousel-control {
-  font-size: 2rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0 1rem;
-  outline: none;
-}
-</style>
+    <TopDonate ref="topDonate" :post-id="post.id" />
+
+    <AppModal v-if="modal === 'comment'" title="ความคิดเห็น" width="max-w-lg" @close="modal = ''">
+      <ul v-if="comments.length" class="mb-4 space-y-3">
+        <li v-for="comment in comments" :key="comment.id" class="flex gap-2.5">
+          <UserAvatar :user="comment.User" size="h-8 w-8 text-xs" />
+          <div class="min-w-0 flex-1 rounded-xl bg-paper px-3 py-2">
+            <p class="text-sm font-medium">{{ fullName(comment.User) }}</p>
+            <p class="whitespace-pre-line break-words text-sm">{{ comment.info }}</p>
+            <p class="mt-1 text-xs text-ink-faint">{{ formatDate(comment.createAt) }}</p>
+          </div>
+        </li>
+      </ul>
+      <p v-else class="mb-4 text-center text-sm text-ink-soft">ยังไม่มีความคิดเห็น เป็นคนแรกเลย</p>
+      <form class="space-y-2" @submit.prevent="submitComment">
+        <textarea
+          v-model="newComment"
+          rows="2"
+          required
+          class="field"
+          aria-label="เขียนความคิดเห็น"
+          placeholder="เขียนความคิดเห็น"
+        ></textarea>
+        <ErrorNotice :message="error" />
+        <button class="btn-primary w-full" type="submit" :disabled="saving">ส่งความคิดเห็น</button>
+      </form>
+    </AppModal>
+
+    <AppModal v-if="modal === 'donate'" :title="`สนับสนุน ${authorName}`" @close="modal = ''">
+      <form class="space-y-4" @submit.prevent="submitDonate">
+        <div>
+          <label class="label" for="donate-amount">จำนวน Nice</label>
+          <input
+            id="donate-amount"
+            v-model.number="donation"
+            type="number"
+            min="1"
+            step="1"
+            required
+            class="field"
+          />
+          <p class="mt-1.5 text-xs text-ink-faint">คุณมี {{ formatNumber(store.user.coin) }} Nice</p>
+        </div>
+        <ErrorNotice :message="error" />
+        <button class="btn-primary w-full" type="submit" :disabled="saving">ยืนยันการสนับสนุน</button>
+      </form>
+    </AppModal>
+
+    <AppModal v-if="modal === 'report'" title="รายงานโพสต์" @close="modal = ''">
+      <form class="space-y-4" @submit.prevent="submitReport">
+        <fieldset class="space-y-2">
+          <legend class="label">โพสต์นี้มีปัญหาอะไร</legend>
+          <label
+            v-for="reason in REPORT_REASONS"
+            :key="reason"
+            class="flex cursor-pointer items-center gap-2.5 rounded-xl border border-line px-3.5 py-2.5 text-sm hover:bg-paper"
+          >
+            <input v-model="reasons" type="checkbox" :value="reason" class="accent-brand" />
+            {{ reason }}
+          </label>
+        </fieldset>
+        <ErrorNotice :message="error" />
+        <button class="btn-primary w-full" type="submit" :disabled="saving || !reasons.length">
+          ส่งรายงาน
+        </button>
+      </form>
+    </AppModal>
+
+    <AppModal v-if="modal === 'edit'" title="แก้ไขโพสต์" @close="modal = ''">
+      <form class="space-y-4" @submit.prevent="submitEdit">
+        <textarea
+          v-model="editedInfo"
+          rows="4"
+          required
+          class="field"
+          aria-label="เนื้อหาโพสต์"
+        ></textarea>
+        <ErrorNotice :message="error" />
+        <button class="btn-primary w-full" type="submit" :disabled="saving">บันทึก</button>
+      </form>
+    </AppModal>
+  </article>
+</template>

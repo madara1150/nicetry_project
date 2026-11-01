@@ -1,10 +1,12 @@
-const { commentCreate ,deleteComment,updateComment,getAllComment} = require("../controllers/commentController.js")
-const { requireSelf,requireOwner } = require("../middleware/auth.js")
-const express = require('express');
+const express = require("express");
+const comments = require("../controllers/commentController");
+const { requireSelf, requireOwner } = require("../middleware/auth");
+
 const router = express.Router();
 
-router.post('/create/:post_id/:user_id' , requireSelf(), commentCreate)
-router.delete('/delete/:id' , requireOwner('Comment'), deleteComment)
-router.put('/update/:id',requireOwner('Comment'),updateComment)
-router.get('/comment/:post_id', getAllComment)
+router.post("/create/:post_id/:user_id", requireSelf(), comments.createComment);
+router.put("/update/:id", requireOwner("comment"), comments.updateComment);
+router.delete("/delete/:id", requireOwner("comment"), comments.deleteComment);
+router.get("/comment/:post_id", comments.getComments);
+
 module.exports = router;

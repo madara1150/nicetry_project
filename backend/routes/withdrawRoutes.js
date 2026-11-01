@@ -1,11 +1,12 @@
-const {withdrawCreate,withdrawById,getwithdraw,UpdateStatus } = require("../controllers/withdrawController.js")
-const { requireAdmin,requireSelf } = require("../middleware/auth.js")
-const express = require('express');
+const express = require("express");
+const withdraws = require("../controllers/withdrawController");
+const { requireAdmin, requireSelf } = require("../middleware/auth");
+
 const router = express.Router();
 
-router.post('/create/:user_id',requireSelf(),withdrawCreate )
-router.get('/withdraw/:user_id',requireSelf(),withdrawById)
-router.get('/withdraw',requireAdmin,getwithdraw)
-router.put('/change/:id',requireAdmin,UpdateStatus)
+router.post("/create/:user_id", requireSelf(), withdraws.createWithdraw);
+router.get("/withdraw/:user_id", requireSelf(), withdraws.getWithdrawsByUser);
+router.get("/withdraw", requireAdmin, withdraws.getWithdraws);
+router.put("/change/:id", requireAdmin, withdraws.approveWithdraw);
 
 module.exports = router;

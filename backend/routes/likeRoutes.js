@@ -1,10 +1,10 @@
-const { likeCreate,getLike} = require("../controllers/likeController.js")
-const { requireSelf } = require("../middleware/auth.js")
-const express = require('express');
+const express = require("express");
+const likes = require("../controllers/likeController");
+const { authenticate, requireSelf } = require("../middleware/auth");
+
 const router = express.Router();
 
-
-router.post('/create/:post_id/:user_id', requireSelf(), likeCreate)
-router.get('/getlike/:post_id', getLike)
+router.post("/toggle/:post_id/:user_id", requireSelf(), likes.toggleLike);
+router.get("/getlike/:post_id", authenticate, likes.getLikeState);
 
 module.exports = router;

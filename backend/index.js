@@ -1,44 +1,32 @@
-require('dotenv').config();
+require("dotenv").config();
 
 if (!process.env.JWT_SECRET) {
-    throw new Error('JWT_SECRET is not set');
+  throw new Error("JWT_SECRET is not set");
 }
 
-const UersRoute = require('./routes/userRoutes.js')
-const PostsRoute = require('./routes/postRoutes.js')
-const CommentsRoute = require('./routes/commentRoutes.js')
-const DonateRoute = require('./routes/donateRoutes.js')
-const ReportRoute = require('./routes/reportRoutes.js')
-const WithdrawRoute = require('./routes/withdrawRoutes.js')
-const TopupRoute = require('./routes/topupRoutes.js')
-const ImageRoute = require('./routes/imageRoutes.js')
-const LikeRoute = require('./routes/likeRoutes.js')
+const cors = require("cors");
+const express = require("express");
+const { errorHandler } = require("./lib/http");
 
+const PORT = process.env.PORT || 5000;
 
-const express = require('express');
-const cors = require('cors');
 const app = express();
-const router = express.Router();
-const bodyParser = require('body-parser');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
-app.use('/images', express.static('static/uploads'));
 
-app.use("/api",
-    //http://localhost:5000/posts
-    router.use('/users',UersRoute),
-    router.use('/posts',PostsRoute),
-    router.use('/comments',CommentsRoute),
-    router.use('/donate',DonateRoute),
-    router.use('/reports',ReportRoute),
-    router.use('/withdraws',WithdrawRoute),
-    router.use('/topups',TopupRoute),
-    router.use('/images',ImageRoute),
-    router.use('/likes',LikeRoute)
-);
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/posts", require("./routes/postRoutes"));
+app.use("/api/comments", require("./routes/commentRoutes"));
+app.use("/api/donate", require("./routes/donateRoutes"));
+app.use("/api/reports", require("./routes/reportRoutes"));
+app.use("/api/withdraws", require("./routes/withdrawRoutes"));
+app.use("/api/topups", require("./routes/topupRoutes"));
+app.use("/api/images", require("./routes/imageRoutes"));
+app.use("/api/likes", require("./routes/likeRoutes"));
 
-app.listen(5000, () => {
-    console.log(`Server started on port 5000`)
-  });
+app.use(errorHandler);
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});

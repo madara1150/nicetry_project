@@ -1,82 +1,24 @@
-<template>
-  <div class="min-h-screen">
-    <NavAdmin class="z-40" v-if="me.role === 'ADMIN'" />
-<NavUser class="z-40" v-if="me.role === 'USER'" />
-    
-    <div class="bg-gradient-to-br from-rose-900 via-black to-rose-700 w-full h-full min-h-screen">
-        <div class="w-[70%] mx-auto bg-gray-200 max-[600px]:w-[100%] min-h-screen">
+<script setup>
+import { onMounted, ref } from "vue";
+import api from "@/api";
+import CardPost from "@/components/CardPost.vue";
+import EmptyState from "@/components/EmptyState.vue";
 
-            <div class="flex justify-center max-[600px]:p-5 w-full" v-for="val,i in post" :key="i">
-                <div class="flex justify-center content-center mt-10 max-[600px]:flex-col mb-5 w-full">
-                    <CardPost  class="w-[50%] mr-10 max-[600px]:w-full" :myObject="val" :myId="val.user_id" />
-                    <TopDonate class="w-[35%] h-[40%] mt-5 max-[600px]:w-full" :myObject="val"  />
-                </div>
-            </div>
+const posts = ref([]);
+const loaded = ref(false);
 
-        </div>
-        
-    </div>
-
-
-    
-
-  </div>
-</template>
-
-<script>
-import CardPost from '@/components/CardPost.vue';
-import NavUser from '@/components/NavUser.vue';
-import TopDonate from '@/components/TopDonate.vue';
-import NavAdmin from '@/components/NavAdmin.vue';
-import axios from 'axios';
-import { useFetchStore } from "../store/index";
-import { storeToRefs } from "pinia";
-
-export default {
-
-    name:'MainPage',
-    components:{
-        CardPost,
-        NavUser,
-        TopDonate,NavAdmin
-    },
-    setup() {
-    const apiStore = useFetchStore()
-    const { data } = storeToRefs(apiStore)
-
-    return {
-      me: data
-    };
-  },
-    data(){
-        return{
-            post:[],
-        }
-    },
-    mounted(){
-        this.fetchPost()
-        const token = localStorage.getItem('token')
-       if(!token){
-        this.$router.push('/login')
-       }
-    },
-    methods:{
-        async fetchPost() {
-  try {
-    const response = await axios.get(`http://localhost:5000/api/posts/mainpost`);
-    const data = response.data;
-    for(let i=0;i<data.length;i++){
-        this.post[i] = data[i]
-    }
-  } catch (error) {
-    console.error(error);
-
-  }
-}
-    }
-}
+onMounted(async () => {
+  const { data } = await api.get("/posts/mainpost");
+  posts.value = data;
+  loaded.value = true;
+});
 </script>
 
-<style>
-
-</style>
+<template>
+  <div class="mx-auto w-full max-w-xl space-y-6 px-4 py-6 sm:px-6">
+    <CardPost v-for="post in posts" :key="post.id" :post="post" />
+    <div v-if="loaded && !posts.length" class="card">
+      <EmptyState title="ยังไม่มีโพสต์" text="เริ่มเล่าเรื่องแรกของ NiceTry ได้เลย" />
+    </div>
+  </div>
+</template>

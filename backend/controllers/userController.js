@@ -1,265 +1,157 @@
-const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
-const { request } = require("express");
-const prisma = new PrismaClient();
-const Joi = require('joi');
-
-
-
+const Joi = require("joi");
 const jwt = require("jsonwebtoken");
+const prisma = require("../lib/prisma");
+const { HttpError, handle, publicUser } = require("../lib/http");
 
-const publicUser = {
-  id: true,
-  first_name: true,
-  last_name: true,
-  username: true,
-  info: true,
+const accountSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.email": "รูปแบบอีเมลไม่ถูกต้อง",
+    "any.required": "กรุณากรอกอีเมล",
+    "string.empty": "กรุณากรอกอีเมล",
+  }),
+  password: Joi.string().required().min(8).max(15).messages({
+    "string.min": "รหัสผ่านต้องมี 8-15 ตัวอักษร",
+    "string.max": "รหัสผ่านต้องมี 8-15 ตัวอักษร",
+    "any.required": "กรุณากรอกรหัสผ่าน",
+    "string.empty": "กรุณากรอกรหัสผ่าน",
+  }),
+  phone_number: Joi.string()
+    .pattern(/^0\d{8,10}$/)
+    .messages({
+      "string.pattern.base": "เบอร์โทรต้องขึ้นต้นด้วย 0 และมี 9-11 หลัก",
+      "string.empty": "กรุณากรอกเบอร์โทร",
+    }),
+});
+
+// Leaving the password blank on the profile form keeps the current one
+const updateSchema = accountSchema.fork("password", (field) => field.optional());
+
+const validate = (schema, { email, password, phone_number }) => {
+  const { error } = schema.validate({ email, password, phone_number });
+  if (error) {
+    throw new HttpError(400, error.message);
+  }
 };
+
+const generateToken = (user) =>
+  jwt.sign({ sub: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
 const withoutPassword = ({ password, ...user }) => user;
 
-const generateToken = (user) => {
-  const secret = process.env.JWT_SECRET;
-  const expiresIn = "7d";
-  return jwt.sign({ sub: user[0].id }, secret, { expiresIn });
-};
-
-const me = async (req, res) => {
-  try {
-    const { sub } = req.user;
-
-    const user = await prisma.User.findUnique({
-      where: {
-        id: sub,
-      },
-      select: {
-        id: true,
-        first_name: true,
-        last_name: true,
-        username: true,
-        role: true,
-        email: true,
-        phone_number: true,
-        info: true,
-        coin: true,
-      },
-    });
-    res.json({ user });
-  } catch (err) {
-    res.status(404).json({ message: err.message });
+const me = handle(async (req, res) => {
+  const user = await prisma.user.findUnique({
+    where: { id: req.user.sub },
+  });
+  if (!user) {
+    throw new HttpError(401, "ไม่พบบัญชีผู้ใช้");
   }
-};
-
-const login = async (req, res) => {
-  try {
-    const data = req.body;
-    const response = await prisma.User.findMany({
-      where: {
-        username: data.username,
-      },
-    });
-    if (response.length === 0) {
-      throw new Error("Not found user");
-    }
-    const pwdMath = await bcrypt.compare(data.password, response[0].password);
-    if (!pwdMath) {
-      throw new Error("Wrong Password");
-    }
-    const token = await generateToken(response);
-    res.status(200).json({ message: response.map(withoutPassword), token: token });
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
-
-const schema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required().min(8).max(15),
-  phone_number: Joi.string().pattern(/^0\d{8,10}$/)
+  res.json({ user: withoutPassword(user) });
 });
 
+const login = handle(async (req, res) => {
+  const { username, password } = req.body;
+  const user = await prisma.user.findUnique({
+    where: { username: String(username ?? "") },
+  });
+  const matched = user && (await bcrypt.compare(String(password ?? ""), user.password));
+  if (!matched) {
+    throw new HttpError(400, "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+  }
+  res.json({ user: withoutPassword(user), token: generateToken(user) });
+});
 
+const createUser = handle(async (req, res) => {
+  const { first_name, last_name, username, password, email, phone_number, info } = req.body;
+  validate(accountSchema, req.body);
 
-//create user
-const CreateUser = async (req, res) => {
-  
-  try {
-    const {
+  const existing = await prisma.user.findUnique({ where: { username } });
+  if (existing) {
+    throw new HttpError(409, "ชื่อผู้ใช้นี้ถูกใช้แล้ว");
+  }
+  const user = await prisma.user.create({
+    data: {
       first_name,
       last_name,
       username,
-      password,
+      password: await bcrypt.hash(password, 13),
       email,
       phone_number,
       info,
-    } = req.body;
-    const result = schema.validate({
-      email,password,phone_number
-    })
-    if(result.error){
-      throw new Error(result.error.message);
-    }
-    const user = await prisma.User.findMany({
-      where: {
-        username:username,
-      },
-    });
-    if (user.length === 1) {
-      throw new Error("Username is used");
-    }
-    if(password.length < 8){
-      throw new Error("Password must 8-15");
-    }
-    const hash = await bcrypt.hash(password, 13);
-    const response = await prisma.User.create({
-      data: {
-        first_name: first_name,
-        last_name: last_name,
-        username: username,
-        password: hash,
-        email: email,
-        phone_number: phone_number,
-        info: info,
-      },
-    });
-    res.status(200).json(withoutPassword(response));
-  } catch (err) {
-    res.status(404).json({ message: err.message });
+    },
+  });
+  res.json(withoutPassword(user));
+});
+
+const deleteUser = handle(async (req, res) => {
+  const user = await prisma.user.delete({ where: { id: req.params.id } });
+  res.json(withoutPassword(user));
+});
+
+const updateUser = handle(async (req, res) => {
+  const { first_name, last_name, password, email, phone_number } = req.body;
+  validate(updateSchema, { email, password: password || undefined, phone_number });
+
+  await prisma.user.update({
+    where: { id: req.user.sub },
+    data: {
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      ...(password && { password: await bcrypt.hash(password, 13) }),
+    },
+  });
+  res.send("success");
+});
+
+const getUserById = handle(async (req, res) => {
+  const user = await prisma.user.findUnique({
+    where: { id: req.params.id },
+    select: publicUser,
+  });
+  res.json(user);
+});
+
+const getAllUsers = handle(async (req, res) => {
+  const users = await prisma.user.findMany({ where: { role: "USER" } });
+  res.json(users.map(withoutPassword));
+});
+
+const updateUserRole = handle(async (req, res) => {
+  const { id, role } = req.body;
+  if (!["USER", "ADMIN"].includes(role)) {
+    throw new HttpError(400, "สิทธิ์ผู้ใช้ไม่ถูกต้อง");
   }
-};
+  await prisma.user.update({ where: { id }, data: { role } });
+  res.send("success");
+});
 
-const DeleteUser = async (req, res) => {
-  try {
-    const response = await prisma.User.delete({
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.status(200).json(withoutPassword(response));
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
+const getPostComments = handle(async (req, res) => {
+  const comments = await prisma.comment.findMany({
+    where: { post_id: req.params.id },
+    orderBy: { createAt: "asc" },
+    include: { User: { select: publicUser } },
+  });
+  res.json(comments);
+});
 
-const UpdateUser = async (req, res) => {
-  const data =req.body
-  try {
-   const {first_name,
-    last_name,
-    password,
-    email,
-    phone_number} = req.body;
-    const result = schema.validate({
-      email,password,phone_number
-    })
-    if(result.error){
-      throw new Error(result.error.message);
-    }
-    const hash = await bcrypt.hash(password, 13);
-    const response = await prisma.User.update({
-      where: {
-        id: req.user.sub,
-      },
-      data: {
-        first_name:first_name,
-        last_name: last_name,
-        email: data.email,
-        phone_number: data.phone_number,
-        password: hash
-      },
-    });
-    res.send("success");
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
-
-const GetUserById = async (req, res) => {
-  try {
-    const response = await prisma.User.findUnique({
-      where: {
-        id: req.params.id,
-      },
-      select: publicUser,
-    });
-    res.status(200).json(response);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
-
-const GetAllUser = async (req, res) => {
-  try {
-    const response = await prisma.User.findMany({
-      where: {
-        role: "USER",
-      },
-    });
-    res.status(200).json(response.map(withoutPassword));
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
-
-const UpdateRoleUser = async (req, res) => {
-  try {
-    const data = req.body;
-    const response = await prisma.User.update({
-      where: {
-        id: data.id,
-      },
-      data: {
-        role: data.role,
-      },
-    });
-    res.send("success");
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
-
-const getComment = async (req,res) =>{
-  try {
-    const getComments = await prisma.Comment.findMany({
-      where: { 
-        post_id: req.params.id 
-      },
-      include: {
-        User: { select: publicUser },
-        Post:true,
-      }
-    })
-    res.status(200).json(getComments);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-
-  }
-}
-
-
-const checkImgProfile = async (req,res) =>{
-  try {
-    const getComments = await prisma.Image.findMany({
-      where: { user_id: req.params.user_id },
-    })
-    res.status(200).json(getComments);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-
-  }
-}
-
-
+const getUserImages = handle(async (req, res) => {
+  const images = await prisma.image.findMany({
+    where: { user_id: req.params.user_id },
+  });
+  res.json(images);
+});
 
 module.exports = {
-  CreateUser,
-  DeleteUser,
-  UpdateUser,
-  GetUserById,
-  GetAllUser,
-  UpdateRoleUser,
+  createUser,
+  deleteUser,
+  updateUser,
+  getUserById,
+  getAllUsers,
+  updateUserRole,
   login,
   me,
-  getComment,
-  checkImgProfile
+  getPostComments,
+  getUserImages,
 };

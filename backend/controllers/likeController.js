@@ -1,46 +1,33 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient();
+const prisma = require("../lib/prisma");
+const { handle } = require("../lib/http");
 
-const likeCreate = async (req,res) => {
-    
-    try {
-        const data = req.body
-        const response = await prisma.Like.upsert({
-            where: { 
-                post_id_user_id: {
-                    post_id: req.params.post_id,
-                    user_id: req.params.user_id,
-                },
-             }, 
-            update: { state: data.state }, 
-            create: { 
-                user_id: req.params.user_id,
-                post_id: req.params.post_id,
-                state : false
-             }
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
+const toggleLike = handle(async (req, res) => {
+  const key = { post_id: req.params.post_id, user_id: req.params.user_id };
 
-    }
-}
+  const result = await prisma.$transaction(async (tx) => {
+    const current = await tx.like.findUnique({ where: { post_id_user_id: key } });
+    const state = !current?.state;
+    await tx.like.upsert({
+      where: { post_id_user_id: key },
+      update: { state },
+      create: { ...key, state },
+    });
+    const post = await tx.post.update({
+      where: { id: key.post_id },
+      data: { like: { increment: state ? 1 : -1 } },
+    });
+    return { state, like: post.like };
+  });
+  res.json(result);
+});
 
-const getLike = async (req,res) => {
-    const data = req.body
-    try {
-        
-        const response = await prisma.Like.findMany({
-            where: { 
-                user_id: data.user_id,
-                post_id: req.params.post_id
-             }
-        })
-        res.status(200).json(response) 
-    } catch (err) {
-        res.status(404).json({ message: err.message })
+const getLikeState = handle(async (req, res) => {
+  const like = await prisma.like.findUnique({
+    where: {
+      post_id_user_id: { post_id: req.params.post_id, user_id: req.user.sub },
+    },
+  });
+  res.json({ state: Boolean(like?.state) });
+});
 
-    }
-}
-
-module.exports = {likeCreate,getLike}
+module.exports = { toggleLike, getLikeState };

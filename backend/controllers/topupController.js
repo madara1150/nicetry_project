@@ -4,7 +4,9 @@ const prisma = new PrismaClient()
 const topupCreate = async (req,res) =>{
     const data = req.body
     try {
-        
+        if(!Number.isInteger(data.amount) || data.amount <= 0){
+            return res.status(400).json({ message: "Invalid amount" })
+        }
         const response = await prisma.Topup.create({
             data: {
                 user_id: req.params.user_id,
@@ -92,14 +94,35 @@ const getTopupimg = async (req,res) =>{
 
 const UpdateStatus = async (req, res) => {
     try {
-      const data = req.body;
-      const response = await prisma.Topup.update({
-        where: {
-          id: req.params.id,
-        },
-        data: {
-          status: true
-        },
+      await prisma.$transaction(async (tx) => {
+        const topup = await tx.topup.findUnique({
+          where: {
+            id: req.params.id,
+          },
+        });
+        if (!topup) {
+          throw new Error("Topup not found");
+        }
+        const approved = await tx.topup.updateMany({
+          where: {
+            id: req.params.id,
+            status: false,
+          },
+          data: {
+            status: true
+          },
+        });
+        if (approved.count === 0) {
+          throw new Error("Topup already approved");
+        }
+        await tx.user.update({
+          where: {
+            id: topup.user_id,
+          },
+          data: {
+            coin: { increment: topup.amount },
+          },
+        });
       });
       res.send("success");
     } catch (err) {

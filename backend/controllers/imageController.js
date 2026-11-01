@@ -6,7 +6,7 @@ const createImageuser = async (req,res) =>{
          const data = req.body
          const response = await prisma.Image.create({
              data: {
-                 user_id: data.user_id,
+                 user_id: req.user.sub,
                  filePath: data.filePath
                  }
          })

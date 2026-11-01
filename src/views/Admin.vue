@@ -225,17 +225,9 @@ export default {
         },
         async checkWithdraw(val){
             const withdraw = await axios.put(`http://localhost:5000/api/withdraws/change/${val.id}`)
-            const user = await axios.get(`http://localhost:5000/api/users/user/${val.user_id}`)
-            const addMoney = await axios.put(`http://localhost:5000/api/users/updatemoney/${val.user_id}`,{
-                coin: user.data.coin - val.amount
-            })
         },
         async checkTopup(val){
             const update = await axios.put(`http://localhost:5000/api/topups/change/${val.Topup.id}`,)
-            const user = await axios.get(`http://localhost:5000/api/users/user/${val.Topup.user_id}`)
-            const addMoney = await axios.put(`http://localhost:5000/api/users/updatemoney/${val.Topup.user_id}`,{
-                coin: user.data.coin + val.Topup.amount
-            })
         },
         async user(){
             const users = await axios.get(`http://localhost:5000/api/users/user`)

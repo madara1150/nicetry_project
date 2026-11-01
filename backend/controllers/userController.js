@@ -8,6 +8,16 @@ const Joi = require('joi');
 
 const jwt = require("jsonwebtoken");
 
+const publicUser = {
+  id: true,
+  first_name: true,
+  last_name: true,
+  username: true,
+  info: true,
+};
+
+const withoutPassword = ({ password, ...user }) => user;
+
 const generateToken = (user) => {
   const secret = process.env.JWT_SECRET;
   const expiresIn = "7d";
@@ -27,7 +37,6 @@ const me = async (req, res) => {
         first_name: true,
         last_name: true,
         username: true,
-        password: true,
         role: true,
         email: true,
         phone_number: true,
@@ -57,7 +66,7 @@ const login = async (req, res) => {
       throw new Error("Wrong Password");
     }
     const token = await generateToken(response);
-    res.status(200).json({ message: response, token: token });
+    res.status(200).json({ message: response.map(withoutPassword), token: token });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -113,7 +122,7 @@ const CreateUser = async (req, res) => {
         info: info,
       },
     });
-    res.status(200).json(response);
+    res.status(200).json(withoutPassword(response));
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -126,7 +135,7 @@ const DeleteUser = async (req, res) => {
         id: req.params.id,
       },
     });
-    res.status(200).json(response);
+    res.status(200).json(withoutPassword(response));
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -149,7 +158,7 @@ const UpdateUser = async (req, res) => {
     const hash = await bcrypt.hash(password, 13);
     const response = await prisma.User.update({
       where: {
-        id: data.id,
+        id: req.user.sub,
       },
       data: {
         first_name:first_name,
@@ -165,30 +174,13 @@ const UpdateUser = async (req, res) => {
   }
 };
 
-const updateMoney = async (req, res) => {
-  try {
-    const data = req.body;
-    const response = await prisma.User.update({
-      where: {
-        id: req.params.id,
-      },
-      data: {
-        coin: data.coin
-      },
-    });
-    res.send("success");
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
-
-
 const GetUserById = async (req, res) => {
   try {
     const response = await prisma.User.findUnique({
       where: {
         id: req.params.id,
       },
+      select: publicUser,
     });
     res.status(200).json(response);
   } catch (err) {
@@ -203,7 +195,7 @@ const GetAllUser = async (req, res) => {
         role: "USER",
       },
     });
-    res.status(200).json(response);
+    res.status(200).json(response.map(withoutPassword));
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -233,7 +225,7 @@ const getComment = async (req,res) =>{
         post_id: req.params.id 
       },
       include: {
-        User: true,
+        User: { select: publicUser },
         Post:true,
       }
     })
@@ -269,6 +261,5 @@ module.exports = {
   login,
   me,
   getComment,
-  checkImgProfile,
-  updateMoney
+  checkImgProfile
 };

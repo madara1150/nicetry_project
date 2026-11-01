@@ -1,12 +1,13 @@
 const { createPost,deleltePost,UpdatePost,addLikePost,getPostAll,getPostById,DisLikePost ,mostPost} = require("../controllers/postController.js")
+const { authenticate,requireOwner } = require("../middleware/auth.js")
 const express = require('express');
 const router = express.Router();
 
-router.post('/create', createPost)
-router.delete('/delete/:id', deleltePost)
-router.put('/update', UpdatePost)
-router.put('/addlike/:id',addLikePost)
-router.put('/dislike/:id',DisLikePost)
+router.post('/create', authenticate, createPost)
+router.delete('/delete/:id', requireOwner('Post'), deleltePost)
+router.put('/update', requireOwner('Post',(req) => req.body.id), UpdatePost)
+router.put('/addlike/:id',authenticate,addLikePost)
+router.put('/dislike/:id',authenticate,DisLikePost)
 router.get('/mainpost',getPostAll)
 router.get('/postUserId/:user_id',getPostById)
 router.get('/most',mostPost)

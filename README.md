@@ -48,3 +48,9 @@ npx prisma db push
 ```
 node index.js
 ```
+
+### Creates the first admin
+Only an admin can change roles through the API, so set the first one in MySQL.
+```
+UPDATE User SET role = 'ADMIN' WHERE username = 'your-username';
+```

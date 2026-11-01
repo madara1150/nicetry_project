@@ -6,9 +6,8 @@ const createPost = async (req,res) =>{
         const data = req.body
         const response = await prisma.Post.create({
             data: {
-                user_id: data.user_id,
+                user_id: req.user.sub,
                 info: data.info,
-                like: data.like
                 }
         })
         res.status(200).json(response)

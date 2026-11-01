@@ -473,25 +473,18 @@ export default {
     },
     async submitDonate() {
       this.swDonated = false
-      const donatee = await axios.post(
-        `http://localhost:5000/api/donate/create/${this.myObject.id}/${this.me.id}`,
-        {
-          amount: this.donated,
-        }
-      );
-      const getOwner = await axios.get(`http://localhost:5000/api/users/user/${this.me.id}`)
-
-      const ans = getOwner.data.coin - this.donated
-      const delmoney = await axios.put(`http://localhost:5000/api/users/updatemoney/${this.me.id}`,{
-        coin: ans
-      })
-      const getCoustomer = await axios.get(`http://localhost:5000/api/users/user/${this.myObject.user_id}`)
-      const ans2 = getCoustomer.data.coin + this.donated
-      const delmoney2 = await axios.put(`http://localhost:5000/api/users/updatemoney/${this.myObject.user_id}`,{
-        coin: ans2
-      })
-      this.fetchData()
-      this.$router.go(0)
+      try {
+        const donatee = await axios.post(
+          `http://localhost:5000/api/donate/create/${this.myObject.id}/${this.me.id}`,
+          {
+            amount: this.donated,
+          }
+        );
+        this.fetchData()
+        this.$router.go(0)
+      } catch (err) {
+        alert(err.response.data.message)
+      }
     },
     async submitReport() {
       const strings = [];
